@@ -1,13 +1,15 @@
 //go:build linux && amd64 && rocksdballowed
 // +build linux,amd64,rocksdballowed
 
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package rocksdb
 
 import (
 	"testing"
+
+	"github.com/prometheus/client_golang/prometheus"
 
 	"github.com/lasthyphen/beacongo/database"
 	"github.com/lasthyphen/beacongo/utils/logging"
@@ -16,9 +18,9 @@ import (
 func TestInterface(t *testing.T) {
 	for _, test := range database.Tests {
 		folder := t.TempDir()
-		db, err := New(folder, nil, logging.NoLog{})
+		db, err := New(folder, nil, logging.NoLog{}, "", prometheus.NewRegistry())
 		if err != nil {
-			t.Fatalf("rocksdb.New(%q, logging.NoLog{}) errored with %s", folder, err)
+			t.Fatalf("rocksdb.New(%q, logging.NoLog{}) erred with %s", folder, err)
 		}
 
 		test(t, db)
@@ -35,7 +37,7 @@ func BenchmarkInterface(b *testing.B) {
 		for _, bench := range database.Benchmarks {
 			folder := b.TempDir()
 
-			db, err := New(folder, nil, logging.NoLog{})
+			db, err := New(folder, nil, logging.NoLog{}, "", prometheus.NewRegistry())
 			if err != nil {
 				b.Fatal(err)
 			}

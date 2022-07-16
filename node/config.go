@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package node
@@ -225,4 +225,7 @@ type Config struct {
 	CPUTargeterConfig tracker.TargeterConfig `json:"cpuTargeterConfig"`
 
 	DiskTargeterConfig tracker.TargeterConfig `json:"diskTargeterConfig"`
+
+	RequiredAvailableDiskSpace         uint64 `json:"requiredAvailableDiskSpace"`
+	WarningThresholdAvailableDiskSpace uint64 `json:"warningThresholdAvailableDiskSpace"`
 }

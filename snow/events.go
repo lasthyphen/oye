@@ -8,9 +8,6 @@ import (
 )
 
 // Acceptor is implemented when a struct is monitoring if a message is accepted
-type Acceptor interface {
-	Accept(ctx *ConsensusContext, containerID ids.ID, container []byte) error
-}
 
 // Rejector is implemented when a struct is monitoring if a message is rejected
 type Rejector interface {

@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package admin
@@ -6,6 +6,7 @@ package admin
 import (
 	"errors"
 	"net/http"
+	"path"
 
 	"github.com/gorilla/rpc/v2"
 
@@ -15,13 +16,12 @@ import (
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/snow/engine/common"
 	"github.com/lasthyphen/beacongo/utils/constants"
+	"github.com/lasthyphen/beacongo/utils/json"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/perms"
 	"github.com/lasthyphen/beacongo/utils/profiler"
 	"github.com/lasthyphen/beacongo/vms"
 	"github.com/lasthyphen/beacongo/vms/registry"
-
-	cjson "github.com/lasthyphen/beacongo/utils/json"
 )
 
 const (
@@ -57,7 +57,7 @@ type Admin struct {
 // All of the fields in [config] must be set.
 func NewService(config Config) (*common.HTTPHandler, error) {
 	newServer := rpc.NewServer()
-	codec := cjson.NewCodec()
+	codec := json.NewCodec()
 	newServer.RegisterCodec(codec, "application/json")
 	newServer.RegisterCodec(codec, "application/json;charset=UTF-8")
 	if err := newServer.RegisterService(&Admin{
@@ -141,7 +141,10 @@ func (service *Admin) AliasChain(_ *http.Request, args *AliasChainArgs, reply *a
 	}
 
 	reply.Success = true
-	return service.HTTPServer.AddAliasesWithReadLock(constants.ChainAliasPrefix+chainID.String(), constants.ChainAliasPrefix+args.Alias)
+
+	endpoint := path.Join(constants.ChainAliasPrefix, chainID.String())
+	alias := path.Join(constants.ChainAliasPrefix, args.Alias)
+	return service.HTTPServer.AddAliasesWithReadLock(endpoint, alias)
 }
 
 // GetChainAliasesArgs are the arguments for calling GetChainAliases

@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package rpcdb
@@ -117,17 +117,6 @@ func (db *DatabaseClient) NewIteratorWithStartAndPrefix(start, prefix []byte) da
 		db: db,
 		id: resp.Id,
 	}
-}
-
-// Stat attempts to return the statistic of this database
-func (db *DatabaseClient) Stat(property string) (string, error) {
-	resp, err := db.client.Stat(context.Background(), &rpcdbpb.StatRequest{
-		Property: property,
-	})
-	if err != nil {
-		return "", err
-	}
-	return resp.Stat, errCodeToError[resp.Err]
 }
 
 // Compact attempts to optimize the space utilization in the provided range

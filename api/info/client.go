@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package info
@@ -34,9 +34,10 @@ type client struct {
 
 // NewClient returns a new Info API Client
 func NewClient(uri string) Client {
-	return &client{
-		requester: rpc.NewEndpointRequester(uri, "/ext/info", "info"),
-	}
+	return &client{requester: rpc.NewEndpointRequester(
+		uri+"/ext/info",
+		"info",
+	)}
 }
 
 func (c *client) GetNodeVersion(ctx context.Context, options ...rpc.Option) (*GetNodeVersionReply, error) {

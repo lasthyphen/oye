@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package platformvm
@@ -178,7 +178,7 @@ func TestAddSubnetValidatorTxExecute(t *testing.T) {
 	}
 
 	// Add a validator to pending validator set of primary network
-	key, err := vm.factory.NewPrivateKey()
+	key, err := testKeyfactory.NewPrivateKey()
 	if err != nil {
 		t.Fatal(err)
 	}

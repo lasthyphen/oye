@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package admin
@@ -38,9 +38,10 @@ type client struct {
 
 // NewClient returns a new Info API Client
 func NewClient(uri string) Client {
-	return &client{
-		requester: rpc.NewEndpointRequester(uri, "/ext/admin", "admin"),
-	}
+	return &client{requester: rpc.NewEndpointRequester(
+		uri+"/ext/admin",
+		"admin",
+	)}
 }
 
 func (c *client) StartCPUProfiler(ctx context.Context, options ...rpc.Option) (bool, error) {

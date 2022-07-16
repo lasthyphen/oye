@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package registry
@@ -147,7 +147,7 @@ func initVMGetterTest(t *testing.T) *vmGetterTestResources {
 			FileReader:      mockReader,
 			Manager:         mockManager,
 			PluginDirectory: pluginDir,
-			CPUTracker:      resource.NewManager(time.Hour, time.Hour, time.Hour),
+			CPUTracker:      resource.NewManager("", time.Hour, time.Hour, time.Hour),
 		},
 	)
 

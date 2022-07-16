@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package p
@@ -296,7 +296,7 @@ func (w *wallet) IssueTx(
 		return txID, w.Backend.AcceptTx(ctx, tx)
 	}
 
-	txStatus, err := w.client.AwaitTxDecided(ctx, txID, false, ops.PollFrequency())
+	txStatus, err := w.client.AwaitTxDecided(ctx, txID, ops.PollFrequency())
 	if err != nil {
 		return txID, err
 	}

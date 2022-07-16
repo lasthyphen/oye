@@ -1,12 +1,15 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package platformvm
 
 import (
 	"github.com/lasthyphen/beacongo/snow"
+	"github.com/lasthyphen/beacongo/vms"
 	"github.com/lasthyphen/beacongo/vms/platformvm/config"
 )
+
+var _ vms.Factory = &Factory{}
 
 // Factory can create new instances of the Platform Chain
 type Factory struct {

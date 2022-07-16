@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package primary
@@ -74,7 +74,7 @@ func FetchState(ctx context.Context, uri string, addrs ids.ShortSet) (p.Context,
 		{
 			id:     xCTX.BlockchainID(),
 			client: xClient,
-			codec:  x.Codec,
+			codec:  x.Parser.Codec(),
 		},
 	}
 	for _, destinationChain := range chains {

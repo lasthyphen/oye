@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package avm
@@ -176,8 +176,14 @@ type client struct {
 
 // NewClient returns an AVM client for interacting with avm [chain]
 func NewClient(uri, chain string) Client {
+	path := fmt.Sprintf(
+		"%s/ext/%s/%s",
+		uri,
+		constants.ChainAliasPrefix,
+		chain,
+	)
 	return &client{
-		requester: rpc.NewEndpointRequester(uri, fmt.Sprintf("/ext/%s", constants.ChainAliasPrefix+chain), "avm"),
+		requester: rpc.NewEndpointRequester(path, "avm"),
 	}
 }
 

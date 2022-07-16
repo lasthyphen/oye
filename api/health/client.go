@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package health
@@ -32,9 +32,10 @@ type client struct {
 
 // NewClient returns a client to interact with Health API endpoint
 func NewClient(uri string) Client {
-	return &client{
-		requester: rpc.NewEndpointRequester(uri, "/ext/health", "health"),
-	}
+	return &client{requester: rpc.NewEndpointRequester(
+		uri+"/ext/health",
+		"health",
+	)}
 }
 
 func (c *client) Readiness(ctx context.Context, options ...rpc.Option) (*APIHealthReply, error) {

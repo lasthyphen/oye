@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package memdb
@@ -146,8 +146,6 @@ func (db *Database) NewIteratorWithStartAndPrefix(start, prefix []byte) database
 		values: values,
 	}
 }
-
-func (db *Database) Stat(property string) (string, error) { return "", database.ErrNotFound }
 
 func (db *Database) Compact(start []byte, limit []byte) error {
 	db.lock.RLock()

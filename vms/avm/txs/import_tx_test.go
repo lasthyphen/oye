@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package txs
@@ -268,7 +268,7 @@ func TestImportTxSyntacticVerifyInvalidMemo(t *testing.T) {
 	tx.Initialize(nil, nil)
 
 	if err := tx.SyntacticVerify(ctx, c, ids.Empty, 0, 0, 0); err == nil {
-		t.Fatalf("should have errored due to memo field being too long")
+		t.Fatalf("should have erred due to memo field being too long")
 	}
 }
 

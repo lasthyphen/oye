@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package platformvm
@@ -107,7 +107,7 @@ func (n *network) AppGossip(nodeID ids.NodeID, msgBytes []byte) error {
 	n.vm.ctx.Lock.Lock()
 	defer n.vm.ctx.Lock.Unlock()
 
-	if n.mempool.WasDropped(txID) {
+	if _, dropped := n.mempool.GetDropReason(txID); dropped {
 		// If the tx is being dropped - just ignore it
 		return nil
 	}

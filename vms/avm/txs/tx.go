@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package txs
@@ -14,7 +14,6 @@ import (
 	"github.com/lasthyphen/beacongo/utils/hashing"
 	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
-	"github.com/lasthyphen/beacongo/vms/components/verify"
 	"github.com/lasthyphen/beacongo/vms/nftfx"
 	"github.com/lasthyphen/beacongo/vms/propertyfx"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
@@ -59,16 +58,6 @@ type Tx struct {
 	Creds []*fxs.FxCredential `serialize:"true" json:"credentials"` // The credentials of this transaction
 }
 
-// Credentials describes the authorization that allows the Inputs to consume the
-// specified UTXOs. The returned array should not be modified.
-func (t *Tx) Credentials() []verify.Verifiable {
-	creds := make([]verify.Verifiable, len(t.Creds))
-	for i, fxCred := range t.Creds {
-		creds[i] = fxCred.Verifiable
-	}
-	return creds
-}
-
 // SyntacticVerify verifies that this transaction is well-formed.
 func (t *Tx) SyntacticVerify(
 	ctx *snow.Context,
@@ -102,7 +91,7 @@ func (t *Tx) SyntacticVerify(
 }
 
 func (t *Tx) SignSECP256K1Fx(c codec.Manager, signers [][]*crypto.PrivateKeySECP256K1R) error {
-	unsignedBytes, err := c.Marshal(codecVersion, &t.UnsignedTx)
+	unsignedBytes, err := c.Marshal(CodecVersion, &t.UnsignedTx)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}
@@ -122,7 +111,7 @@ func (t *Tx) SignSECP256K1Fx(c codec.Manager, signers [][]*crypto.PrivateKeySECP
 		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
-	signedBytes, err := c.Marshal(codecVersion, t)
+	signedBytes, err := c.Marshal(CodecVersion, t)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}
@@ -131,7 +120,7 @@ func (t *Tx) SignSECP256K1Fx(c codec.Manager, signers [][]*crypto.PrivateKeySECP
 }
 
 func (t *Tx) SignPropertyFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP256K1R) error {
-	unsignedBytes, err := c.Marshal(codecVersion, &t.UnsignedTx)
+	unsignedBytes, err := c.Marshal(CodecVersion, &t.UnsignedTx)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}
@@ -151,7 +140,7 @@ func (t *Tx) SignPropertyFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP2
 		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
-	signedBytes, err := c.Marshal(codecVersion, t)
+	signedBytes, err := c.Marshal(CodecVersion, t)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}
@@ -160,7 +149,7 @@ func (t *Tx) SignPropertyFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP2
 }
 
 func (t *Tx) SignNFTFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP256K1R) error {
-	unsignedBytes, err := c.Marshal(codecVersion, &t.UnsignedTx)
+	unsignedBytes, err := c.Marshal(CodecVersion, &t.UnsignedTx)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}
@@ -180,7 +169,7 @@ func (t *Tx) SignNFTFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP256K1R
 		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
-	signedBytes, err := c.Marshal(codecVersion, t)
+	signedBytes, err := c.Marshal(CodecVersion, t)
 	if err != nil {
 		return fmt.Errorf("problem creating transaction: %w", err)
 	}

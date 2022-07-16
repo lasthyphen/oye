@@ -1,10 +1,11 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package registry
 
 import (
 	"fmt"
+	"path"
 	"sync"
 
 	"github.com/lasthyphen/beacongo/api/server"
@@ -66,7 +67,7 @@ func (r *vmRegisterer) register(pathAdder server.PathAdder, vmID ids.ID, factory
 	}
 
 	// all static endpoints go to the vm endpoint, defaulting to the vm id
-	defaultEndpoint := constants.VMAliasPrefix + vmID.String()
+	defaultEndpoint := path.Join(constants.VMAliasPrefix, vmID.String())
 
 	if err := r.createStaticEndpoints(pathAdder, handlers, defaultEndpoint); err != nil {
 		return err
@@ -127,7 +128,7 @@ func (r vmRegisterer) getURLAliases(vmID ids.ID, defaultEndpoint string) ([]stri
 
 	var urlAliases []string
 	for _, alias := range aliases {
-		urlAlias := constants.VMAliasPrefix + alias
+		urlAlias := path.Join(constants.VMAliasPrefix, alias)
 		if urlAlias != defaultEndpoint {
 			urlAliases = append(urlAliases, urlAlias)
 		}

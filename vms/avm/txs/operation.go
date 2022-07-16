@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package txs
@@ -52,11 +52,11 @@ func (ops *innerSortOperation) Less(i, j int) bool {
 	iOp := ops.ops[i]
 	jOp := ops.ops[j]
 
-	iBytes, err := ops.codec.Marshal(codecVersion, iOp)
+	iBytes, err := ops.codec.Marshal(CodecVersion, iOp)
 	if err != nil {
 		return false
 	}
-	jBytes, err := ops.codec.Marshal(codecVersion, jOp)
+	jBytes, err := ops.codec.Marshal(CodecVersion, jOp)
 	if err != nil {
 		return false
 	}
@@ -83,11 +83,11 @@ func (ops *innerSortOperationsWithSigners) Less(i, j int) bool {
 	iOp := ops.ops[i]
 	jOp := ops.ops[j]
 
-	iBytes, err := ops.codec.Marshal(codecVersion, iOp)
+	iBytes, err := ops.codec.Marshal(CodecVersion, iOp)
 	if err != nil {
 		return false
 	}
-	jBytes, err := ops.codec.Marshal(codecVersion, jOp)
+	jBytes, err := ops.codec.Marshal(CodecVersion, jOp)
 	if err != nil {
 		return false
 	}

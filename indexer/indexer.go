@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package indexer
@@ -9,25 +9,25 @@ import (
 	"math"
 	"sync"
 
+	"github.com/gorilla/rpc/v2"
+
 	"github.com/lasthyphen/beacongo/api/server"
 	"github.com/lasthyphen/beacongo/chains"
-	"github.com/lasthyphen/beacongo/snow"
-	"github.com/lasthyphen/beacongo/utils/constants"
-	"github.com/lasthyphen/beacongo/utils/hashing"
-	"github.com/lasthyphen/beacongo/utils/json"
-	"github.com/lasthyphen/beacongo/utils/timer/mockable"
-	"github.com/lasthyphen/beacongo/utils/wrappers"
-
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
 	"github.com/lasthyphen/beacongo/database"
 	"github.com/lasthyphen/beacongo/database/prefixdb"
 	"github.com/lasthyphen/beacongo/ids"
+	"github.com/lasthyphen/beacongo/snow"
 	"github.com/lasthyphen/beacongo/snow/engine/avalanche"
 	"github.com/lasthyphen/beacongo/snow/engine/common"
 	"github.com/lasthyphen/beacongo/snow/engine/snowman"
+	"github.com/lasthyphen/beacongo/utils/constants"
+	"github.com/lasthyphen/beacongo/utils/hashing"
+	"github.com/lasthyphen/beacongo/utils/json"
 	"github.com/lasthyphen/beacongo/utils/logging"
-	"github.com/gorilla/rpc/v2"
+	"github.com/lasthyphen/beacongo/utils/timer/mockable"
+	"github.com/lasthyphen/beacongo/utils/wrappers"
 )
 
 const (

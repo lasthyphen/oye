@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package keystore
@@ -32,9 +32,10 @@ type client struct {
 }
 
 func NewClient(uri string) Client {
-	return &client{
-		requester: rpc.NewEndpointRequester(uri, "/ext/keystore", "keystore"),
-	}
+	return &client{requester: rpc.NewEndpointRequester(
+		uri+"/ext/keystore",
+		"keystore",
+	)}
 }
 
 func (c *client) CreateUser(ctx context.Context, user api.UserPass, options ...rpc.Option) (bool, error) {

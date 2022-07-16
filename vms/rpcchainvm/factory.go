@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package rpcchainvm
@@ -16,26 +16,22 @@ import (
 	"github.com/lasthyphen/beacongo/snow"
 	"github.com/lasthyphen/beacongo/utils/resource"
 	"github.com/lasthyphen/beacongo/utils/subprocess"
+	"github.com/lasthyphen/beacongo/vms"
 	"github.com/lasthyphen/beacongo/vms/rpcchainvm/grpcutils"
 )
 
 var (
 	errWrongVM = errors.New("wrong vm type")
 
-	_ Factory = &factory{}
+	_ vms.Factory = &factory{}
 )
-
-type Factory interface {
-	// New returns an instance of a virtual machine.
-	New(*snow.Context) (interface{}, error)
-}
 
 type factory struct {
 	path           string
 	processTracker resource.ProcessTracker
 }
 
-func NewFactory(path string, processTracker resource.ProcessTracker) Factory {
+func NewFactory(path string, processTracker resource.ProcessTracker) vms.Factory {
 	return &factory{
 		path:           path,
 		processTracker: processTracker,

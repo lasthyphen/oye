@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package platformvm
@@ -108,7 +108,7 @@ func TestMempoolInvalidGossipedTxIsNotAddedToMempool(t *testing.T) {
 	// create a tx and mark as invalid
 	tx := getValidTx(vm, t)
 	txID := tx.ID()
-	vm.mempool.MarkDropped(txID)
+	vm.mempool.MarkDropped(txID, "dropped for testing")
 
 	// show that the invalid tx is not requested
 	nodeID := ids.GenerateTestNodeID()
