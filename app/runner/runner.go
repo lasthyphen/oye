@@ -13,7 +13,6 @@ import (
 	"github.com/lasthyphen/beacongo/app"
 	"github.com/lasthyphen/beacongo/app/process"
 	"github.com/lasthyphen/beacongo/node"
-	"github.com/lasthyphen/beacongo/vms/rpcchainvm/grpcutils"
 
 	appplugin "github.com/lasthyphen/beacongo/app/plugin"
 )
@@ -29,7 +28,7 @@ func Run(config Config, nodeConfig node.Config) {
 			Plugins: map[string]plugin.Plugin{
 				appplugin.Name: appplugin.New(nodeApp),
 			},
-			GRPCServer: grpcutils.NewDefaultServer, // A non-nil value here enables gRPC serving for this plugin
+			GRPCServer: plugin.DefaultGRPCServer, // A non-nil value here enables gRPC serving for this plugin
 			Logger: hclog.New(&hclog.LoggerOptions{
 				Level: hclog.Error,
 			}),

@@ -12,10 +12,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
-
-	"github.com/lasthyphen/beacongo/utils/ips"
+	"github.com/lasthyphen/beacongo/utils"
 	"github.com/lasthyphen/beacongo/utils/logging"
+	"github.com/stretchr/testify/assert"
 )
 
 // Test that canceling a context passed into Dial results
@@ -59,7 +58,7 @@ func TestDialerCancelDial(t *testing.T) {
 	setupWg.Wait()
 
 	port, _ := strconv.Atoi(strings.Split(l.Addr().String(), ":")[1])
-	myIP := ips.IPPort{
+	myIP := utils.IPDesc{
 		IP:   net.ParseIP("127.0.0.1"),
 		Port: uint16(port),
 	}

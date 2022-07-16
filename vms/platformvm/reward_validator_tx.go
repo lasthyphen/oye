@@ -134,7 +134,7 @@ func (tx *UnsignedRewardValidatorTx) Execute(
 	onAbortState.SetCurrentSupply(newSupply)
 
 	var (
-		nodeID    ids.NodeID
+		nodeID    ids.ShortID
 		startTime time.Time
 	)
 	switch uStakerTx := stakerTx.UnsignedTx.(type) {

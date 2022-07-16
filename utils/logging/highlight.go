@@ -5,10 +5,17 @@ package logging
 
 import (
 	"errors"
+	"fmt"
+	"strings"
 
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 // Highlighting modes available
+const (
+	Plain Highlight = iota
+	Colors
+)
 
 var errUnknownHighlight = errors.New("unknown highlight")
 
@@ -16,6 +23,21 @@ var errUnknownHighlight = errors.New("unknown highlight")
 type Highlight int
 
 // ToHighlight chooses a highlighting mode
+func ToHighlight(h string, fd uintptr) (Highlight, error) {
+	switch strings.ToUpper(h) {
+	case "PLAIN":
+		return Plain, nil
+	case "COLORS":
+		return Colors, nil
+	case "AUTO":
+		if !terminal.IsTerminal(int(fd)) {
+			return Plain, nil
+		}
+		return Colors, nil
+	default:
+		return Plain, fmt.Errorf("unknown highlight mode: %s", h)
+	}
+}
 
 func (h *Highlight) MarshalJSON() ([]byte, error) {
 	switch *h {

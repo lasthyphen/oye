@@ -14,6 +14,7 @@ import (
 )
 
 var (
+	// Interface compliance
 	_ Factory    = &FactoryRSAPSS{}
 	_ PublicKey  = &PublicKeyRSAPSS{}
 	_ PrivateKey = &PrivateKeyRSAPSS{}

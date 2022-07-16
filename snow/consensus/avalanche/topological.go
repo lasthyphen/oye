@@ -143,13 +143,15 @@ func (ta *Topological) IsVirtuous(tx snowstorm.Tx) bool { return ta.cg.IsVirtuou
 func (ta *Topological) Add(vtx Vertex) error {
 	ta.ctx.Log.AssertTrue(vtx != nil, "Attempting to insert nil vertex")
 
+	vtxID := vtx.ID()
 	if vtx.Status().Decided() {
 		return nil // Already decided this vertex
+	} else if _, exists := ta.nodes[vtxID]; exists {
+		return nil // Already inserted this vertex
 	}
 
-	vtxID := vtx.ID()
-	if _, exists := ta.nodes[vtxID]; exists {
-		return nil // Already inserted this vertex
+	if err := ta.ctx.ConsensusDispatcher.Issue(ta.ctx, vtxID, vtx.Bytes()); err != nil {
+		return err
 	}
 
 	txs, err := vtx.Txs()
@@ -569,6 +571,9 @@ func (ta *Topological) update(vtx Vertex) error {
 			if err := vtx.Reject(); err != nil {
 				return err
 			}
+			if err := ta.ctx.ConsensusDispatcher.Reject(ta.ctx, vtxID, vtx.Bytes()); err != nil {
+				return err
+			}
 			delete(ta.nodes, vtxID)
 			ta.Latency.Rejected(vtxID, ta.pollNumber)
 
@@ -635,9 +640,9 @@ func (ta *Topological) update(vtx Vertex) error {
 	switch {
 	case acceptable:
 		// I'm acceptable, why not accept?
-		// Note that ConsensusAcceptor.Accept must be called before vtx.Accept
-		// to honor Acceptor.Accept's invariant.
-		if err := ta.ctx.ConsensusAcceptor.Accept(ta.ctx, vtxID, vtx.Bytes()); err != nil {
+		// Note that ConsensusDispatcher.Accept must be called before vtx.Accept to honor
+		// EventDispatcher.Accept's invariant.
+		if err := ta.ctx.ConsensusDispatcher.Accept(ta.ctx, vtxID, vtx.Bytes()); err != nil {
 			return err
 		}
 
@@ -648,6 +653,10 @@ func (ta *Topological) update(vtx Vertex) error {
 		ta.Latency.Accepted(vtxID, ta.pollNumber)
 	case rejectable:
 		// I'm rejectable, why not reject?
+		if err := ta.ctx.ConsensusDispatcher.Reject(ta.ctx, vtxID, vtx.Bytes()); err != nil {
+			return err
+		}
+
 		ta.ctx.Log.Trace("rejecting vertex %s due to a conflicting acceptance", vtxID)
 		if !txv.Status().Decided() {
 			if err := ta.cg.Remove(vtxID); err != nil {

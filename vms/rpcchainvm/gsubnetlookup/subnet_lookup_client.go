@@ -6,26 +6,25 @@ package gsubnetlookup
 import (
 	"context"
 
+	"github.com/lasthyphen/beacongo/api/proto/gsubnetlookupproto"
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/snow"
-
-	subnetlookuppb "github.com/lasthyphen/beacongo/proto/pb/subnetlookup"
 )
 
 var _ snow.SubnetLookup = &Client{}
 
 // Client is a subnet lookup that talks over RPC.
 type Client struct {
-	client subnetlookuppb.SubnetLookupClient
+	client gsubnetlookupproto.SubnetLookupClient
 }
 
 // NewClient returns an alias lookup connected to a remote alias lookup
-func NewClient(client subnetlookuppb.SubnetLookupClient) *Client {
+func NewClient(client gsubnetlookupproto.SubnetLookupClient) *Client {
 	return &Client{client: client}
 }
 
 func (c *Client) SubnetID(chainID ids.ID) (ids.ID, error) {
-	resp, err := c.client.SubnetID(context.Background(), &subnetlookuppb.SubnetIDRequest{
+	resp, err := c.client.SubnetID(context.Background(), &gsubnetlookupproto.SubnetIDRequest{
 		ChainId: chainID[:],
 	})
 	if err != nil {

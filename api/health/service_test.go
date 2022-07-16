@@ -20,7 +20,7 @@ func TestServiceResponses(t *testing.T) {
 		return "", nil
 	})
 
-	h, err := New(logging.NoLog{}, prometheus.NewRegistry())
+	h, err := New(prometheus.NewRegistry())
 	assert.NoError(err)
 
 	s := &Service{

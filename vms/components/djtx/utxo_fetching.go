@@ -6,7 +6,6 @@ package djtx
 import (
 	"bytes"
 	"fmt"
-	"math"
 
 	"github.com/lasthyphen/beacongo/ids"
 
@@ -36,7 +35,7 @@ func GetAllUTXOs(db UTXOReader, addrs ids.ShortSet) ([]*UTXO, error) {
 		addrs,
 		ids.ShortEmpty,
 		ids.Empty,
-		math.MaxInt,
+		safemath.MaxInt,
 	)
 	return utxos, err
 }

@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"io/ioutil"
 	"math"
 	"net"
 	"os"
@@ -33,11 +34,10 @@ import (
 	"github.com/lasthyphen/beacongo/snow/networking/benchlist"
 	"github.com/lasthyphen/beacongo/snow/networking/router"
 	"github.com/lasthyphen/beacongo/snow/networking/sender"
-	"github.com/lasthyphen/beacongo/snow/networking/tracker"
 	"github.com/lasthyphen/beacongo/staking"
+	"github.com/lasthyphen/beacongo/utils"
 	"github.com/lasthyphen/beacongo/utils/constants"
 	"github.com/lasthyphen/beacongo/utils/dynamicip"
-	"github.com/lasthyphen/beacongo/utils/ips"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/password"
 	"github.com/lasthyphen/beacongo/utils/profiler"
@@ -74,7 +74,7 @@ var (
 func GetRunnerConfig(v *viper.Viper) (runner.Config, error) {
 	config := runner.Config{
 		DisplayVersionAndExit: v.GetBool(VersionKey),
-		BuildDir:              GetExpandedArg(v, BuildDirKey),
+		BuildDir:              os.ExpandEnv(v.GetString(BuildDirKey)),
 		PluginMode:            v.GetBool(PluginModeKey),
 	}
 
@@ -100,7 +100,6 @@ func GetRunnerConfig(v *viper.Viper) (runner.Config, error) {
 
 	foundBuildDir := false
 	for _, dir := range defaultBuildDirs {
-		dir = GetExpandedString(v, dir)
 		if validBuildDir(dir) {
 			config.BuildDir = dir
 			foundBuildDir = true
@@ -119,16 +118,14 @@ func GetRunnerConfig(v *viper.Viper) (runner.Config, error) {
 func getConsensusConfig(v *viper.Viper) avalanche.Parameters {
 	return avalanche.Parameters{
 		Parameters: snowball.Parameters{
-			K:                       v.GetInt(SnowSampleSizeKey),
-			Alpha:                   v.GetInt(SnowQuorumSizeKey),
-			BetaVirtuous:            v.GetInt(SnowVirtuousCommitThresholdKey),
-			BetaRogue:               v.GetInt(SnowRogueCommitThresholdKey),
-			ConcurrentRepolls:       v.GetInt(SnowConcurrentRepollsKey),
-			OptimalProcessing:       v.GetInt(SnowOptimalProcessingKey),
-			MaxOutstandingItems:     v.GetInt(SnowMaxProcessingKey),
-			MaxItemProcessingTime:   v.GetDuration(SnowMaxTimeProcessingKey),
-			MixedQueryNumPushVdr:    int(v.GetUint(SnowMixedQueryNumPushVdrKey)),
-			MixedQueryNumPushNonVdr: int(v.GetUint(SnowMixedQueryNumPushNonVdrKey)),
+			K:                     v.GetInt(SnowSampleSizeKey),
+			Alpha:                 v.GetInt(SnowQuorumSizeKey),
+			BetaVirtuous:          v.GetInt(SnowVirtuousCommitThresholdKey),
+			BetaRogue:             v.GetInt(SnowRogueCommitThresholdKey),
+			ConcurrentRepolls:     v.GetInt(SnowConcurrentRepollsKey),
+			OptimalProcessing:     v.GetInt(SnowOptimalProcessingKey),
+			MaxOutstandingItems:   v.GetInt(SnowMaxProcessingKey),
+			MaxItemProcessingTime: v.GetDuration(SnowMaxTimeProcessingKey),
 		},
 		BatchSize: v.GetInt(SnowAvalancheBatchSizeKey),
 		Parents:   v.GetInt(SnowAvalancheNumParentsKey),
@@ -136,8 +133,10 @@ func getConsensusConfig(v *viper.Viper) avalanche.Parameters {
 }
 
 func getLoggingConfig(v *viper.Viper) (logging.Config, error) {
-	loggingConfig := logging.Config{}
-	loggingConfig.Directory = GetExpandedArg(v, LogsDirKey)
+	loggingConfig := logging.DefaultConfig
+	if v.IsSet(LogsDirKey) {
+		loggingConfig.Directory = os.ExpandEnv(v.GetString(LogsDirKey))
+	}
 	var err error
 	loggingConfig.LogLevel, err = logging.ToLevel(v.GetString(LogLevelKey))
 	if err != nil {
@@ -151,13 +150,7 @@ func getLoggingConfig(v *viper.Viper) (logging.Config, error) {
 	if err != nil {
 		return loggingConfig, err
 	}
-	loggingConfig.LogFormat, err = logging.ToFormat(v.GetString(LogFormatKey), os.Stdout.Fd())
-	loggingConfig.DisableWriterDisplaying = v.GetBool(LogDisableDisplayPluginLogsKey)
-	loggingConfig.MaxSize = int(v.GetUint(LogRotaterMaxSizeKey))
-	loggingConfig.MaxFiles = int(v.GetUint(LogRotaterMaxFilesKey))
-	loggingConfig.MaxAge = int(v.GetUint(LogRotaterMaxAgeKey))
-	loggingConfig.Compress = v.GetBool(LogRotaterCompressEnabledKey)
-
+	loggingConfig.DisplayHighlight, err = logging.ToHighlight(v.GetString(LogDisplayHighlightKey), os.Stdout.Fd())
 	return loggingConfig, err
 }
 
@@ -173,7 +166,7 @@ func getAPIAuthConfig(v *viper.Viper) (node.APIAuthConfig, error) {
 		config.APIAuthPassword = v.GetString(APIAuthPasswordKey)
 	} else {
 		passwordFilePath := v.GetString(APIAuthPasswordFileKey) // picks flag value or default
-		passwordBytes, err := os.ReadFile(passwordFilePath)
+		passwordBytes, err := ioutil.ReadFile(passwordFilePath)
 		if err != nil {
 			return node.APIAuthConfig{}, fmt.Errorf("API auth password file %q failed to be read: %w", passwordFilePath, err)
 		}
@@ -195,7 +188,7 @@ func getIPCConfig(v *viper.Viper) node.IPCConfig {
 		config.IPCDefaultChainIDs = strings.Split(v.GetString(IpcsChainIDsKey), ",")
 	}
 	if v.IsSet(IpcsPathKey) {
-		config.IPCPath = GetExpandedArg(v, IpcsPathKey)
+		config.IPCPath = os.ExpandEnv(v.GetString(IpcsPathKey))
 	}
 	return config
 }
@@ -214,8 +207,8 @@ func getHTTPConfig(v *viper.Viper) (node.HTTPConfig, error) {
 			return node.HTTPConfig{}, fmt.Errorf("unable to decode base64 content: %w", err)
 		}
 	case v.IsSet(HTTPSKeyFileKey):
-		httpsKeyFilepath := GetExpandedArg(v, HTTPSKeyFileKey)
-		if httpsKey, err = os.ReadFile(filepath.Clean(httpsKeyFilepath)); err != nil {
+		httpsKeyFilepath := os.ExpandEnv(v.GetString(HTTPSKeyFileKey))
+		if httpsKey, err = ioutil.ReadFile(filepath.Clean(httpsKeyFilepath)); err != nil {
 			return node.HTTPConfig{}, err
 		}
 	}
@@ -228,8 +221,8 @@ func getHTTPConfig(v *viper.Viper) (node.HTTPConfig, error) {
 			return node.HTTPConfig{}, fmt.Errorf("unable to decode base64 content: %w", err)
 		}
 	case v.IsSet(HTTPSCertFileKey):
-		httpsCertFilepath := GetExpandedArg(v, HTTPSCertFileKey)
-		if httpsCert, err = os.ReadFile(filepath.Clean(httpsCertFilepath)); err != nil {
+		httpsCertFilepath := os.ExpandEnv(v.GetString(HTTPSCertFileKey))
+		if httpsCert, err = ioutil.ReadFile(filepath.Clean(httpsCertFilepath)); err != nil {
 			return node.HTTPConfig{}, err
 		}
 	}
@@ -310,15 +303,10 @@ func getAdaptiveTimeoutConfig(v *viper.Viper) (timer.AdaptiveTimeoutConfig, erro
 
 func getGossipConfig(v *viper.Viper) sender.GossipConfig {
 	return sender.GossipConfig{
-		AcceptedFrontierValidatorSize:    uint(v.GetUint32(ConsensusGossipAcceptedFrontierValidatorSizeKey)),
-		AcceptedFrontierNonValidatorSize: uint(v.GetUint32(ConsensusGossipAcceptedFrontierNonValidatorSizeKey)),
-		AcceptedFrontierPeerSize:         uint(v.GetUint32(ConsensusGossipAcceptedFrontierPeerSizeKey)),
-		OnAcceptValidatorSize:            uint(v.GetUint32(ConsensusGossipOnAcceptValidatorSizeKey)),
-		OnAcceptNonValidatorSize:         uint(v.GetUint32(ConsensusGossipOnAcceptNonValidatorSizeKey)),
-		OnAcceptPeerSize:                 uint(v.GetUint32(ConsensusGossipOnAcceptPeerSizeKey)),
-		AppGossipValidatorSize:           uint(v.GetUint32(AppGossipValidatorSizeKey)),
-		AppGossipNonValidatorSize:        uint(v.GetUint32(AppGossipNonValidatorSizeKey)),
-		AppGossipPeerSize:                uint(v.GetUint32(AppGossipPeerSizeKey)),
+		AcceptedFrontierSize:      uint(v.GetUint32(ConsensusGossipAcceptedFrontierSizeKey)),
+		OnAcceptSize:              uint(v.GetUint32(ConsensusGossipOnAcceptSizeKey)),
+		AppGossipNonValidatorSize: uint(v.GetUint32(AppGossipNonValidatorSizeKey)),
+		AppGossipValidatorSize:    uint(v.GetUint32(AppGossipValidatorSizeKey)),
 	}
 }
 
@@ -349,12 +337,6 @@ func getNetworkConfig(v *viper.Viper, halflife time.Duration) (network.Config, e
 					MaxBurstSize: v.GetUint64(InboundThrottlerBandwidthMaxBurstSizeKey),
 				},
 				MaxProcessingMsgsPerNode: v.GetUint64(InboundThrottlerMaxProcessingMsgsPerNodeKey),
-				CPUThrottlerConfig: throttling.SystemThrottlerConfig{
-					MaxRecheckDelay: v.GetDuration(InboundThrottlerCPUMaxRecheckDelayKey),
-				},
-				DiskThrottlerConfig: throttling.SystemThrottlerConfig{
-					MaxRecheckDelay: v.GetDuration(InboundThrottlerDiskMaxRecheckDelayKey),
-				},
 			},
 
 			OutboundMsgThrottlerConfig: throttling.MsgByteThrottlerConfig{
@@ -387,7 +369,6 @@ func getNetworkConfig(v *viper.Viper, halflife time.Duration) (network.Config, e
 			PeerListNumValidatorIPs:        v.GetUint32(NetworkPeerListNumValidatorIPsKey),
 			PeerListValidatorGossipSize:    v.GetUint32(NetworkPeerListValidatorGossipSizeKey),
 			PeerListNonValidatorGossipSize: v.GetUint32(NetworkPeerListNonValidatorGossipSizeKey),
-			PeerListPeersGossipSize:        v.GetUint32(NetworkPeerListPeersGossipSizeKey),
 			PeerListGossipFreq:             v.GetDuration(NetworkPeerListGossipFreqKey),
 		},
 
@@ -438,6 +419,7 @@ func getNetworkConfig(v *viper.Viper, halflife time.Duration) (network.Config, e
 	case config.MaxClockDifference < 0:
 		return network.Config{}, fmt.Errorf("%s must be >= 0", NetworkMaxClockDifferenceKey)
 	}
+
 	return config, nil
 }
 
@@ -454,46 +436,6 @@ func getBenchlistConfig(v *viper.Viper, alpha, k int) (benchlist.Config, error) 
 	case config.MinimumFailingDuration < 0:
 		return benchlist.Config{}, fmt.Errorf("%q must be >= 0", BenchlistMinFailingDurationKey)
 	}
-	return config, nil
-}
-
-func getStateSyncConfig(v *viper.Viper) (node.StateSyncConfig, error) {
-	var (
-		config = node.StateSyncConfig{
-			StateSyncDisableRequests: v.GetBool(StateSyncDisableRequests),
-		}
-		stateSyncIPs = strings.Split(v.GetString(StateSyncIPsKey), ",")
-		stateSyncIDs = strings.Split(v.GetString(StateSyncIDsKey), ",")
-	)
-
-	for _, ip := range stateSyncIPs {
-		if ip == "" {
-			continue
-		}
-		addr, err := ips.ToIPPort(ip)
-		if err != nil {
-			return node.StateSyncConfig{}, fmt.Errorf("couldn't parse state sync ip %s: %w", ip, err)
-		}
-		config.StateSyncIPs = append(config.StateSyncIPs, addr)
-	}
-
-	for _, id := range stateSyncIDs {
-		if id == "" {
-			continue
-		}
-		nodeID, err := ids.NodeIDFromString(id)
-		if err != nil {
-			return node.StateSyncConfig{}, fmt.Errorf("couldn't parse state sync peer id %s: %w", id, err)
-		}
-		config.StateSyncIDs = append(config.StateSyncIDs, nodeID)
-	}
-
-	lenIPs := len(config.StateSyncIPs)
-	lenIDs := len(config.StateSyncIDs)
-	if lenIPs != lenIDs {
-		return node.StateSyncConfig{}, fmt.Errorf("expected the number of stateSyncIPs (%d) to match the number of stateSyncIDs (%d)", lenIPs, lenIDs)
-	}
-
 	return config, nil
 }
 
@@ -524,7 +466,7 @@ func getBootstrapConfig(v *viper.Viper, networkID uint32) (node.BootstrapConfig,
 		if ip == "" {
 			continue
 		}
-		addr, err := ips.ToIPPort(ip)
+		addr, err := utils.ToIPDesc(ip)
 		if err != nil {
 			return node.BootstrapConfig{}, fmt.Errorf("couldn't parse bootstrap ip %s: %w", ip, err)
 		}
@@ -538,9 +480,9 @@ func getBootstrapConfig(v *viper.Viper, networkID uint32) (node.BootstrapConfig,
 		if id == "" {
 			continue
 		}
-		nodeID, err := ids.NodeIDFromString(id)
+		nodeID, err := ids.ShortFromPrefixedString(id, constants.NodeIDPrefix)
 		if err != nil {
-			return node.BootstrapConfig{}, fmt.Errorf("couldn't parse bootstrap peer id %s: %w", id, err)
+			return node.BootstrapConfig{}, fmt.Errorf("couldn't parse bootstrap peer id: %w", err)
 		}
 		config.BootstrapIDs = append(config.BootstrapIDs, nodeID)
 	}
@@ -594,13 +536,13 @@ func getIPConfig(v *viper.Viper) (node.IPConfig, error) {
 	}
 
 	stakingPort := uint16(v.GetUint(StakingPortKey))
-	config.IPPort = ips.NewDynamicIPPort(ip, stakingPort)
+	config.IP = utils.NewDynamicIPDesc(ip, stakingPort)
 	return config, nil
 }
 
 func getProfilerConfig(v *viper.Viper) (profiler.Config, error) {
 	config := profiler.Config{
-		Dir:         GetExpandedArg(v, ProfileDirKey),
+		Dir:         os.ExpandEnv(v.GetString(ProfileDirKey)),
 		Enabled:     v.GetBool(ProfileContinuousEnabledKey),
 		Freq:        v.GetDuration(ProfileContinuousFreqKey),
 		MaxNumFiles: v.GetInt(ProfileContinuousMaxFilesKey),
@@ -634,8 +576,8 @@ func getStakingTLSCertFromFlag(v *viper.Viper) (tls.Certificate, error) {
 
 func getStakingTLSCertFromFile(v *viper.Viper) (tls.Certificate, error) {
 	// Parse the staking key/cert paths and expand environment variables
-	stakingKeyPath := GetExpandedArg(v, StakingKeyPathKey)
-	stakingCertPath := GetExpandedArg(v, StakingCertPathKey)
+	stakingKeyPath := os.ExpandEnv(v.GetString(StakingKeyPathKey))
+	stakingCertPath := os.ExpandEnv(v.GetString(StakingCertPathKey))
 
 	// If staking key/cert locations are specified but not found, error
 	if v.IsSet(StakingKeyPathKey) || v.IsSet(StakingCertPathKey) {
@@ -685,8 +627,8 @@ func getStakingConfig(v *viper.Viper, networkID uint32) (node.StakingConfig, err
 	config := node.StakingConfig{
 		EnableStaking:         v.GetBool(StakingEnabledKey),
 		DisabledStakingWeight: v.GetUint64(StakingDisabledWeightKey),
-		StakingKeyPath:        GetExpandedArg(v, StakingKeyPathKey),
-		StakingCertPath:       GetExpandedArg(v, StakingCertPathKey),
+		StakingKeyPath:        os.ExpandEnv(v.GetString(StakingKeyPathKey)),
+		StakingCertPath:       os.ExpandEnv(v.GetString(StakingCertPathKey)),
 	}
 	if !config.EnableStaking && config.DisabledStakingWeight == 0 {
 		return node.StakingConfig{}, errInvalidStakerWeights
@@ -756,7 +698,7 @@ func getGenesisData(v *viper.Viper, networkID uint32) ([]byte, ids.ID, error) {
 
 	// if content is not specified go for the file
 	if v.IsSet(GenesisConfigFileKey) {
-		genesisFileName := GetExpandedArg(v, GenesisConfigFileKey)
+		genesisFileName := os.ExpandEnv(v.GetString(GenesisConfigFileKey))
 		return genesis.FromFile(networkID, genesisFileName)
 	}
 
@@ -795,8 +737,8 @@ func getDatabaseConfig(v *viper.Viper, networkID uint32) (node.DatabaseConfig, e
 			return node.DatabaseConfig{}, fmt.Errorf("unable to decode base64 content: %w", err)
 		}
 	} else if v.IsSet(DBConfigFileKey) {
-		path := GetExpandedArg(v, DBConfigFileKey)
-		configBytes, err = os.ReadFile(path)
+		path := os.ExpandEnv(v.GetString(DBConfigFileKey))
+		configBytes, err = ioutil.ReadFile(path)
 		if err != nil {
 			return node.DatabaseConfig{}, err
 		}
@@ -805,7 +747,7 @@ func getDatabaseConfig(v *viper.Viper, networkID uint32) (node.DatabaseConfig, e
 	return node.DatabaseConfig{
 		Name: v.GetString(DBTypeKey),
 		Path: filepath.Join(
-			GetExpandedArg(v, DBPathKey),
+			os.ExpandEnv(v.GetString(DBPathKey)),
 			constants.NetworkName(networkID),
 		),
 		Config: configBytes,
@@ -835,7 +777,7 @@ func getVMAliases(v *viper.Viper) (map[ids.ID][]string, error) {
 			return nil, nil
 		}
 
-		fileBytes, err = os.ReadFile(aliasFilePath)
+		fileBytes, err = ioutil.ReadFile(aliasFilePath)
 		if err != nil {
 			return nil, err
 		}
@@ -867,7 +809,7 @@ func getVMManager(v *viper.Viper) (vms.Manager, error) {
 
 // getPathFromDirKey reads flag value from viper instance and then checks the folder existence
 func getPathFromDirKey(v *viper.Viper, configKey string) (string, error) {
-	configDir := GetExpandedArg(v, configKey)
+	configDir := os.ExpandEnv(v.GetString(configKey))
 	cleanPath := filepath.Clean(configDir)
 	ok, err := storage.FolderExists(cleanPath)
 	if err != nil {
@@ -1031,7 +973,7 @@ func readSubnetConfigs(subnetConfigPath string, subnetIDs []ids.ID, defaultSubne
 		}
 
 		// subnetConfigDir/subnetID.json
-		file, err := os.ReadFile(filePath)
+		file, err := ioutil.ReadFile(filePath)
 		if err != nil {
 			return nil, err
 		}
@@ -1054,57 +996,6 @@ func defaultSubnetConfig(v *viper.Viper) chains.SubnetConfig {
 		ConsensusParameters: getConsensusConfig(v),
 		ValidatorOnly:       false,
 		GossipConfig:        getGossipConfig(v),
-	}
-}
-
-func getCPUTargeterConfig(v *viper.Viper) (tracker.TargeterConfig, error) {
-	vdrAlloc := v.GetFloat64(CPUVdrAllocKey)
-	maxNonVdrUsage := v.GetFloat64(CPUMaxNonVdrUsageKey)
-	maxNonVdrNodeUsage := v.GetFloat64(CPUMaxNonVdrNodeUsageKey)
-	switch {
-	case vdrAlloc < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", CPUVdrAllocKey, vdrAlloc)
-	case maxNonVdrUsage < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", CPUMaxNonVdrUsageKey, maxNonVdrUsage)
-	case maxNonVdrNodeUsage < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", CPUMaxNonVdrNodeUsageKey, maxNonVdrNodeUsage)
-	default:
-		return tracker.TargeterConfig{
-			VdrAlloc:           vdrAlloc,
-			MaxNonVdrUsage:     maxNonVdrUsage,
-			MaxNonVdrNodeUsage: maxNonVdrNodeUsage,
-		}, nil
-	}
-}
-
-func getDiskSpaceConfig(v *viper.Viper) (requiredAvailableDiskSpace uint64, warningThresholdAvailableDiskSpace uint64, err error) {
-	requiredAvailableDiskSpace = v.GetUint64(SystemTrackerRequiredAvailableDiskSpaceKey)
-	warningThresholdAvailableDiskSpace = v.GetUint64(SystemTrackerWarningThresholdAvailableDiskSpaceKey)
-	switch {
-	case warningThresholdAvailableDiskSpace < requiredAvailableDiskSpace:
-		return 0, 0, fmt.Errorf("%q (%d) < %q (%d)", SystemTrackerWarningThresholdAvailableDiskSpaceKey, warningThresholdAvailableDiskSpace, SystemTrackerRequiredAvailableDiskSpaceKey, requiredAvailableDiskSpace)
-	default:
-		return requiredAvailableDiskSpace, warningThresholdAvailableDiskSpace, nil
-	}
-}
-
-func getDiskTargeterConfig(v *viper.Viper) (tracker.TargeterConfig, error) {
-	vdrAlloc := v.GetFloat64(DiskVdrAllocKey)
-	maxNonVdrUsage := v.GetFloat64(DiskMaxNonVdrUsageKey)
-	maxNonVdrNodeUsage := v.GetFloat64(DiskMaxNonVdrNodeUsageKey)
-	switch {
-	case vdrAlloc < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", DiskVdrAllocKey, vdrAlloc)
-	case maxNonVdrUsage < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", DiskMaxNonVdrUsageKey, maxNonVdrUsage)
-	case maxNonVdrNodeUsage < 0:
-		return tracker.TargeterConfig{}, fmt.Errorf("%q (%f) < 0", DiskMaxNonVdrNodeUsageKey, maxNonVdrNodeUsage)
-	default:
-		return tracker.TargeterConfig{
-			VdrAlloc:           vdrAlloc,
-			MaxNonVdrUsage:     maxNonVdrUsage,
-			MaxNonVdrNodeUsage: maxNonVdrNodeUsage,
-		}, nil
 	}
 }
 
@@ -1232,12 +1123,6 @@ func GetNodeConfig(v *viper.Viper, buildDir string) (node.Config, error) {
 	// Crypto
 	nodeConfig.EnableCrypto = v.GetBool(SignatureVerificationEnabledKey)
 
-	// StateSync Configs
-	nodeConfig.StateSyncConfig, err = getStateSyncConfig(v)
-	if err != nil {
-		return node.Config{}, err
-	}
-
 	// Bootstrap Configs
 	nodeConfig.BootstrapConfig, err = getBootstrapConfig(v, nodeConfig.NetworkID)
 	if err != nil {
@@ -1269,21 +1154,8 @@ func GetNodeConfig(v *viper.Viper, buildDir string) (node.Config, error) {
 		return node.Config{}, err
 	}
 
-	nodeConfig.SystemTrackerFrequency = v.GetDuration(SystemTrackerFrequencyKey)
-	nodeConfig.SystemTrackerProcessingHalflife = v.GetDuration(SystemTrackerProcessingHalflifeKey)
-	nodeConfig.SystemTrackerCPUHalflife = v.GetDuration(SystemTrackerCPUHalflifeKey)
-	nodeConfig.SystemTrackerDiskHalflife = v.GetDuration(SystemTrackerDiskHalflifeKey)
+	// reset proposerVM height index
+	nodeConfig.ResetProposerVMHeightIndex = v.GetBool(ResetProposerVMHeightIndexKey)
 
-	nodeConfig.RequiredAvailableDiskSpace, nodeConfig.WarningThresholdAvailableDiskSpace, err = getDiskSpaceConfig(v)
-	if err != nil {
-		return node.Config{}, err
-	}
-
-	nodeConfig.CPUTargeterConfig, err = getCPUTargeterConfig(v)
-	if err != nil {
-		return node.Config{}, err
-	}
-
-	nodeConfig.DiskTargeterConfig, err = getDiskTargeterConfig(v)
-	return nodeConfig, err
+	return nodeConfig, nil
 }

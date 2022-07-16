@@ -6,7 +6,6 @@ package common
 import (
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/snow"
-	"github.com/lasthyphen/beacongo/snow/engine/common/tracker"
 	"github.com/lasthyphen/beacongo/snow/validators"
 )
 
@@ -18,17 +17,10 @@ func DefaultConfigTest() Config {
 		BootstrappedF:   func(ids.ID) { isBootstrapped = true },
 	}
 
-	beacons := validators.NewSet()
-
-	connectedPeers := tracker.NewPeers()
-	startupTracker := tracker.NewStartup(connectedPeers, 0)
-	beacons.RegisterCallbackListener(startupTracker)
-
 	return Config{
 		Ctx:                            snow.DefaultConsensusContextTest(),
 		Validators:                     validators.NewSet(),
-		Beacons:                        beacons,
-		StartupTracker:                 startupTracker,
+		Beacons:                        validators.NewSet(),
 		Sender:                         &SenderTest{},
 		Bootstrapable:                  &BootstrapableTest{},
 		Subnet:                         subnet,

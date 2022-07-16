@@ -85,7 +85,8 @@ func TestAdaptiveTimeoutManagerInit(t *testing.T) {
 	}
 
 	for _, test := range tests {
-		_, err := NewAdaptiveTimeoutManager(&test.config, "", prometheus.NewRegistry())
+		tm := AdaptiveTimeoutManager{}
+		err := tm.Initialize(&test.config, "", prometheus.NewRegistry())
 		if err != nil && test.shouldErrWith == "" {
 			assert.FailNow(t, "error from valid config", err)
 		} else if err == nil && test.shouldErrWith != "" {
@@ -95,7 +96,8 @@ func TestAdaptiveTimeoutManagerInit(t *testing.T) {
 }
 
 func TestAdaptiveTimeoutManager(t *testing.T) {
-	tm, err := NewAdaptiveTimeoutManager(
+	tm := AdaptiveTimeoutManager{}
+	err := tm.Initialize(
 		&AdaptiveTimeoutConfig{
 			InitialTimeout:     time.Millisecond,
 			MinimumTimeout:     time.Millisecond,

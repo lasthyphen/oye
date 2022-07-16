@@ -4,7 +4,6 @@
 package throttling
 
 import (
-	"context"
 	"sync"
 	"testing"
 
@@ -21,9 +20,9 @@ func TestBandwidthThrottler(t *testing.T) {
 		RefillRate:   8,
 		MaxBurstSize: 10,
 	}
-	throttlerIntf, err := newBandwidthThrottler(logging.NoLog{}, "", prometheus.NewRegistry(), config)
+	throttlerIntf, err := NewBandwidthThrottler(logging.NoLog{}, "", prometheus.NewRegistry(), config)
 	assert.NoError(err)
-	throttler, ok := throttlerIntf.(*bandwidthThrottlerImpl)
+	throttler, ok := throttlerIntf.(*bandwidthThrottler)
 	assert.True(ok)
 	assert.NotNil(throttler.log)
 	assert.NotNil(throttler.limiters)
@@ -32,7 +31,7 @@ func TestBandwidthThrottler(t *testing.T) {
 	assert.Len(throttler.limiters, 0)
 
 	// Add a node
-	nodeID1 := ids.GenerateTestNodeID()
+	nodeID1 := ids.GenerateTestShortID()
 	throttler.AddNode(nodeID1)
 	assert.Len(throttler.limiters, 1)
 
@@ -45,14 +44,14 @@ func TestBandwidthThrottler(t *testing.T) {
 	assert.Len(throttler.limiters, 1)
 
 	// Should be able to acquire 8
-	throttler.Acquire(context.Background(), 8, nodeID1)
+	throttler.Acquire(8, nodeID1)
 
 	// Make several goroutines that acquire bytes.
 	wg := sync.WaitGroup{}
 	wg.Add(int(config.MaxBurstSize) + 5)
 	for i := uint64(0); i < config.MaxBurstSize+5; i++ {
 		go func() {
-			throttler.Acquire(context.Background(), 1, nodeID1)
+			throttler.Acquire(1, nodeID1)
 			wg.Done()
 		}()
 	}

@@ -18,10 +18,11 @@ import (
 
 	"github.com/gorilla/rpc/v2"
 
-	"github.com/lasthyphen/beacongo/utils/json"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/password"
 	"github.com/lasthyphen/beacongo/utils/timer/mockable"
+
+	cjson "github.com/lasthyphen/beacongo/utils/json"
 )
 
 const (
@@ -256,7 +257,7 @@ func (a *auth) ChangePassword(oldPW, newPW string) error {
 
 func (a *auth) CreateHandler() (http.Handler, error) {
 	server := rpc.NewServer()
-	codec := json.NewCodec()
+	codec := cjson.NewCodec()
 	server.RegisterCodec(codec, "application/json")
 	server.RegisterCodec(codec, "application/json;charset=UTF-8")
 	return server, server.RegisterService(

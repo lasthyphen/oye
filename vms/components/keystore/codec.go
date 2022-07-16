@@ -8,6 +8,7 @@ import (
 
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
+	"github.com/lasthyphen/beacongo/codec/reflectcodec"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
 )
 
@@ -25,7 +26,7 @@ var (
 func init() {
 	c := linearcodec.NewDefault()
 	Codec = codec.NewDefaultManager()
-	lc := linearcodec.NewCustomMaxLength(math.MaxUint32)
+	lc := linearcodec.New(reflectcodec.DefaultTagName, math.MaxUint32)
 	LegacyCodec = codec.NewManager(math.MaxInt32)
 
 	errs := wrappers.Errs{}

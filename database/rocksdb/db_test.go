@@ -9,8 +9,6 @@ package rocksdb
 import (
 	"testing"
 
-	"github.com/prometheus/client_golang/prometheus"
-
 	"github.com/lasthyphen/beacongo/database"
 	"github.com/lasthyphen/beacongo/utils/logging"
 )
@@ -18,9 +16,9 @@ import (
 func TestInterface(t *testing.T) {
 	for _, test := range database.Tests {
 		folder := t.TempDir()
-		db, err := New(folder, nil, logging.NoLog{}, "", prometheus.NewRegistry())
+		db, err := New(folder, nil, logging.NoLog{})
 		if err != nil {
-			t.Fatalf("rocksdb.New(%q, logging.NoLog{}) erred with %s", folder, err)
+			t.Fatalf("rocksdb.New(%q, logging.NoLog{}) errored with %s", folder, err)
 		}
 
 		test(t, db)
@@ -37,7 +35,7 @@ func BenchmarkInterface(b *testing.B) {
 		for _, bench := range database.Benchmarks {
 			folder := b.TempDir()
 
-			db, err := New(folder, nil, logging.NoLog{}, "", prometheus.NewRegistry())
+			db, err := New(folder, nil, logging.NoLog{})
 			if err != nil {
 				b.Fatal(err)
 			}

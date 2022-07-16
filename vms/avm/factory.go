@@ -5,10 +5,7 @@ package avm
 
 import (
 	"github.com/lasthyphen/beacongo/snow"
-	"github.com/lasthyphen/beacongo/vms"
 )
-
-var _ vms.Factory = &Factory{}
 
 type Factory struct {
 	TxFee            uint64

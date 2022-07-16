@@ -7,7 +7,7 @@ import (
 	"errors"
 	"net"
 
-	"github.com/lasthyphen/beacongo/utils/ips"
+	"github.com/lasthyphen/beacongo/utils"
 )
 
 var (
@@ -17,12 +17,12 @@ var (
 )
 
 type testListener struct {
-	ip      ips.IPPort
+	ip      utils.IPDesc
 	inbound chan net.Conn
 	closed  chan struct{}
 }
 
-func newTestListener(ip ips.IPPort) *testListener {
+func newTestListener(ip utils.IPDesc) *testListener {
 	return &testListener{
 		ip:      ip,
 		inbound: make(chan net.Conn),

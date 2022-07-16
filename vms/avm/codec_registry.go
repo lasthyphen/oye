@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package avm
@@ -9,10 +9,10 @@ import (
 
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
+	"github.com/lasthyphen/beacongo/codec/reflectcodec"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/timer/mockable"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
-	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 )
 
@@ -44,7 +44,7 @@ func (cr *codecRegistry) RegisterType(val interface{}) error {
 
 // NewCodecs returns the genesis codec and the normal codec for the provided
 // feature extensions.
-func NewCodecs(fxs []fxs.Fx) (codec.Manager, codec.Manager, error) {
+func NewCodecs(fxs []Fx) (codec.Manager, codec.Manager, error) {
 	return newCustomCodecs(
 		make(map[reflect.Type]int),
 		&mockable.Clock{},
@@ -57,9 +57,9 @@ func newCustomCodecs(
 	typeToFxIndex map[reflect.Type]int,
 	clock *mockable.Clock,
 	log logging.Logger,
-	fxs []fxs.Fx,
+	fxs []Fx,
 ) (codec.Manager, codec.Manager, error) {
-	gc := linearcodec.NewCustomMaxLength(1 << 20)
+	gc := linearcodec.New(reflectcodec.DefaultTagName, 1<<20)
 	c := linearcodec.NewDefault()
 
 	gcm := codec.NewManager(math.MaxInt32)

@@ -6,6 +6,7 @@ package message
 import (
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
+	"github.com/lasthyphen/beacongo/codec/reflectcodec"
 	"github.com/lasthyphen/beacongo/utils/units"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
 )
@@ -21,7 +22,7 @@ var c codec.Manager
 
 func init() {
 	c = codec.NewManager(maxMessageSize)
-	lc := linearcodec.NewCustomMaxLength(maxSliceLen)
+	lc := linearcodec.New(reflectcodec.DefaultTagName, maxSliceLen)
 
 	errs := wrappers.Errs{}
 	errs.Add(

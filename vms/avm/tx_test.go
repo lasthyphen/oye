@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package avm
@@ -12,7 +12,6 @@ import (
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/utils/units"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
-	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 )
@@ -93,7 +92,7 @@ func TestTxInvalidCredential(t *testing.T) {
 				},
 			}},
 		}},
-		Creds: []*fxs.FxCredential{{Verifiable: &djtx.TestVerifiable{Err: errors.New("")}}},
+		Creds: []*FxCredential{{Verifiable: &djtx.TestVerifiable{Err: errors.New("")}}},
 	}
 	if err := tx.SignSECP256K1Fx(m, nil); err != nil {
 		t.Fatal(err)
@@ -148,7 +147,7 @@ func TestTxInvalidUnsignedTx(t *testing.T) {
 				},
 			},
 		}},
-		Creds: []*fxs.FxCredential{
+		Creds: []*FxCredential{
 			{Verifiable: &djtx.TestVerifiable{}},
 			{Verifiable: &djtx.TestVerifiable{}},
 		},
@@ -200,7 +199,7 @@ func TestTxInvalidNumberOfCredentials(t *testing.T) {
 				},
 			},
 		}},
-		Creds: []*fxs.FxCredential{{Verifiable: &djtx.TestVerifiable{}}},
+		Creds: []*FxCredential{{Verifiable: &djtx.TestVerifiable{}}},
 	}
 	if err := tx.SignSECP256K1Fx(m, nil); err != nil {
 		t.Fatal(err)

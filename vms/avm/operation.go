@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2021, Dijets, Inc. All rights reserved.
+// Copyright (C) 2019-2021, Ava Labs, Inc. All rights reserved.
 // See the file LICENSE for licensing terms.
 
 package avm
@@ -12,7 +12,6 @@ import (
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/utils"
 	"github.com/lasthyphen/beacongo/utils/crypto"
-	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/components/verify"
 )
@@ -25,9 +24,9 @@ var (
 
 type Operation struct {
 	djtx.Asset `serialize:"true"`
-	UTXOIDs    []*djtx.UTXOID  `serialize:"true" json:"inputIDs"`
-	FxID       ids.ID          `serialize:"false" json:"fxID"`
-	Op         fxs.FxOperation `serialize:"true" json:"operation"`
+	UTXOIDs    []*djtx.UTXOID `serialize:"true" json:"inputIDs"`
+	FxID       ids.ID         `serialize:"false" json:"fxID"`
+	Op         FxOperation    `serialize:"true" json:"operation"`
 }
 
 func (op *Operation) Verify(c codec.Manager) error {

@@ -5,27 +5,27 @@ package beacon
 
 import (
 	"github.com/lasthyphen/beacongo/ids"
-	"github.com/lasthyphen/beacongo/utils/ips"
+	"github.com/lasthyphen/beacongo/utils"
 )
 
 var _ Beacon = &beacon{}
 
 type Beacon interface {
-	ID() ids.NodeID
-	IP() ips.IPPort
+	ID() ids.ShortID
+	IP() utils.IPDesc
 }
 
 type beacon struct {
-	id ids.NodeID
-	ip ips.IPPort
+	id ids.ShortID
+	ip utils.IPDesc
 }
 
-func New(id ids.NodeID, ip ips.IPPort) Beacon {
+func New(id ids.ShortID, ip utils.IPDesc) Beacon {
 	return &beacon{
 		id: id,
 		ip: ip,
 	}
 }
 
-func (b *beacon) ID() ids.NodeID { return b.id }
-func (b *beacon) IP() ips.IPPort { return b.ip }
+func (b *beacon) ID() ids.ShortID  { return b.id }
+func (b *beacon) IP() utils.IPDesc { return b.ip }

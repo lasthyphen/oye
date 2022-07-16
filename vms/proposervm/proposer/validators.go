@@ -10,7 +10,7 @@ import (
 )
 
 type validatorData struct {
-	id     ids.NodeID
+	id     ids.ShortID
 	weight uint64
 }
 

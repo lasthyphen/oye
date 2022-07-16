@@ -8,6 +8,7 @@ import (
 	"compress/gzip"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"sync"
 
 	"github.com/lasthyphen/beacongo/utils"
@@ -65,7 +66,7 @@ func (g *gzipCompressor) Decompress(msg []byte) ([]byte, error) {
 	// will return the appropriate error instead of an incomplete byte slice.
 	limitedReader := io.LimitReader(g.gzipReader, g.maxSize+1)
 
-	decompressed, err := io.ReadAll(limitedReader)
+	decompressed, err := ioutil.ReadAll(limitedReader)
 	if err != nil {
 		return nil, err
 	}

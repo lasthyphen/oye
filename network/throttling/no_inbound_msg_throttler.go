@@ -3,11 +3,7 @@
 
 package throttling
 
-import (
-	"context"
-
-	"github.com/lasthyphen/beacongo/ids"
-)
+import "github.com/lasthyphen/beacongo/ids"
 
 var _ InboundMsgThrottler = &noInboundMsgThrottler{}
 
@@ -19,10 +15,10 @@ func NewNoInboundThrottler() InboundMsgThrottler {
 // [Acquire] always returns immediately.
 type noInboundMsgThrottler struct{}
 
-func (*noInboundMsgThrottler) Acquire(context.Context, uint64, ids.NodeID) {}
+func (*noInboundMsgThrottler) Acquire(uint64, ids.ShortID) {}
 
-func (*noInboundMsgThrottler) Release(uint64, ids.NodeID) {}
+func (*noInboundMsgThrottler) Release(uint64, ids.ShortID) {}
 
-func (*noInboundMsgThrottler) AddNode(ids.NodeID) {}
+func (*noInboundMsgThrottler) AddNode(ids.ShortID) {}
 
-func (*noInboundMsgThrottler) RemoveNode(ids.NodeID) {}
+func (*noInboundMsgThrottler) RemoveNode(ids.ShortID) {}

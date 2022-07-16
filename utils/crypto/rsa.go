@@ -17,6 +17,7 @@ import (
 var (
 	errWrongKeyType = errors.New("wrong key type")
 
+	// Interface compliance
 	_ Factory    = &FactoryRSA{}
 	_ PublicKey  = &PublicKeyRSA{}
 	_ PrivateKey = &PrivateKeyRSA{}

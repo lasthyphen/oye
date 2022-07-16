@@ -7,6 +7,7 @@ import (
 	"github.com/lasthyphen/beacongo/snow/engine/avalanche/vertex"
 	"github.com/lasthyphen/beacongo/snow/engine/common"
 	"github.com/lasthyphen/beacongo/snow/engine/common/queue"
+	"github.com/lasthyphen/beacongo/snow/engine/common/tracker"
 )
 
 type Config struct {
@@ -18,6 +19,7 @@ type Config struct {
 	// TxBlocked tracks operations that are blocked on transactions
 	TxBlocked *queue.Jobs
 
-	Manager vertex.Manager
-	VM      vertex.DAGVM
+	Manager       vertex.Manager
+	VM            vertex.DAGVM
+	WeightTracker tracker.WeightTracker
 }

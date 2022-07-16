@@ -8,15 +8,15 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	pluginpb "github.com/lasthyphen/beacongo/proto/pb/plugin"
+	"github.com/lasthyphen/beacongo/api/proto/pluginproto"
 )
 
 type Client struct {
-	client pluginpb.NodeClient
+	client pluginproto.NodeClient
 }
 
 // NewServer returns an app instance connected to a remote app instance
-func NewClient(node pluginpb.NodeClient) *Client {
+func NewClient(node pluginproto.NodeClient) *Client {
 	return &Client{
 		client: node,
 	}

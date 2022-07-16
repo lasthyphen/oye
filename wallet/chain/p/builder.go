@@ -14,11 +14,8 @@ import (
 	"github.com/lasthyphen/beacongo/utils/math"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/platformvm"
-	"github.com/lasthyphen/beacongo/vms/platformvm/stakeable"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 	"github.com/lasthyphen/beacongo/wallet/subnet/primary/common"
-
-	pChainValidator "github.com/lasthyphen/beacongo/vms/platformvm/validator"
 )
 
 var (
@@ -70,7 +67,7 @@ type Builder interface {
 	//   will take from delegation rewards. If 1,000,000 is provided, 100% of
 	//   the delegation reward will be sent to the validator's [rewardsOwner].
 	NewAddValidatorTx(
-		validator *pChainValidator.Validator,
+		validator *platformvm.Validator,
 		rewardsOwner *secp256k1fx.OutputOwners,
 		shares uint32,
 		options ...common.Option,
@@ -81,7 +78,7 @@ type Builder interface {
 	// - [validator] specifies all the details of the validation period such as
 	//   the startTime, endTime, sampling weight, nodeID, and subnetID.
 	NewAddSubnetValidatorTx(
-		validator *pChainValidator.SubnetValidator,
+		validator *platformvm.SubnetValidator,
 		options ...common.Option,
 	) (*platformvm.UnsignedAddSubnetValidatorTx, error)
 
@@ -93,7 +90,7 @@ type Builder interface {
 	// - [rewardsOwner] specifies the owner of all the rewards this delegator
 	//   may accrue at the end of its delegation period.
 	NewAddDelegatorTx(
-		validator *pChainValidator.Validator,
+		validator *platformvm.Validator,
 		rewardsOwner *secp256k1fx.OutputOwners,
 		options ...common.Option,
 	) (*platformvm.UnsignedAddDelegatorTx, error)
@@ -226,7 +223,7 @@ func (b *builder) NewBaseTx(
 }
 
 func (b *builder) NewAddValidatorTx(
-	validator *pChainValidator.Validator,
+	validator *platformvm.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	shares uint32,
 	options ...common.Option,
@@ -258,7 +255,7 @@ func (b *builder) NewAddValidatorTx(
 }
 
 func (b *builder) NewAddSubnetValidatorTx(
-	validator *pChainValidator.SubnetValidator,
+	validator *platformvm.SubnetValidator,
 	options ...common.Option,
 ) (*platformvm.UnsignedAddSubnetValidatorTx, error) {
 	toBurn := map[ids.ID]uint64{
@@ -290,7 +287,7 @@ func (b *builder) NewAddSubnetValidatorTx(
 }
 
 func (b *builder) NewAddDelegatorTx(
-	validator *pChainValidator.Validator,
+	validator *platformvm.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (*platformvm.UnsignedAddDelegatorTx, error) {
@@ -544,7 +541,7 @@ func (b *builder) getBalance(
 	// Iterate over the UTXOs
 	for _, utxo := range utxos {
 		outIntf := utxo.Out
-		if lockedOut, ok := outIntf.(*stakeable.LockOut); ok {
+		if lockedOut, ok := outIntf.(*platformvm.StakeableLockOut); ok {
 			if !options.AllowStakeableLocked() && lockedOut.Locktime > minIssuanceTime {
 				// This output is currently locked, so this output can't be
 				// burned.
@@ -623,7 +620,7 @@ func (b *builder) spend(
 		}
 
 		outIntf := utxo.Out
-		lockedOut, ok := outIntf.(*stakeable.LockOut)
+		lockedOut, ok := outIntf.(*platformvm.StakeableLockOut)
 		if !ok {
 			// This output isn't locked, so it will be handled during the next
 			// iteration of the UTXO set
@@ -649,7 +646,7 @@ func (b *builder) spend(
 		inputs = append(inputs, &djtx.TransferableInput{
 			UTXOID: utxo.UTXOID,
 			Asset:  utxo.Asset,
-			In: &stakeable.LockIn{
+			In: &platformvm.StakeableLockIn{
 				Locktime: lockedOut.Locktime,
 				TransferableIn: &secp256k1fx.TransferInput{
 					Amt: out.Amt,
@@ -669,7 +666,7 @@ func (b *builder) spend(
 		// Add the output to the staked outputs
 		stakeOutputs = append(stakeOutputs, &djtx.TransferableOutput{
 			Asset: utxo.Asset,
-			Out: &stakeable.LockOut{
+			Out: &platformvm.StakeableLockOut{
 				Locktime: lockedOut.Locktime,
 				TransferableOut: &secp256k1fx.TransferOutput{
 					Amt:          amountToStake,
@@ -683,7 +680,7 @@ func (b *builder) spend(
 			// This input had extra value, so some of it must be returned
 			changeOutputs = append(changeOutputs, &djtx.TransferableOutput{
 				Asset: utxo.Asset,
-				Out: &stakeable.LockOut{
+				Out: &platformvm.StakeableLockOut{
 					Locktime: lockedOut.Locktime,
 					TransferableOut: &secp256k1fx.TransferOutput{
 						Amt:          remainingAmount,
@@ -707,7 +704,7 @@ func (b *builder) spend(
 		}
 
 		outIntf := utxo.Out
-		if lockedOut, ok := outIntf.(*stakeable.LockOut); ok {
+		if lockedOut, ok := outIntf.(*platformvm.StakeableLockOut); ok {
 			if lockedOut.Locktime > minIssuanceTime {
 				// This output is currently locked, so this output can't be
 				// burned.
