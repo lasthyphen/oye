@@ -6,18 +6,21 @@ package primary
 import (
 	"context"
 
-	"github.com/lasthyphen/beacongo/api"
+	"github.com/lasthyphen/beacongo/api/info"
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/ids"
-	"github.com/lasthyphen/beacongo/utils/formatting"
+	"github.com/lasthyphen/beacongo/utils/constants"
+	"github.com/lasthyphen/beacongo/utils/rpc"
 	"github.com/lasthyphen/beacongo/vms/avm"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/platformvm"
+	"github.com/lasthyphen/beacongo/wallet/chain/p"
+	"github.com/lasthyphen/beacongo/wallet/chain/x"
 )
 
 const (
-	MainnetAPIURI = "https://archiver.switzerlandnorth.cloudapp.azure.com:443"
-	FujiAPIURI    = "http://api.djtx-test.network"
+	MainnetAPIURI = "https://dijets.uksouth.cloudapp.azure.com:443"
+	FujiAPIURI    = "https://api.djtx-test.network"
 	LocalAPIURI   = "http://localhost:9650"
 
 	fetchLimit = 1024
@@ -33,27 +36,64 @@ var (
 type UTXOClient interface {
 	GetAtomicUTXOs(
 		ctx context.Context,
-		addrs []string,
+		addrs []ids.ShortID,
 		sourceChain string,
 		limit uint32,
-		startAddress,
-		startUTXOID string,
-	) ([][]byte, api.Index, error)
+		startAddress ids.ShortID,
+		startUTXOID ids.ID,
+		options ...rpc.Option,
+	) ([][]byte, ids.ShortID, ids.ID, error)
 }
 
-// FormatAddresses returns the string format of the provided address set for the
-// requested chain and hrp. This is useful to use with the API clients to
-// support address queries.
-func FormatAddresses(chain, hrp string, addrSet ids.ShortSet) ([]string, error) {
-	addrs := make([]string, 0, addrSet.Len())
-	for addr := range addrSet {
-		addrStr, err := formatting.FormatAddress(chain, hrp, addr[:])
-		if err != nil {
-			return nil, err
-		}
-		addrs = append(addrs, addrStr)
+func FetchState(ctx context.Context, uri string, addrs ids.ShortSet) (p.Context, x.Context, UTXOs, error) {
+	infoClient := info.NewClient(uri)
+	xClient := avm.NewClient(uri, "X")
+
+	pCTX, err := p.NewContextFromClients(ctx, infoClient, xClient)
+	if err != nil {
+		return nil, nil, nil, err
 	}
-	return addrs, nil
+
+	xCTX, err := x.NewContextFromClients(ctx, infoClient, xClient)
+	if err != nil {
+		return nil, nil, nil, err
+	}
+
+	utxos := NewUTXOs()
+	addrList := addrs.List()
+	chains := []struct {
+		id     ids.ID
+		client UTXOClient
+		codec  codec.Manager
+	}{
+		{
+			id:     constants.PlatformChainID,
+			client: platformvm.NewClient(uri),
+			codec:  platformvm.Codec,
+		},
+		{
+			id:     xCTX.BlockchainID(),
+			client: xClient,
+			codec:  x.Codec,
+		},
+	}
+	for _, destinationChain := range chains {
+		for _, sourceChain := range chains {
+			err = AddAllUTXOs(
+				ctx,
+				utxos,
+				destinationChain.client,
+				destinationChain.codec,
+				sourceChain.id,
+				destinationChain.id,
+				addrList,
+			)
+			if err != nil {
+				return nil, nil, nil, err
+			}
+		}
+	}
+	return pCTX, xCTX, utxos, nil
 }
 
 // AddAllUTXOs fetches all the UTXOs referenced by [addresses] that were sent
@@ -67,15 +107,15 @@ func AddAllUTXOs(
 	codec codec.Manager,
 	sourceChainID ids.ID,
 	destinationChainID ids.ID,
-	addrs []string,
+	addrs []ids.ShortID,
 ) error {
 	var (
 		sourceChainIDStr = sourceChainID.String()
-		startAddr        string
-		startUTXO        string
+		startAddr        ids.ShortID
+		startUTXO        ids.ID
 	)
 	for {
-		utxosBytes, index, err := client.GetAtomicUTXOs(
+		utxosBytes, endAddr, endUTXO, err := client.GetAtomicUTXOs(
 			ctx,
 			addrs,
 			sourceChainIDStr,
@@ -103,8 +143,9 @@ func AddAllUTXOs(
 			break
 		}
 
-		startAddr = index.Address
-		startUTXO = index.UTXO
+		// Update the vars to query the next page of UTXOs.
+		startAddr = endAddr
+		startUTXO = endUTXO
 	}
 	return nil
 }

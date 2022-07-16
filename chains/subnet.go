@@ -9,6 +9,7 @@ import (
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/snow/consensus/avalanche"
 	"github.com/lasthyphen/beacongo/snow/engine/common"
+	"github.com/lasthyphen/beacongo/snow/networking/sender"
 )
 
 var _ Subnet = &subnet{}
@@ -26,6 +27,8 @@ type Subnet interface {
 }
 
 type SubnetConfig struct {
+	sender.GossipConfig
+
 	// ValidatorOnly indicates that this Subnet's Chains are available to only subnet validators.
 	ValidatorOnly       bool                 `json:"validatorOnly"`
 	ConsensusParameters avalanche.Parameters `json:"consensusParameters"`

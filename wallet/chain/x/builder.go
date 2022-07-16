@@ -10,7 +10,6 @@ import (
 	stdcontext "context"
 
 	"github.com/lasthyphen/beacongo/ids"
-	"github.com/lasthyphen/beacongo/utils/constants"
 	"github.com/lasthyphen/beacongo/utils/math"
 	"github.com/lasthyphen/beacongo/vms/avm"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
@@ -437,7 +436,7 @@ func (b *builder) NewImportTx(
 	return &avm.ImportTx{
 		BaseTx: avm.BaseTx{BaseTx: djtx.BaseTx{
 			NetworkID:    b.backend.NetworkID(),
-			BlockchainID: constants.PlatformChainID,
+			BlockchainID: b.backend.BlockchainID(),
 			Ins:          inputs,
 			Outs:         outputs,
 			Memo:         ops.Memo(),

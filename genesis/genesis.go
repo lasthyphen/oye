@@ -13,10 +13,10 @@ import (
 
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
-	"github.com/lasthyphen/beacongo/codec/reflectcodec"
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/utils/constants"
 	"github.com/lasthyphen/beacongo/utils/formatting"
+	"github.com/lasthyphen/beacongo/utils/formatting/address"
 	"github.com/lasthyphen/beacongo/utils/json"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
 	"github.com/lasthyphen/beacongo/vms/avm"
@@ -62,7 +62,7 @@ func validateInitialStakedFunds(config *Config) error {
 
 	for _, staker := range config.InitialStakedFunds {
 		if initialStakedFundsSet.Contains(staker) {
-			djtxAddr, err := formatting.FormatAddress(
+			djtxAddr, err := address.Format(
 				configChainIDAlias,
 				constants.GetHRP(config.NetworkID),
 				staker.Bytes(),
@@ -82,7 +82,7 @@ func validateInitialStakedFunds(config *Config) error {
 		initialStakedFundsSet.Add(staker)
 
 		if !allocationSet.Contains(staker) {
-			djtxAddr, err := formatting.FormatAddress(
+			djtxAddr, err := address.Format(
 				configChainIDAlias,
 				constants.GetHRP(config.NetworkID),
 				staker.Bytes(),
@@ -277,7 +277,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 		sortXAllocation(xAllocations)
 
 		for _, allocation := range xAllocations {
-			addr, err := formatting.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
+			addr, err := address.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
 			if err != nil {
 				return nil, ids.ID{}, err
 			}
@@ -340,7 +340,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 			skippedAllocations = append(skippedAllocations, allocation)
 			continue
 		}
-		addr, err := formatting.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
+		addr, err := address.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
 		if err != nil {
 			return nil, ids.ID{}, err
 		}
@@ -371,14 +371,14 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 		endStakingTime := endStakingTime.Add(-stakingOffset)
 		stakingOffset += time.Duration(config.InitialStakeDurationOffset) * time.Second
 
-		destAddrStr, err := formatting.FormatBech32(hrp, staker.RewardAddress.Bytes())
+		destAddrStr, err := address.FormatBech32(hrp, staker.RewardAddress.Bytes())
 		if err != nil {
 			return nil, ids.ID{}, err
 		}
 
 		utxos := []platformvm.APIUTXO(nil)
 		for _, allocation := range nodeAllocations {
-			addr, err := formatting.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
+			addr, err := address.FormatBech32(hrp, allocation.DJTXAddr.Bytes())
 			if err != nil {
 				return nil, ids.ID{}, err
 			}
@@ -404,7 +404,7 @@ func FromConfig(config *Config) ([]byte, ids.ID, error) {
 				APIStaker: platformvm.APIStaker{
 					StartTime: json.Uint64(genesisTime.Unix()),
 					EndTime:   json.Uint64(endStakingTime.Unix()),
-					NodeID:    staker.NodeID.PrefixedString(constants.NodeIDPrefix),
+					NodeID:    staker.NodeID,
 				},
 				RewardOwner: &platformvm.APIOwner{
 					Threshold: 1,
@@ -536,7 +536,7 @@ func VMGenesis(genesisBytes []byte, vmID ids.ID) (*platformvm.Tx, error) {
 }
 
 func DJTXAssetID(avmGenesisBytes []byte) (ids.ID, error) {
-	c := linearcodec.New(reflectcodec.DefaultTagName, 1<<20)
+	c := linearcodec.NewCustomMaxLength(1 << 20)
 	m := codec.NewManager(math.MaxInt32)
 	errs := wrappers.Errs{}
 	errs.Add(

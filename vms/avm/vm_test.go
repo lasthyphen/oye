@@ -8,6 +8,8 @@ import (
 	"errors"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/lasthyphen/beacongo/api/keystore"
 	"github.com/lasthyphen/beacongo/chains/atomic"
 	"github.com/lasthyphen/beacongo/database/manager"
@@ -18,17 +20,18 @@ import (
 	"github.com/lasthyphen/beacongo/snow/engine/common"
 	"github.com/lasthyphen/beacongo/utils/crypto"
 	"github.com/lasthyphen/beacongo/utils/formatting"
+	"github.com/lasthyphen/beacongo/utils/formatting/address"
 	"github.com/lasthyphen/beacongo/utils/json"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/units"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
 	"github.com/lasthyphen/beacongo/version"
+	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/components/verify"
 	"github.com/lasthyphen/beacongo/vms/nftfx"
 	"github.com/lasthyphen/beacongo/vms/propertyfx"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
-	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -147,9 +150,9 @@ func GetDJTXTxFromGenesisTest(genesisBytes []byte, tb testing.TB) *Tx {
 
 // BuildGenesisTest is the common Genesis builder for most tests
 func BuildGenesisTest(tb testing.TB) []byte {
-	addr0Str, _ := formatting.FormatBech32(testHRP, addrs[0].Bytes())
-	addr1Str, _ := formatting.FormatBech32(testHRP, addrs[1].Bytes())
-	addr2Str, _ := formatting.FormatBech32(testHRP, addrs[2].Bytes())
+	addr0Str, _ := address.FormatBech32(testHRP, addrs[0].Bytes())
+	addr1Str, _ := address.FormatBech32(testHRP, addrs[1].Bytes())
+	addr2Str, _ := address.FormatBech32(testHRP, addrs[2].Bytes())
 
 	defaultArgs := &BuildGenesisArgs{
 		Encoding: formatting.Hex,
@@ -881,7 +884,7 @@ func TestIssueNFT(t *testing.T) {
 				},
 			}},
 		},
-		Creds: []*FxCredential{
+		Creds: []*fxs.FxCredential{
 			{Verifiable: &nftfx.Credential{}},
 		},
 	}
@@ -1013,7 +1016,7 @@ func TestIssueProperty(t *testing.T) {
 	fixedSig := [crypto.SECP256K1RSigLen]byte{}
 	copy(fixedSig[:], sig)
 
-	mintPropertyTx.Creds = append(mintPropertyTx.Creds, &FxCredential{
+	mintPropertyTx.Creds = append(mintPropertyTx.Creds, &fxs.FxCredential{
 		Verifiable: &propertyfx.Credential{
 			Credential: secp256k1fx.Credential{
 				Sigs: [][crypto.SECP256K1RSigLen]byte{
@@ -1048,7 +1051,7 @@ func TestIssueProperty(t *testing.T) {
 		}},
 	}}
 
-	burnPropertyTx.Creds = append(burnPropertyTx.Creds, &FxCredential{Verifiable: &propertyfx.Credential{}})
+	burnPropertyTx.Creds = append(burnPropertyTx.Creds, &fxs.FxCredential{Verifiable: &propertyfx.Credential{}})
 
 	unsignedBytes, err = vm.codec.Marshal(codecVersion, burnPropertyTx.UnsignedTx)
 	if err != nil {
@@ -1066,9 +1069,9 @@ func TestIssueProperty(t *testing.T) {
 }
 
 func setupTxFeeAssets(t *testing.T) ([]byte, chan common.Message, *VM, *atomic.Memory) {
-	addr0Str, _ := formatting.FormatBech32(testHRP, addrs[0].Bytes())
-	addr1Str, _ := formatting.FormatBech32(testHRP, addrs[1].Bytes())
-	addr2Str, _ := formatting.FormatBech32(testHRP, addrs[2].Bytes())
+	addr0Str, _ := address.FormatBech32(testHRP, addrs[0].Bytes())
+	addr1Str, _ := address.FormatBech32(testHRP, addrs[1].Bytes())
+	addr2Str, _ := address.FormatBech32(testHRP, addrs[2].Bytes())
 	assetAlias := "asset1"
 	customArgs := &BuildGenesisArgs{
 		Encoding: formatting.Hex,

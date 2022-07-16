@@ -12,6 +12,8 @@ import (
 	"github.com/lasthyphen/beacongo/vms/platformvm/status"
 	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 	"github.com/lasthyphen/beacongo/wallet/subnet/primary/common"
+
+	pChainValidator "github.com/lasthyphen/beacongo/vms/platformvm/validator"
 )
 
 var (
@@ -29,6 +31,17 @@ type Wallet interface {
 	// Signer returns the signer that will be used to sign the transactions.
 	Signer() Signer
 
+	// IssueBaseTx creates, signs, and issues a new simple value transfer.
+	// Because the P-chain doesn't intend for balance transfers to occur, this
+	// method is expensive and abuses the creation of subnets.
+	//
+	// - [outputs] specifies all the recipients and amounts that should be sent
+	//   from this transaction.
+	IssueBaseTx(
+		outputs []*djtx.TransferableOutput,
+		options ...common.Option,
+	) (ids.ID, error)
+
 	// IssueAddValidatorTx creates, signs, and issues a new validator of the
 	// primary network.
 	//
@@ -40,7 +53,7 @@ type Wallet interface {
 	//   will take from delegation rewards. If 1,000,000 is provided, 100% of
 	//   the delegation reward will be sent to the validator's [rewardsOwner].
 	IssueAddValidatorTx(
-		validator *platformvm.Validator,
+		validator *pChainValidator.Validator,
 		rewardsOwner *secp256k1fx.OutputOwners,
 		shares uint32,
 		options ...common.Option,
@@ -52,7 +65,7 @@ type Wallet interface {
 	// - [validator] specifies all the details of the validation period such as
 	//   the startTime, endTime, sampling weight, nodeID, and subnetID.
 	IssueAddSubnetValidatorTx(
-		validator *platformvm.SubnetValidator,
+		validator *pChainValidator.SubnetValidator,
 		options ...common.Option,
 	) (ids.ID, error)
 
@@ -64,7 +77,7 @@ type Wallet interface {
 	// - [rewardsOwner] specifies the owner of all the rewards this delegator
 	//   may accrue at the end of its delegation period.
 	IssueAddDelegatorTx(
-		validator *platformvm.Validator,
+		validator *pChainValidator.Validator,
 		rewardsOwner *secp256k1fx.OutputOwners,
 		options ...common.Option,
 	) (ids.ID, error)
@@ -157,8 +170,19 @@ func (w *wallet) Builder() Builder { return w.builder }
 
 func (w *wallet) Signer() Signer { return w.signer }
 
+func (w *wallet) IssueBaseTx(
+	outputs []*djtx.TransferableOutput,
+	options ...common.Option,
+) (ids.ID, error) {
+	utx, err := w.builder.NewBaseTx(outputs, options...)
+	if err != nil {
+		return ids.Empty, err
+	}
+	return w.IssueUnsignedTx(utx, options...)
+}
+
 func (w *wallet) IssueAddValidatorTx(
-	validator *platformvm.Validator,
+	validator *pChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	shares uint32,
 	options ...common.Option,
@@ -171,7 +195,7 @@ func (w *wallet) IssueAddValidatorTx(
 }
 
 func (w *wallet) IssueAddSubnetValidatorTx(
-	validator *platformvm.SubnetValidator,
+	validator *pChainValidator.SubnetValidator,
 	options ...common.Option,
 ) (ids.ID, error) {
 	utx, err := w.builder.NewAddSubnetValidatorTx(validator, options...)
@@ -182,7 +206,7 @@ func (w *wallet) IssueAddSubnetValidatorTx(
 }
 
 func (w *wallet) IssueAddDelegatorTx(
-	validator *platformvm.Validator,
+	validator *pChainValidator.Validator,
 	rewardsOwner *secp256k1fx.OutputOwners,
 	options ...common.Option,
 ) (ids.ID, error) {

@@ -10,6 +10,7 @@ import (
 	"github.com/lasthyphen/beacongo/message"
 	"github.com/lasthyphen/beacongo/network/throttling"
 	"github.com/lasthyphen/beacongo/snow/networking/router"
+	"github.com/lasthyphen/beacongo/snow/networking/tracker"
 	"github.com/lasthyphen/beacongo/snow/validators"
 	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/timer/mockable"
@@ -17,12 +18,15 @@ import (
 )
 
 type Config struct {
+	// Size, in bytes, of the buffer this peer reads messages into
+	ReadBufferSize int
+	// Size, in bytes, of the buffer this peer writes messages into
+	WriteBufferSize      int
 	Clock                mockable.Clock
 	Metrics              *Metrics
 	MessageCreator       message.Creator
 	Log                  logging.Logger
 	InboundMsgThrottler  throttling.InboundMsgThrottler
-	OutboundMsgThrottler throttling.OutboundMsgThrottler
 	Network              Network
 	Router               router.InboundHandler
 	VersionCompatibility version.Compatibility
@@ -37,4 +41,9 @@ type Config struct {
 	// Unix time of the last message sent and received respectively
 	// Must only be accessed atomically
 	LastSent, LastReceived int64
+
+	// Tracks CPU/disk usage caused by each peer.
+	ResourceTracker tracker.ResourceTracker
+
+	PingMessage message.OutboundMessage
 }

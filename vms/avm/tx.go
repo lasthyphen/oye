@@ -12,6 +12,7 @@ import (
 	"github.com/lasthyphen/beacongo/snow"
 	"github.com/lasthyphen/beacongo/utils/crypto"
 	"github.com/lasthyphen/beacongo/utils/hashing"
+	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/components/verify"
 	"github.com/lasthyphen/beacongo/vms/nftfx"
@@ -53,7 +54,7 @@ type UnsignedTx interface {
 type Tx struct {
 	UnsignedTx `serialize:"true" json:"unsignedTx"`
 
-	Creds []*FxCredential `serialize:"true" json:"credentials"` // The credentials of this transaction
+	Creds []*fxs.FxCredential `serialize:"true" json:"credentials"` // The credentials of this transaction
 }
 
 // Init initializes FxID where required
@@ -138,7 +139,7 @@ func (t *Tx) SignSECP256K1Fx(c codec.Manager, signers [][]*crypto.PrivateKeySECP
 			}
 			copy(cred.Sigs[i][:], sig)
 		}
-		t.Creds = append(t.Creds, &FxCredential{Verifiable: cred})
+		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
 	signedBytes, err := c.Marshal(codecVersion, t)
@@ -167,7 +168,7 @@ func (t *Tx) SignPropertyFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP2
 			}
 			copy(cred.Sigs[i][:], sig)
 		}
-		t.Creds = append(t.Creds, &FxCredential{Verifiable: cred})
+		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
 	signedBytes, err := c.Marshal(codecVersion, t)
@@ -196,7 +197,7 @@ func (t *Tx) SignNFTFx(c codec.Manager, signers [][]*crypto.PrivateKeySECP256K1R
 			}
 			copy(cred.Sigs[i][:], sig)
 		}
-		t.Creds = append(t.Creds, &FxCredential{Verifiable: cred})
+		t.Creds = append(t.Creds, &fxs.FxCredential{Verifiable: cred})
 	}
 
 	signedBytes, err := c.Marshal(codecVersion, t)

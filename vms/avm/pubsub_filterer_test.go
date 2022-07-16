@@ -7,12 +7,12 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/lasthyphen/beacongo/pubsub"
-	"github.com/lasthyphen/beacongo/vms/components/djtx"
-	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/lasthyphen/beacongo/ids"
+	"github.com/lasthyphen/beacongo/pubsub"
+	"github.com/lasthyphen/beacongo/vms/components/djtx"
+	"github.com/lasthyphen/beacongo/vms/secp256k1fx"
 )
 
 type mockFilter struct {

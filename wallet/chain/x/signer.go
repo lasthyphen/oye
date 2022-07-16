@@ -14,6 +14,7 @@ import (
 	"github.com/lasthyphen/beacongo/utils/crypto"
 	"github.com/lasthyphen/beacongo/utils/hashing"
 	"github.com/lasthyphen/beacongo/vms/avm"
+	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/components/verify"
 	"github.com/lasthyphen/beacongo/vms/nftfx"
@@ -263,14 +264,14 @@ func (s *signer) sign(tx *avm.Tx, creds []verify.Verifiable, txSigners [][]*cryp
 	unsignedHash := hashing.ComputeHash256(unsignedBytes)
 
 	if expectedLen := len(txSigners); expectedLen != len(tx.Creds) {
-		tx.Creds = make([]*avm.FxCredential, expectedLen)
+		tx.Creds = make([]*fxs.FxCredential, expectedLen)
 	}
 
 	sigCache := make(map[ids.ShortID][crypto.SECP256K1RSigLen]byte)
 	for credIndex, inputSigners := range txSigners {
 		fxCred := tx.Creds[credIndex]
 		if fxCred == nil {
-			fxCred = &avm.FxCredential{}
+			fxCred = &fxs.FxCredential{}
 			tx.Creds[credIndex] = fxCred
 		}
 		credIntf := fxCred.Verifiable

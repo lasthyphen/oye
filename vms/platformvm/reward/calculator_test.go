@@ -22,7 +22,7 @@ var defaultConfig = Config{
 	MaxConsumptionRate: .12 * PercentDenominator,
 	MinConsumptionRate: .10 * PercentDenominator,
 	MintingPeriod:      365 * 24 * time.Hour,
-	SupplyCap:          720 * units.MegaDjtx,
+	SupplyCap:          100 * units.MegaDjtx,
 }
 
 func TestLongerDurationBonus(t *testing.T) {

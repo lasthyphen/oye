@@ -9,17 +9,18 @@ import (
 
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/message"
-	"github.com/lasthyphen/beacongo/utils"
+	"github.com/lasthyphen/beacongo/utils/ips"
 	"github.com/lasthyphen/beacongo/version"
 )
 
 var _ Network = &testNetwork{}
 
+// testNetwork is a network definition for a TestPeer
 type testNetwork struct {
 	mc message.Creator
 
 	networkID uint32
-	ip        utils.IPDesc
+	ip        ips.IPPort
 	version   version.Application
 	signer    crypto.Signer
 	subnets   ids.Set
@@ -27,13 +28,34 @@ type testNetwork struct {
 	uptime uint8
 }
 
-func (n *testNetwork) Connected(ids.ShortID) {}
+// NewTestNetwork creates and returns a new TestNetwork
+func NewTestNetwork(
+	mc message.Creator,
+	networkID uint32,
+	ipPort ips.IPPort,
+	version version.Application,
+	signer crypto.Signer,
+	subnets ids.Set,
+	uptime uint8,
+) Network {
+	return &testNetwork{
+		mc:        mc,
+		networkID: networkID,
+		ip:        ipPort,
+		version:   version,
+		signer:    signer,
+		subnets:   subnets,
+		uptime:    uptime,
+	}
+}
 
-func (n *testNetwork) AllowConnection(ids.ShortID) bool { return true }
+func (n *testNetwork) Connected(ids.NodeID) {}
 
-func (n *testNetwork) Track(utils.IPCertDesc) {}
+func (n *testNetwork) AllowConnection(ids.NodeID) bool { return true }
 
-func (n *testNetwork) Disconnected(ids.ShortID) {}
+func (n *testNetwork) Track(ips.ClaimedIPPort) bool { return true }
+
+func (n *testNetwork) Disconnected(ids.NodeID) {}
 
 func (n *testNetwork) Version() (message.OutboundMessage, error) {
 	now := uint64(time.Now().Unix())
@@ -60,6 +82,6 @@ func (n *testNetwork) Peers() (message.OutboundMessage, error) {
 	return n.mc.PeerList(nil, true)
 }
 
-func (n *testNetwork) Pong(ids.ShortID) (message.OutboundMessage, error) {
+func (n *testNetwork) Pong(ids.NodeID) (message.OutboundMessage, error) {
 	return n.mc.Pong(n.uptime)
 }

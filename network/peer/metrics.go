@@ -83,9 +83,10 @@ func NewMessageMetrics(
 }
 
 type Metrics struct {
-	Log            logging.Logger
-	FailedToParse  prometheus.Counter
-	MessageMetrics map[message.Op]*MessageMetrics
+	Log                     logging.Logger
+	FailedToParse           prometheus.Counter
+	NumUselessPeerListBytes prometheus.Counter
+	MessageMetrics          map[message.Op]*MessageMetrics
 }
 
 func NewMetrics(
@@ -100,17 +101,27 @@ func NewMetrics(
 			Name:      "msgs_failed_to_parse",
 			Help:      "Number of messages that could not be parsed or were invalidly formed",
 		}),
+		NumUselessPeerListBytes: prometheus.NewCounter(prometheus.CounterOpts{
+			Namespace: namespace,
+			Name:      "num_useless_peerlist_bytes",
+			Help:      "Amount of useless bytes (i.e. information about nodes we already knew/don't want to connect to) received in PeerList messages",
+		}),
 		MessageMetrics: make(map[message.Op]*MessageMetrics, len(message.ExternalOps)),
 	}
 
 	errs := wrappers.Errs{}
-	errs.Add(registerer.Register(m.FailedToParse))
+	errs.Add(
+		registerer.Register(m.FailedToParse),
+		registerer.Register(m.NumUselessPeerListBytes),
+	)
 	for _, op := range message.ExternalOps {
 		m.MessageMetrics[op] = NewMessageMetrics(op, namespace, registerer, &errs)
 	}
 	return m, errs.Err
 }
 
+// Sent updates the metrics for having sent [msg] and removes a reference from
+// the [msg].
 func (m *Metrics) Sent(msg message.OutboundMessage) {
 	op := msg.Op()
 	msgMetrics := m.MessageMetrics[op]
@@ -144,6 +155,8 @@ func (m *Metrics) MultipleSendsFailed(op message.Op, count int) {
 	msgMetrics.NumFailed.Add(float64(count))
 }
 
+// SendFailed updates the metrics for having failed to send [msg] and removes a
+// reference from the [msg].
 func (m *Metrics) SendFailed(msg message.OutboundMessage) {
 	op := msg.Op()
 	msgMetrics := m.MessageMetrics[op]

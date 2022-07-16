@@ -12,10 +12,11 @@ import (
 
 	"github.com/lasthyphen/beacongo/codec"
 	"github.com/lasthyphen/beacongo/codec/linearcodec"
-	"github.com/lasthyphen/beacongo/codec/reflectcodec"
 	"github.com/lasthyphen/beacongo/ids"
 	"github.com/lasthyphen/beacongo/utils/formatting"
+	"github.com/lasthyphen/beacongo/utils/formatting/address"
 	"github.com/lasthyphen/beacongo/utils/wrappers"
+	"github.com/lasthyphen/beacongo/vms/avm/fxs"
 	"github.com/lasthyphen/beacongo/vms/components/djtx"
 	"github.com/lasthyphen/beacongo/vms/components/verify"
 	"github.com/lasthyphen/beacongo/vms/nftfx"
@@ -31,19 +32,19 @@ var (
 	_ djtx.TransferableIn  = &secp256k1fx.TransferInput{}
 	_ verify.State         = &secp256k1fx.MintOutput{}
 	_ djtx.TransferableOut = &secp256k1fx.TransferOutput{}
-	_ FxOperation          = &secp256k1fx.MintOperation{}
+	_ fxs.FxOperation      = &secp256k1fx.MintOperation{}
 	_ verify.Verifiable    = &secp256k1fx.Credential{}
 
 	_ verify.State      = &nftfx.MintOutput{}
 	_ verify.State      = &nftfx.TransferOutput{}
-	_ FxOperation       = &nftfx.MintOperation{}
-	_ FxOperation       = &nftfx.TransferOperation{}
+	_ fxs.FxOperation   = &nftfx.MintOperation{}
+	_ fxs.FxOperation   = &nftfx.TransferOperation{}
 	_ verify.Verifiable = &nftfx.Credential{}
 
 	_ verify.State      = &propertyfx.MintOutput{}
 	_ verify.State      = &propertyfx.OwnedOutput{}
-	_ FxOperation       = &propertyfx.MintOperation{}
-	_ FxOperation       = &propertyfx.BurnOperation{}
+	_ fxs.FxOperation   = &propertyfx.MintOperation{}
+	_ fxs.FxOperation   = &propertyfx.BurnOperation{}
 	_ verify.Verifiable = &propertyfx.Credential{}
 )
 
@@ -118,7 +119,7 @@ func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, r
 						if err := json.Unmarshal(b, &holder); err != nil {
 							return fmt.Errorf("problem unmarshaling holder: %w", err)
 						}
-						_, addrbuff, err := formatting.ParseBech32(holder.Address)
+						_, addrbuff, err := address.ParseBech32(holder.Address)
 						if err != nil {
 							return fmt.Errorf("problem parsing holder address: %w", err)
 						}
@@ -150,12 +151,12 @@ func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, r
 								Threshold: 1,
 							},
 						}
-						for _, address := range owners.Minters {
-							_, addrbuff, err := formatting.ParseBech32(address)
+						for _, addrStr := range owners.Minters {
+							_, addrBytes, err := address.ParseBech32(addrStr)
 							if err != nil {
 								return fmt.Errorf("problem parsing minters address: %w", err)
 							}
-							addr, err := ids.ToShortID(addrbuff)
+							addr, err := ids.ToShortID(addrBytes)
 							if err != nil {
 								return fmt.Errorf("problem parsing minters address: %w", err)
 							}
@@ -191,7 +192,7 @@ func (ss *StaticService) BuildGenesis(_ *http.Request, args *BuildGenesisArgs, r
 }
 
 func staticCodec() (codec.Manager, error) {
-	c := linearcodec.New(reflectcodec.DefaultTagName, 1<<20)
+	c := linearcodec.NewCustomMaxLength(1 << 20)
 	manager := codec.NewManager(math.MaxInt32)
 
 	errs := wrappers.Errs{}

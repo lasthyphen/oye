@@ -13,13 +13,12 @@ import (
 	"github.com/lasthyphen/beacongo/database"
 	"github.com/lasthyphen/beacongo/database/versiondb"
 	"github.com/lasthyphen/beacongo/ids"
-	"github.com/lasthyphen/beacongo/snow"
 	"github.com/lasthyphen/beacongo/snow/choices"
 	"github.com/lasthyphen/beacongo/snow/consensus/avalanche"
 	"github.com/lasthyphen/beacongo/snow/consensus/snowstorm"
 	"github.com/lasthyphen/beacongo/snow/engine/avalanche/vertex"
+	"github.com/lasthyphen/beacongo/utils/logging"
 	"github.com/lasthyphen/beacongo/utils/math"
-	"github.com/lasthyphen/beacongo/version"
 )
 
 const (
@@ -36,31 +35,39 @@ var _ vertex.Manager = &Serializer{}
 
 // Serializer manages the state of multiple vertices
 type Serializer struct {
-	ctx                 *snow.Context
-	vm                  vertex.DAGVM
-	state               *prefixedState
-	db                  *versiondb.Database
-	edge                ids.Set
-	xChainMigrationTime time.Time
+	SerializerConfig
+	versionDB *versiondb.Database
+	state     *prefixedState
+	edge      ids.Set
 }
 
-func (s *Serializer) Initialize(ctx *snow.Context, vm vertex.DAGVM, db database.Database) {
-	s.ctx = ctx
-	s.vm = vm
+type SerializerConfig struct {
+	ChainID             ids.ID
+	VM                  vertex.DAGVM
+	DB                  database.Database
+	Log                 logging.Logger
+	XChainMigrationTime time.Time
+}
 
-	vdb := versiondb.New(db)
+func NewSerializer(config SerializerConfig) vertex.Manager {
+	versionDB := versiondb.New(config.DB)
 	dbCache := &cache.LRU{Size: dbCacheSize}
-	rawState := &state{
-		serializer: s,
-		dbCache:    dbCache,
-		db:         vdb,
+	s := Serializer{
+		SerializerConfig: config,
+		versionDB:        versionDB,
 	}
-	s.state = newPrefixedState(rawState, idCacheSize)
-	s.db = vdb
 
+	rawState := &state{
+		serializer: &s,
+		log:        config.Log,
+		dbCache:    dbCache,
+		db:         versionDB,
+	}
+
+	s.state = newPrefixedState(rawState, idCacheSize)
 	s.edge.Add(s.state.Edge()...)
 
-	s.xChainMigrationTime = version.GetXChainMigrationTime(ctx.NetworkID)
+	return &s
 }
 
 func (s *Serializer) ParseVtx(b []byte) (avalanche.Vertex, error) {
@@ -82,7 +89,7 @@ func (s *Serializer) buildVtx(
 ) (avalanche.Vertex, error) {
 	height := uint64(0)
 	for _, parentID := range parentIDs {
-		parent, err := s.getVertex(parentID)
+		parent, err := s.getUniqueVertex(parentID)
 		if err != nil {
 			return nil, err
 		}
@@ -104,14 +111,14 @@ func (s *Serializer) buildVtx(
 			txBytes[i] = tx.Bytes()
 		}
 		vtx, err = vertex.Build(
-			s.ctx.ChainID,
+			s.ChainID,
 			height,
 			parentIDs,
 			txBytes,
 		)
 	} else {
 		vtx, err = vertex.BuildStopVertex(
-			s.ctx.ChainID,
+			s.ChainID,
 			height,
 			parentIDs,
 		)
@@ -122,14 +129,16 @@ func (s *Serializer) buildVtx(
 
 	uVtx := &uniqueVertex{
 		serializer: s,
-		vtxID:      vtx.ID(),
+		id:         vtx.ID(),
 	}
 	// setVertex handles the case where this vertex already exists even
 	// though we just made it
 	return uVtx, uVtx.setVertex(vtx)
 }
 
-func (s *Serializer) GetVtx(vtxID ids.ID) (avalanche.Vertex, error) { return s.getVertex(vtxID) }
+func (s *Serializer) GetVtx(vtxID ids.ID) (avalanche.Vertex, error) {
+	return s.getUniqueVertex(vtxID)
+}
 
 func (s *Serializer) Edge() []ids.ID { return s.edge.List() }
 
@@ -138,16 +147,16 @@ func (s *Serializer) parseVertex(b []byte) (vertex.StatelessVertex, error) {
 	if err != nil {
 		return nil, err
 	}
-	if vtx.ChainID() != s.ctx.ChainID {
+	if vtx.ChainID() != s.ChainID {
 		return nil, errWrongChainID
 	}
 	return vtx, nil
 }
 
-func (s *Serializer) getVertex(vtxID ids.ID) (*uniqueVertex, error) {
+func (s *Serializer) getUniqueVertex(vtxID ids.ID) (*uniqueVertex, error) {
 	vtx := &uniqueVertex{
 		serializer: s,
-		vtxID:      vtxID,
+		id:         vtxID,
 	}
 	if vtx.Status() == choices.Unknown {
 		return nil, errUnknownVertex

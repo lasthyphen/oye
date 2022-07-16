@@ -1,34 +1,34 @@
 <div align="center">
-  <img src="resources/AvalancheLogoRed.png?raw=true">
+  <img src="resources/DijetsLogoRed.png?raw=true">
 </div>
 
 ---
 
-Node implementation for the [Avalanche](https://djtx.network) network -
+Node implementation for the [Dijets](https://djtx.network) network -
 a blockchains platform with high throughput, and blazing fast transactions.
 
 ## Installation
 
-Avalanche is an incredibly lightweight protocol, so the minimum computer requirements are quite modest.
+Dijets is an incredibly lightweight protocol, so the minimum computer requirements are quite modest.
 Note that as network usage increases, hardware requirements may change.
 
 The minimum recommended hardware specification for nodes connected to Mainnet is:
 
 - CPU: Equivalent of 8 AWS vCPU
 - RAM: 16 GiB
-- Storage: 512 GiB
+- Storage: 1TB 
 - OS: Ubuntu 18.04/20.04 or macOS >= 10.15 (Catalina)
 - Network: Reliable IPv4 or IPv6 network connection, with an open public port.
 
-If you plan to build AvalancheGo from source, you will also need the following software:
+If you plan to build DijetsGo from source, you will also need the following software:
 
-- [Go](https://golang.org/doc/install) version >= 1.16.8
+- [Go](https://golang.org/doc/install) version >= 1.17.9
 - [gcc](https://gcc.gnu.org/)
 - g++
 
 ### Native Install
 
-Clone the AvalancheGo repository:
+Clone the DijetsGo repository:
 
 ```sh
 git clone git@github.com:lasthyphen/beacongo.git
@@ -37,19 +37,19 @@ cd avalanchego
 
 This will clone and checkout to `master` branch.
 
-#### Building the Avalanche Executable
+#### Building the Dijets Executable
 
-Build Avalanche using the build script:
+Build Dijets using the build script:
 
 ```sh
 ./scripts/build.sh
 ```
 
-The Avalanche binary, named `avalanchego`, is in the `build` directory.
+The Dijets binary, named `avalanchego`, is in the `build` directory.
 
 ### Binary Repository
 
-Install AvalancheGo using an `apt` repository.
+Install DijetsGo using an `apt` repository.
 
 #### Adding the APT Repository
 
@@ -86,7 +86,7 @@ sudo apt install avalanchego
 
 Download the [latest build](https://github.com/lasthyphen/beacongo/releases/latest) for your operating system and architecture.
 
-The Avalanche binary to be executed is named `avalanchego`.
+The Dijets binary to be executed is named `avalanchego`.
 
 ### Docker Install
 
@@ -104,17 +104,17 @@ To check the built image, run:
 docker image ls
 ```
 
-The image should be tagged as `avaplatform/avalanchego:xxxxxxxx`, where `xxxxxxxx` is the shortened commit of the Avalanche source it was built from. To run the avalanche node, run:
+The image should be tagged as `avaplatform/avalanchego:xxxxxxxx`, where `xxxxxxxx` is the shortened commit of the Dijets source it was built from. To run the avalanche node, run:
 
 ```sh
 docker run -ti -p 9650:9650 -p 9651:9651 avaplatform/avalanchego:xxxxxxxx /avalanchego/build/avalanchego
 ```
 
-## Running Avalanche
+## Running Dijets
 
 ### Connecting to Mainnet
 
-To connect to the Avalanche Mainnet, run:
+To connect to the Dijets Mainnet, run:
 
 ```sh
 ./build/avalanchego
@@ -148,7 +148,7 @@ The bottleneck during bootstrapping is typically database IO. Using a more power
 
 ## Generating Code
 
-Avalanchego uses multiple tools to generate efficient and boilerplate code.
+Dijetsgo uses multiple tools to generate efficient and boilerplate code.
 
 ### Running protobuf codegen
 
@@ -156,12 +156,12 @@ To regenerate the protobuf go code, run `scripts/protobuf_codegen.sh` from the r
 
 This should only be necessary when upgrading protobuf versions or modifying .proto definition files.
 
-To use this script, you must have [buf](https://docs.buf.build/installation) (v1.0.0-rc12), protoc-gen-go (v1.27.1) and protoc-gen-go-grpc (v1.2.0) installed.
+To use this script, you must have [buf](https://docs.buf.build/installation) (v1.4.0), protoc-gen-go (v1.28.0) and protoc-gen-go-grpc (v1.2.0) installed.
 
 To install the buf dependencies:
 
 ```sh
-go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.27.1
+go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.28.0
 go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.2.0
 ```
 
@@ -191,7 +191,7 @@ docker run -t -i -v $(pwd):/opt/avalanche -w/opt/avalanche avalanche:protobuf_co
 
 ## Supported Platforms
 
-AvalancheGo can run on different platforms, with different support tiers:
+DijetsGo can run on different platforms, with different support tiers:
 
 - **Tier 1**: Fully supported by the maintainers, guaranteed to pass all tests including e2e and stress tests.
 - **Tier 2**: Passes all unit and integration tests but not necessarily e2e tests.
@@ -199,7 +199,7 @@ AvalancheGo can run on different platforms, with different support tiers:
 - **Not supported**: May not build and not tested, considered _unsafe_. To be supported in the future.
 
 The following table lists currently supported platforms and their corresponding
-AvalancheGo support tiers:
+DijetsGo support tiers:
 
 | Architecture | Operating system | Support tier  |
 | :----------: | :--------------: | :-----------: |
@@ -213,7 +213,7 @@ AvalancheGo support tiers:
 
 To officially support a new platform, one must satisfy the following requirements:
 
-| AvalancheGo continuous integration | Tier 1  | Tier 2  | Tier 3  |
+| DijetsGo continuous integration | Tier 1  | Tier 2  | Tier 3  |
 | ---------------------------------- | :-----: | :-----: | :-----: |
 | Build passes                       | &check; | &check; | &check; |
 | Unit and integration tests pass    | &check; | &check; |         |
