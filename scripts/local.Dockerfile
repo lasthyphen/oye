@@ -20,6 +20,11 @@ COPY coreth coreth
 
 WORKDIR $GOPATH/src/github.com/lasthyphen/beacongo
 RUN ./scripts/build_avalanche.sh
+
+WORKDIR /go/pkg/mod/github.com/lasthyphen/coreth@v0.8.9
+RUN go mod tidy
+
+WORKDIR $GOPATH/src/github.com/lasthyphen/beacongo
 RUN ./scripts/build_coreth.sh ../coreth $PWD/build/plugins/evm
 
 RUN ln -sv $GOPATH/src/github.com/lasthyphen/avalanche-byzantine/ /avalanchego

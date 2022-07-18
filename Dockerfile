@@ -15,6 +15,12 @@ COPY go.mod .
 COPY go.sum .
 RUN go mod download
 
+
+WORKDIR /go/pkg/mod/github.com/lasthyphen/coreth@v0.8.9
+RUN go mod tidy -compat=1.16 && go mod tidy -compat=1.17 
+
+WORKDIR /build
+RUN go mod tidy 
 # Copy the code into the container
 COPY . .
 

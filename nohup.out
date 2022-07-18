@@ -1,0 +1,872 @@
+
+    ____  _   _      __          _   __     __                      __
+   / __ \(_) (_)__  / /______   / | / /__  / /__      ______  _____/ /__
+  / / / / / / / _ \/ __/ ___/  /  |/ / _ \/ __/ | /| / / __ \/ ___/ //_/
+ / /_/ / / / /  __/ /_(__  )  / /|  /  __/ /_ | |/ |/ / /_/ / /  / ,<
+/_____/_/_/ /\___/\__/____/  /_/ |_/\___/\__/ |__/|__/\____/_/  /_/|_|
+       /___/
+
+INFO [07-18|02:49:32.188] database/leveldb/db.go#162: leveldb config: {"blockCacheCapacity":12582912,"blockSize":0,"compactionExpandLimitFactor":0,"compactionGPOverlapsFactor":0,"compactionL0Trigger":0,"compactionSourceLimitFactor":0,"compactionTableSize":0,"compactionTableSizeMultiplier":0,"compactionTableSizeMultiplierPerLevel":null,"compactionTotalSize":0,"compactionTotalSizeMultiplier":0,"disableSeeksCompaction":true,"openFilesCacheCapacity":1024,"writeBuffer":6291456,"filterBitsPerKey":10}
+INFO [07-18|02:49:32.214] node/node.go#1074: node version is: avalanche/1.7.8
+INFO [07-18|02:49:32.214] node/node.go#1075: node ID is: NodeID-7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+INFO [07-18|02:49:32.214] node/node.go#1076: current database version: v1.4.5
+INFO [07-18|02:49:32.214] node/node.go#491: initializing API server
+INFO [07-18|02:49:32.214] api/server/server.go#136: API created with allowed origins: [https://*.dijets.io]
+INFO [07-18|02:49:32.214] node/node.go#768: initializing metrics API
+INFO [07-18|02:49:32.215] api/server/server.go#272: adding route /ext/metrics
+INFO [07-18|02:49:32.215] node/node.go#734: initializing keystore
+INFO [07-18|02:49:32.215] node/node.go#745: initializing keystore API
+INFO [07-18|02:49:32.215] api/server/server.go#272: adding route /ext/keystore
+INFO [07-18|02:49:32.215] node/node.go#726: initializing SharedMemory
+INFO [07-18|02:49:32.216] node/node.go#188: this node's IP is set to: "51.142.74.53:9651"
+INFO [07-18|02:49:32.217] node/node.go#894: initializing Health API
+INFO [07-18|02:49:32.217] api/server/server.go#272: adding route /ext/health
+INFO [07-18|02:49:32.217] api/server/server.go#272: adding route /ext/health/readiness
+INFO [07-18|02:49:32.217] api/server/server.go#272: adding route /ext/health/health
+INFO [07-18|02:49:32.217] api/server/server.go#272: adding route /ext/health/liveness
+INFO [07-18|02:49:32.217] node/node.go#538: adding the default VM aliases
+INFO [07-18|02:49:32.218] node/node.go#653: initializing VMs
+INFO [07-18|02:49:32.218] node/node.go#799: node config:
+{"httpConfig":{"apiConfig":{"authConfig":{"apiRequireAuthToken":false},"indexerConfig":{"indexAPIEnabled":false,"indexAllowIncomplete":false},"ipcConfig":{"ipcAPIEnabled":false,"ipcPath":"/tmp","ipcDefaultChainIDs":null},"adminAPIEnabled":true,"infoAPIEnabled":true,"keystoreAPIEnabled":true,"metricsAPIEnabled":true,"healthAPIEnabled":true},"httpHost":"10.9.0.4","httpPort":443,"httpsEnabled":true,"apiAllowedOrigins":["https://*.dijets.io"],"shutdownTimeout":10000000000,"shutdownWait":0},"ipConfig":{"ip":{"ip":"51.142.74.53","port":9651},"attemptedNATTraversal":false,"dynamicUpdateDuration":300000000000},"stakingConfig":{"uptimeRequirement":0.8,"minValidatorStake":2000000000000,"maxValidatorStake":3000000000000000,"minDelegatorStake":25000000000,"minDelegationFee":20000,"minStakeDuration":86400000000000,"maxStakeDuration":31536000000000000,"rewardConfig":{"maxConsumptionRate":120000,"minConsumptionRate":100000,"mintingPeriod":31536000000000000,"supplyCap":100000000000000000},"enableStaking":true,"disabledStakingWeight":100,"stakingKeyPath":"/home/navi-dijets/beacongo/staking/local/staker1.key","stakingCertPath":"/home/navi-dijets/beacongo/staking/local/staker1.crt"},"txFeeConfig":{"txFee":1000000,"createAssetTxFee":1000000,"createSubnetTxFee":100000000,"createBlockchainTxFee":100000000},"bootstrapConfig":{"retryBootstrap":true,"retryBootstrapWarnFrequency":50,"bootstrapBeaconConnectionTimeout":60000000000,"bootstrapAncestorsMaxContainersSent":2000,"bootstrapAncestorsMaxContainersReceived":2000,"bootstrapMaxTimeGetAncestors":50000000,"bootstrapIDs":null,"bootstrapIPs":null},"databaseConfig":{"path":"db/node0/dijets","name":"leveldb"},"djtxAssetID":"kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk","networkID":12345,"enableAssertions":true,"enableCrypto":true,"healthCheckFreq":30000000000,"networkConfig":{"healthConfig":{"minConnectedPeers":1,"maxTimeSinceMsgReceived":60000000000,"maxTimeSinceMsgSent":60000000000,"maxPortionSendQueueBytesFull":0.9,"maxSendFailRate":0.9,"sendFailRateHalflife":10000000000},"peerListGossipConfig":{"peerListNumValidatorIPs":20,"peerListValidatorGossipSize":25,"peerListNonValidatorGossipSize":25,"peerListGossipFreq":60000000000},"timeoutConfigs":{"pingPongTimeout":30000000000,"readHandshakeTimeout":15000000000},"delayConfig":{"initialReconnectDelay":1000000000,"maxReconnectDelay":3600000000000},"throttlerConfig":{"inboundConnUpgradeThrottlerConfig":{"upgradeCooldown":10000000000,"maxRecentConnsUpgraded":2560},"inboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152,"bandwidthRefillRate":524288,"bandwidthMaxBurstRate":2097152,"maxProcessingMsgsPerNode":1024},"outboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152},"maxInboundConnsPerSec":256},"dialerConfig":{"throttleRps":50,"connectionTimeout":30000000000},"namespace":"network","myNodeID":"7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg","myIP":{"ip":"51.142.74.53","port":9651},"networkID":12345,"maxClockDifference":60000000000,"pingFrequency":22500000000,"allowPrivateIPs":true,"compressionEnabled":true,"whitelistedSubnets":[],"beacons":{},"validators":{},"uptimeMetricFreq":30000000000,"uptimeRequirement":0.8,"requireValidatorToConnect":false,"maximumInboundMessageTimeout":10000000000,"peerReadBufferSize":8192,"peerWriteBufferSize":8192},"gossipConfig":{"gossipAcceptedFrontierSize":35,"gossipOnAcceptSize":20,"appGossipNonValidatorSize":0,"appGossipValidatorSize":10},"adaptiveTimeoutConfig":{"initialTimeout":5000000000,"minimumTimeout":2000000000,"maximumTimeout":10000000000,"timeoutCoefficient":2,"timeoutHalflife":300000000000},"benchlistConfig":{"threshold":10,"minimumFailingDuration":150000000000,"duration":900000000000,"maxPortion":0.08333333333333333},"profilerConfig":{"dir":"/root/.avalanchego/profiles","enabled":false,"freq":900000000000,"maxNumFiles":5},"loggingConfig":{"rotationInterval":86400000000000,"fileSize":8388608,"rotationSize":7,"flushSize":1,"disableLogging":false,"disableDisplaying":false,"disableContextualDisplaying":false,"disableFlushOnWrite":false,"assertions":false,"logLevel":"INFO","displayLevel":"INFO","displayHighlight":"PLAIN","directory":"/root/.avalanchego/logs"},"pluginDir":"/home/navi-dijets/beacongo/build/plugins","fdLimit":32768,"consensusParams":{"k":20,"alpha":15,"betaVirtuous":15,"betaRogue":20,"concurrentRepolls":4,"optimalProcessing":50,"maxOutstandingItems":1024,"maxItemProcessingTime":120000000000,"parents":5,"batchSize":30},"meterVMEnabled":true,"routerHealthConfig":{"maxDropRate":1,"maxDropRateHalflife":10000000000,"maxOutstandingRequests":1024,"maxOutstandingDuration":300000000000,"maxRunTimeRequests":10000000000},"consensusShutdownTimeout":30000000000,"consensusGossipFreq":10000000000,"whitelistedSubnets":[],"subnetConfigs":{},"resetProposerVMHeightIndex":false}
+INFO [07-18|02:49:32.219] node/node.go#804: initializing admin API
+INFO [07-18|02:49:32.219] api/server/server.go#272: adding route /ext/admin
+INFO [07-18|02:49:32.219] node/node.go#851: initializing info API
+INFO [07-18|02:49:32.219] api/server/server.go#272: adding route /ext/info
+INFO [07-18|02:49:32.219] node/node.go#1016: skipping ipc API initialization because it has been disabled
+INFO [07-18|02:49:32.219] node/node.go#1029: initializing chain aliases
+INFO [07-18|02:49:32.219] node/node.go#1047: initializing API aliases
+INFO [07-18|02:49:32.219] node/node.go#826: skipping profiler initialization because it has been disabled
+INFO [07-18|02:49:32.219] node/node.go#477: initializing chains
+INFO [07-18|02:49:32.219] chains/manager.go#251: creating chain:
+    ID: 11111111111111111111111111111111LpoYY
+    VMID:rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWmSy4kxnT
+INFO [07-18|02:49:32.221] <P Chain> vms/platformvm/vm.go#204: initializing last accepted block as 2mzLBEaDYBT6r1BvEM2SQ3XYok5yWFyCuG4xjf9K5yUQcduinp
+INFO [07-18|02:49:32.222] <P Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:32.223] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:32.223] <P Chain> snow/engine/common/bootstrapper.go#289: Bootstrapping skipped due to no provided bootstraps
+INFO [07-18|02:49:32.223] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:49:32.223] <P Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:32.223] chains/manager.go#251: creating chain:
+    ID: 2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU
+    VMID:mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6
+INFO [07-18|02:49:32.224] Initializing Coreth VM                   Version=v0.8.8 Config="{\"snowman-api-enabled\":false,\"coreth-admin-api-enabled\":false,\"coreth-admin-api-dir\":\"\",\"eth-apis\":[\"public-eth\",\"public-eth-filter\",\"net\",\"web3\",\"internal-public-eth\",\"internal-public-blockchain\",\"internal-public-transaction-pool\"],\"continuous-profiler-dir\":\"\",\"continuous-profiler-frequency\":{\"Duration\":900000000000},\"continuous-profiler-max-files\":5,\"rpc-gas-cap\":50000000,\"rpc-tx-fee-cap\":100,\"preimages-enabled\":false,\"snapshot-async\":true,\"snapshot-verification-enabled\":false,\"pruning-enabled\":true,\"allow-missing-tries\":false,\"populate-missing-tries-parallelism\":1024,\"metrics-enabled\":true,\"metrics-expensive-enabled\":false,\"local-txs-enabled\":false,\"api-max-duration\":{\"Duration\":0},\"ws-cpu-refill-rate\":{\"Duration\":0},\"ws-cpu-max-stored\":{\"Duration\":0},\"api-max-blocks-per-request\":0,\"allow-unfinalized-queries\":false,\"allow-unprotected-txs\":false,\"keystore-directory\":\"\",\"keystore-external-signer\":\"\",\"keystore-insecure-unlock-allowed\":false,\"remote-tx-gossip-only-enabled\":false,\"tx-regossip-frequency\":{\"Duration\":60000000000},\"tx-regossip-max-size\":15,\"log-level\":\"info\",\"offline-pruning-enabled\":false,\"offline-pruning-bloom-filter-size\":512,\"offline-pruning-data-directory\":\"\",\"max-outbound-active-requests\":8}"
+INFO [07-18|02:49:32.224] Allocated trie memory caches             clean=128.00MiB dirty=256.00MiB
+INFO [07-18|02:49:32.225] Persisted trie from memory database      nodes=1 size=151.00B time="14.9µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-18|02:49:32.225] Initialised chain configuration          config="{ChainID: 43112 Homestead: 0 DAO: 0 DAOSupport: true EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: 0 Petersburg: 0 Istanbul: 0, Muir Glacier: 0, Apricot Phase 1: 0, Apricot Phase 2: 0, Apricot Phase 3: 0, Apricot Phase 4: 0, Apricot Phase 5: 0, Engine: Dummy Consensus Engine}"
+INFO [07-18|02:49:32.225] Initialising Ethereum protocol           network=43112 dbversion=8
+INFO [07-18|02:49:32.226] Loaded most recent local header          number=13 hash=e15c09..f0a83e age=8h12m59s
+INFO [07-18|02:49:32.226] Loaded most recent local full block      number=13 hash=e15c09..f0a83e age=8h12m59s
+INFO [07-18|02:49:32.227] Re-executing blocks to generate state for last accepted block from=1 to=13
+INFO [07-18|02:49:32.227] Regenerating historical state            block=1 target=13 remaining=13 elapsed="40.1µs"
+INFO [07-18|02:49:32.230] Historical state regenerated             block=13 elapsed=3.550258ms nodes=1.76KiB preimages=0.00B
+INFO [07-18|02:49:32.230] Persisted trie from memory database      nodes=7       size=1.10KiB time="185.098µs" gcnodes=34 gcsize=5.17KiB gctime="49.999µs" livenodes=1 livesize=0.00B
+INFO [07-18|02:49:32.231] Initializing snapshots                   async=true
+WARN [07-18|02:49:32.231] Unclean shutdown detected                booted=2022-07-18T02:16:07+0000 age=33m25s
+INFO [07-18|02:49:32.231] initializing atomic trie                 c=atomicTrie lastAcceptedBlockNumber=13
+INFO [07-18|02:49:32.231] committed atomic trie                    c=atomicTrie hash=0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421 height=0
+INFO [07-18|02:49:32.232] finished initializing atomic trie        c=atomicTrie lastAcceptedBlockNumber=13 preCommitEntriesIndexed=0 postCommitEntriesIndexed=6 time="332.896µs"
+INFO [07-18|02:49:32.232] Transaction pool price threshold updated price=470,000,000,000
+INFO [07-18|02:49:32.232] Transaction pool price threshold updated price=225,000,000,000
+INFO [07-18|02:49:32.232] Transaction pool price threshold updated price=0
+INFO [07-18|02:49:32.232] lastAccepted = 0xe15c0900c3b9c228101ed5c36eaea169ac9ba84361abf850d0880075fbf0a83e 
+INFO [07-18|02:49:32.233] <C Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:32.234] <C Chain> vms/proposervm/vm.go#214: block height indexing is already complete
+INFO [07-18|02:49:32.234] Enabled APIs: public-eth, public-eth-filter, net, web3, internal-public-eth, internal-public-blockchain, internal-public-transaction-pool, djtx 
+INFO [07-18|02:49:32.234] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/djtx
+INFO [07-18|02:49:32.234] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:32.234] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/rpc
+INFO [07-18|02:49:32.234] chains/manager.go#251: creating chain:
+    ID: 81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+    VMID:jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
+INFO [07-18|02:49:32.235] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/ws
+INFO [07-18|02:49:32.236] <X Chain> vms/avm/vm.go#452: Fee payments are using Asset with Alias: DJTX, AssetID: kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk
+INFO [07-18|02:49:32.236] <X Chain> vms/avm/vm.go#234: address transaction indexing is disabled
+INFO [07-18|02:49:32.237] <X Chain> snow/engine/avalanche/transitive.go#71: initializing consensus engine
+INFO [07-18|02:49:32.237] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#259: Starting bootstrap...
+INFO [07-18|02:49:32.237] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:49:32.238] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+INFO [07-18|02:49:32.238] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/wallet
+INFO [07-18|02:49:32.238] api/server/server.go#247: adding route /ext/bc/11111111111111111111111111111111LpoYY
+INFO [07-18|02:49:32.238] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/events
+INFO [07-18|02:49:32.238] api/server/server.go#194: HTTPS API server listening on "10.9.0.4:443"
+
+    ____  _   _      __          _   __     __                      __
+   / __ \(_) (_)__  / /______   / | / /__  / /__      ______  _____/ /__
+  / / / / / / / _ \/ __/ ___/  /  |/ / _ \/ __/ | /| / / __ \/ ___/ //_/
+ / /_/ / / / /  __/ /_(__  )  / /|  /  __/ /_ | |/ |/ / /_/ / /  / ,<
+/_____/_/_/ /\___/\__/____/  /_/ |_/\___/\__/ |__/|__/\____/_/  /_/|_|
+       /___/
+
+INFO [07-18|02:49:40.068] database/leveldb/db.go#162: leveldb config: {"blockCacheCapacity":12582912,"blockSize":0,"compactionExpandLimitFactor":0,"compactionGPOverlapsFactor":0,"compactionL0Trigger":0,"compactionSourceLimitFactor":0,"compactionTableSize":0,"compactionTableSizeMultiplier":0,"compactionTableSizeMultiplierPerLevel":null,"compactionTotalSize":0,"compactionTotalSizeMultiplier":0,"disableSeeksCompaction":true,"openFilesCacheCapacity":1024,"writeBuffer":6291456,"filterBitsPerKey":10}
+INFO [07-18|02:49:40.096] node/node.go#1074: node version is: avalanche/1.7.8
+INFO [07-18|02:49:40.096] node/node.go#1075: node ID is: NodeID-MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+INFO [07-18|02:49:40.096] node/node.go#1076: current database version: v1.4.5
+INFO [07-18|02:49:40.096] node/node.go#491: initializing API server
+INFO [07-18|02:49:40.096] api/server/server.go#136: API created with allowed origins: [https://*.dijets.io]
+INFO [07-18|02:49:40.096] node/node.go#768: initializing metrics API
+INFO [07-18|02:49:40.097] api/server/server.go#272: adding route /ext/metrics
+INFO [07-18|02:49:40.097] node/node.go#734: initializing keystore
+INFO [07-18|02:49:40.097] node/node.go#745: initializing keystore API
+INFO [07-18|02:49:40.097] api/server/server.go#272: adding route /ext/keystore
+INFO [07-18|02:49:40.097] node/node.go#726: initializing SharedMemory
+INFO [07-18|02:49:40.097] node/node.go#188: this node's IP is set to: "51.142.74.53:9653"
+INFO [07-18|02:49:40.099] node/node.go#894: initializing Health API
+INFO [07-18|02:49:40.099] api/server/server.go#272: adding route /ext/health
+INFO [07-18|02:49:40.099] api/server/server.go#272: adding route /ext/health/readiness
+INFO [07-18|02:49:40.099] api/server/server.go#272: adding route /ext/health/health
+INFO [07-18|02:49:40.099] api/server/server.go#272: adding route /ext/health/liveness
+INFO [07-18|02:49:40.099] node/node.go#538: adding the default VM aliases
+INFO [07-18|02:49:40.099] node/node.go#653: initializing VMs
+INFO [07-18|02:49:40.100] node/node.go#799: node config:
+{"httpConfig":{"apiConfig":{"authConfig":{"apiRequireAuthToken":false},"indexerConfig":{"indexAPIEnabled":true,"indexAllowIncomplete":true},"ipcConfig":{"ipcAPIEnabled":true,"ipcPath":"/tmp","ipcDefaultChainIDs":null},"adminAPIEnabled":true,"infoAPIEnabled":true,"keystoreAPIEnabled":true,"metricsAPIEnabled":true,"healthAPIEnabled":true},"httpHost":"10.9.0.4","httpPort":9652,"httpsEnabled":false,"apiAllowedOrigins":["https://*.dijets.io"],"shutdownTimeout":10000000000,"shutdownWait":0},"ipConfig":{"ip":{"ip":"51.142.74.53","port":9653},"attemptedNATTraversal":false,"dynamicUpdateDuration":300000000000},"stakingConfig":{"uptimeRequirement":0.8,"minValidatorStake":2000000000000,"maxValidatorStake":3000000000000000,"minDelegatorStake":25000000000,"minDelegationFee":20000,"minStakeDuration":86400000000000,"maxStakeDuration":31536000000000000,"rewardConfig":{"maxConsumptionRate":120000,"minConsumptionRate":100000,"mintingPeriod":31536000000000000,"supplyCap":100000000000000000},"enableStaking":true,"disabledStakingWeight":100,"stakingKeyPath":"/home/navi-dijets/beacongo/staking/local/staker2.key","stakingCertPath":"/home/navi-dijets/beacongo/staking/local/staker2.crt"},"txFeeConfig":{"txFee":1000000,"createAssetTxFee":1000000,"createSubnetTxFee":100000000,"createBlockchainTxFee":100000000},"bootstrapConfig":{"retryBootstrap":true,"retryBootstrapWarnFrequency":50,"bootstrapBeaconConnectionTimeout":60000000000,"bootstrapAncestorsMaxContainersSent":2000,"bootstrapAncestorsMaxContainersReceived":2000,"bootstrapMaxTimeGetAncestors":50000000,"bootstrapIDs":["7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg"],"bootstrapIPs":[{"ip":"51.142.74.53","port":9651}]},"databaseConfig":{"path":"db/node1/dijets","name":"leveldb"},"djtxAssetID":"kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk","networkID":12345,"enableAssertions":true,"enableCrypto":true,"healthCheckFreq":30000000000,"networkConfig":{"healthConfig":{"minConnectedPeers":1,"maxTimeSinceMsgReceived":60000000000,"maxTimeSinceMsgSent":60000000000,"maxPortionSendQueueBytesFull":0.9,"maxSendFailRate":0.9,"sendFailRateHalflife":10000000000},"peerListGossipConfig":{"peerListNumValidatorIPs":20,"peerListValidatorGossipSize":25,"peerListNonValidatorGossipSize":25,"peerListGossipFreq":60000000000},"timeoutConfigs":{"pingPongTimeout":30000000000,"readHandshakeTimeout":15000000000},"delayConfig":{"initialReconnectDelay":1000000000,"maxReconnectDelay":3600000000000},"throttlerConfig":{"inboundConnUpgradeThrottlerConfig":{"upgradeCooldown":10000000000,"maxRecentConnsUpgraded":2560},"inboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152,"bandwidthRefillRate":524288,"bandwidthMaxBurstRate":2097152,"maxProcessingMsgsPerNode":1024},"outboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152},"maxInboundConnsPerSec":256},"dialerConfig":{"throttleRps":50,"connectionTimeout":30000000000},"namespace":"network","myNodeID":"MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ","myIP":{"ip":"51.142.74.53","port":9653},"networkID":12345,"maxClockDifference":60000000000,"pingFrequency":22500000000,"allowPrivateIPs":true,"compressionEnabled":true,"whitelistedSubnets":[],"beacons":{},"validators":{},"uptimeMetricFreq":30000000000,"uptimeRequirement":0.8,"requireValidatorToConnect":false,"maximumInboundMessageTimeout":10000000000,"peerReadBufferSize":8192,"peerWriteBufferSize":8192},"gossipConfig":{"gossipAcceptedFrontierSize":35,"gossipOnAcceptSize":20,"appGossipNonValidatorSize":0,"appGossipValidatorSize":10},"adaptiveTimeoutConfig":{"initialTimeout":5000000000,"minimumTimeout":2000000000,"maximumTimeout":10000000000,"timeoutCoefficient":2,"timeoutHalflife":300000000000},"benchlistConfig":{"threshold":10,"minimumFailingDuration":150000000000,"duration":900000000000,"maxPortion":0.08333333333333333},"profilerConfig":{"dir":"/root/.avalanchego/profiles","enabled":false,"freq":900000000000,"maxNumFiles":5},"loggingConfig":{"rotationInterval":86400000000000,"fileSize":8388608,"rotationSize":7,"flushSize":1,"disableLogging":false,"disableDisplaying":false,"disableContextualDisplaying":false,"disableFlushOnWrite":false,"assertions":false,"logLevel":"INFO","displayLevel":"INFO","displayHighlight":"PLAIN","directory":"/root/.avalanchego/logs"},"pluginDir":"/home/navi-dijets/beacongo/build/plugins","fdLimit":32768,"consensusParams":{"k":20,"alpha":15,"betaVirtuous":15,"betaRogue":20,"concurrentRepolls":4,"optimalProcessing":50,"maxOutstandingItems":1024,"maxItemProcessingTime":120000000000,"parents":5,"batchSize":30},"meterVMEnabled":true,"routerHealthConfig":{"maxDropRate":1,"maxDropRateHalflife":10000000000,"maxOutstandingRequests":1024,"maxOutstandingDuration":300000000000,"maxRunTimeRequests":10000000000},"consensusShutdownTimeout":30000000000,"consensusGossipFreq":10000000000,"whitelistedSubnets":[],"subnetConfigs":{},"resetProposerVMHeightIndex":false}
+INFO [07-18|02:49:40.100] node/node.go#804: initializing admin API
+INFO [07-18|02:49:40.100] api/server/server.go#272: adding route /ext/admin
+INFO [07-18|02:49:40.100] node/node.go#851: initializing info API
+INFO [07-18|02:49:40.101] api/server/server.go#272: adding route /ext/info
+INFO [07-18|02:49:40.101] node/node.go#1019: initializing ipc API
+INFO [07-18|02:49:40.101] api/server/server.go#272: adding route /ext/ipcs
+INFO [07-18|02:49:40.101] node/node.go#1029: initializing chain aliases
+INFO [07-18|02:49:40.101] node/node.go#1047: initializing API aliases
+INFO [07-18|02:49:40.102] node/node.go#826: skipping profiler initialization because it has been disabled
+INFO [07-18|02:49:40.102] node/node.go#477: initializing chains
+INFO [07-18|02:49:40.102] chains/manager.go#251: creating chain:
+    ID: 11111111111111111111111111111111LpoYY
+    VMID:rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWmSy4kxnT
+INFO [07-18|02:49:40.105] <P Chain> vms/platformvm/vm.go#204: initializing last accepted block as 2mzLBEaDYBT6r1BvEM2SQ3XYok5yWFyCuG4xjf9K5yUQcduinp
+INFO [07-18|02:49:40.106] <P Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:40.107] indexer/index.go#106: next accepted index 1
+INFO [07-18|02:49:40.107] api/server/server.go#272: adding route /ext/index/P/block
+INFO [07-18|02:49:40.107] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:40.107] api/server/server.go#247: adding route /ext/bc/11111111111111111111111111111111LpoYY
+INFO [07-18|02:49:40.108] api/server/server.go#167: HTTP API server listening on "10.9.0.4:9652"
+INFO [07-18|02:49:40.167] <P Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:49:40.168] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:49:40.168] <P Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:40.168] chains/manager.go#251: creating chain:
+    ID: 2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU
+    VMID:mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6
+INFO [07-18|02:49:40.169] Initializing Coreth VM                   Version=v0.8.8 Config="{\"snowman-api-enabled\":false,\"coreth-admin-api-enabled\":false,\"coreth-admin-api-dir\":\"\",\"eth-apis\":[\"public-eth\",\"public-eth-filter\",\"net\",\"web3\",\"internal-public-eth\",\"internal-public-blockchain\",\"internal-public-transaction-pool\",\"internal-public-account\"],\"continuous-profiler-dir\":\"\",\"continuous-profiler-frequency\":{\"Duration\":900000000000},\"continuous-profiler-max-files\":5,\"rpc-gas-cap\":50000000,\"rpc-tx-fee-cap\":100,\"preimages-enabled\":false,\"snapshot-async\":true,\"snapshot-verification-enabled\":false,\"pruning-enabled\":true,\"allow-missing-tries\":false,\"populate-missing-tries-parallelism\":1024,\"metrics-enabled\":false,\"metrics-expensive-enabled\":false,\"local-txs-enabled\":false,\"api-max-duration\":{\"Duration\":0},\"ws-cpu-refill-rate\":{\"Duration\":0},\"ws-cpu-max-stored\":{\"Duration\":0},\"api-max-blocks-per-request\":0,\"allow-unfinalized-queries\":false,\"allow-unprotected-txs\":false,\"keystore-directory\":\"\",\"keystore-external-signer\":\"\",\"keystore-insecure-unlock-allowed\":false,\"remote-tx-gossip-only-enabled\":false,\"tx-regossip-frequency\":{\"Duration\":60000000000},\"tx-regossip-max-size\":15,\"log-level\":\"debug\",\"offline-pruning-enabled\":false,\"offline-pruning-bloom-filter-size\":512,\"offline-pruning-data-directory\":\"\",\"max-outbound-active-requests\":8}"
+DEBUG[07-18|02:49:40.169] FS scan times                            list="36.899µs" set=600ns diff="1µs"
+INFO [07-18|02:49:40.169] Allocated trie memory caches             clean=128.00MiB dirty=256.00MiB
+INFO [07-18|02:49:40.170] Persisted trie from memory database      nodes=1 size=151.00B time="15.7µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-18|02:49:40.170] Initialised chain configuration          config="{ChainID: 43112 Homestead: 0 DAO: 0 DAOSupport: true EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: 0 Petersburg: 0 Istanbul: 0, Muir Glacier: 0, Apricot Phase 1: 0, Apricot Phase 2: 0, Apricot Phase 3: 0, Apricot Phase 4: 0, Apricot Phase 5: 0, Engine: Dummy Consensus Engine}"
+INFO [07-18|02:49:40.171] Initialising Ethereum protocol           network=43112 dbversion=8
+INFO [07-18|02:49:40.171] Loaded most recent local header          number=13 hash=e15c09..f0a83e age=8h13m7s
+INFO [07-18|02:49:40.171] Loaded most recent local full block      number=13 hash=e15c09..f0a83e age=8h13m7s
+INFO [07-18|02:49:40.172] Re-executing blocks to generate state for last accepted block from=1 to=13
+INFO [07-18|02:49:40.172] Regenerating historical state            block=1 target=13 remaining=13 elapsed="40.1µs"
+DEBUG[07-18|02:49:40.172] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:40.172] Processed block                          block=cb89b4..ae24aa number=1
+DEBUG[07-18|02:49:40.172] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=240,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:40.172] Processed block                          block=ca33d6..b1bac5 number=2
+DEBUG[07-18|02:49:40.172] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.3µs"  gcnodes=2 gcsize=263.00B gctime="2µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:49:40.173] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=205,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:40.173] Processed block                          block=d9d189..14bb54 number=3
+DEBUG[07-18|02:49:40.173] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.9µs"  gcnodes=4 gcsize=526.00B gctime="4.5µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:49:40.173] Processed block                          block=ad5ac3..8d14a4 number=4
+DEBUG[07-18|02:49:40.173] Dereferenced trie from memory database   nodes=2 size=263.00B time="2µs"    gcnodes=6 gcsize=789.00B gctime="6.3µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.174] Processed block                          block=f13b8e..25c14e number=5
+DEBUG[07-18|02:49:40.174] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.8µs"  gcnodes=10 gcsize=1.38KiB gctime="8.9µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.174] Processed block                          block=f1a6b0..7ebda0 number=6
+DEBUG[07-18|02:49:40.174] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.7µs"  gcnodes=14 gcsize=1.98KiB gctime="11.4µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.174] crosschain                               dest=11111111111111111111111111111111LpoYY addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=35,901,645,739  assetID=DJTX
+DEBUG[07-18|02:49:40.174] Processed block                          block=74c58d..c9c820 number=7
+DEBUG[07-18|02:49:40.174] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.8µs"  gcnodes=16 gcsize=2.30KiB gctime="14µs"   livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.174] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:40.174] Processed block                          block=6ef117..6ad114 number=8
+DEBUG[07-18|02:49:40.175] Dereferenced trie from memory database   nodes=2 size=327.00B time="1.9µs"  gcnodes=18 gcsize=2.62KiB gctime="15.7µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.175] crosschain                               dest=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=20,002,000,000  assetID=DJTX
+DEBUG[07-18|02:49:40.175] Processed block                          block=5abb8b..62d441 number=9
+DEBUG[07-18|02:49:40.175] Dereferenced trie from memory database   nodes=2 size=327.00B time="1.9µs"  gcnodes=20 gcsize=2.94KiB gctime="17.3µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.175] Processed block                          block=85e1bb..5ad6e1 number=10
+DEBUG[07-18|02:49:40.175] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.3µs"  gcnodes=24 gcsize=3.55KiB gctime="19.4µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:40.175] Processed block                          block=a86e99..f21e9f number=11
+DEBUG[07-18|02:49:40.175] Dereferenced trie from memory database   nodes=3 size=473.00B time="3µs"    gcnodes=27 gcsize=4.01KiB gctime="22.2µs" livenodes=7 livesize=951.00B
+DEBUG[07-18|02:49:40.176] Processed block                          block=806581..1401d8 number=12
+DEBUG[07-18|02:49:40.176] Dereferenced trie from memory database   nodes=3 size=505.00B time="2.2µs"  gcnodes=30 gcsize=4.50KiB gctime="24.3µs" livenodes=8 livesize=1.10KiB
+DEBUG[07-18|02:49:40.176] Processed block                          block=e15c09..f0a83e number=13
+DEBUG[07-18|02:49:40.176] Dereferenced trie from memory database   nodes=4 size=684.00B time="2.7µs"  gcnodes=34 gcsize=5.17KiB gctime="26.8µs" livenodes=8 livesize=1.10KiB
+INFO [07-18|02:49:40.176] Historical state regenerated             block=13             elapsed=4.362548ms nodes=1.76KiB preimages=0.00B
+INFO [07-18|02:49:40.176] Persisted trie from memory database      nodes=7       size=1.10KiB time="157.398µs" gcnodes=34 gcsize=5.17KiB gctime="26.8µs" livenodes=1 livesize=0.00B
+INFO [07-18|02:49:40.176] Initializing snapshots                   async=true
+DEBUG[07-18|02:49:40.177] Reinjecting stale transactions           count=0
+WARN [07-18|02:49:40.177] Unclean shutdown detected                booted=2022-07-18T02:11:09+0000 age=38m31s
+INFO [07-18|02:49:40.177] initializing atomic trie                 c=atomicTrie lastAcceptedBlockNumber=13
+INFO [07-18|02:49:40.177] committed atomic trie                    c=atomicTrie hash=0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421 height=0
+DEBUG[07-18|02:49:40.177] Persisted trie from memory database      nodes=0       size=0.00B   time="3.2µs"     gcnodes=0  gcsize=0.00B   gctime=0s       livenodes=1 livesize=0.00B
+INFO [07-18|02:49:40.178] finished initializing atomic trie        c=atomicTrie lastAcceptedBlockNumber=13 preCommitEntriesIndexed=0 postCommitEntriesIndexed=6 time="425.595µs"
+INFO [07-18|02:49:40.178] Transaction pool price threshold updated price=470,000,000,000
+INFO [07-18|02:49:40.178] Transaction pool price threshold updated price=225,000,000,000
+INFO [07-18|02:49:40.178] Transaction pool price threshold updated price=0
+INFO [07-18|02:49:40.178] lastAccepted = 0xe15c0900c3b9c228101ed5c36eaea169ac9ba84361abf850d0880075fbf0a83e 
+INFO [07-18|02:49:40.178] <C Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:40.179] <C Chain> vms/proposervm/vm.go#214: block height indexing is already complete
+INFO [07-18|02:49:40.179] indexer/index.go#106: next accepted index 13
+INFO [07-18|02:49:40.179] api/server/server.go#272: adding route /ext/index/C/block
+INFO [07-18|02:49:40.179] Enabled APIs: public-eth, public-eth-filter, net, web3, internal-public-eth, internal-public-blockchain, internal-public-transaction-pool, internal-public-account, djtx 
+DEBUG[07-18|02:49:40.179] Allowed origin(s) for WS RPC interface [*] 
+INFO [07-18|02:49:40.179] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/rpc
+INFO [07-18|02:49:40.179] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:40.180] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/ws
+INFO [07-18|02:49:40.180] chains/manager.go#251: creating chain:
+    ID: 81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+    VMID:jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
+INFO [07-18|02:49:40.180] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/djtx
+DEBUG[07-18|02:49:40.180] adding new peer                          nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+DEBUG[07-18|02:49:40.180] skipping registering self as peer 
+DEBUG[07-18|02:49:40.180] adding new peer                          nodeID=7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+INFO [07-18|02:49:40.181] <X Chain> vms/avm/vm.go#452: Fee payments are using Asset with Alias: DJTX, AssetID: kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk
+INFO [07-18|02:49:40.181] <X Chain> vms/avm/vm.go#234: address transaction indexing is disabled
+INFO [07-18|02:49:40.182] <X Chain> snow/engine/avalanche/transitive.go#71: initializing consensus engine
+INFO [07-18|02:49:40.182] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:49:40.182] api/server/server.go#272: adding route /ext/index/X/vtx
+INFO [07-18|02:49:40.182] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/events
+INFO [07-18|02:49:40.183] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:49:40.183] api/server/server.go#272: adding route /ext/index/X/tx
+INFO [07-18|02:49:40.183] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#259: Starting bootstrap...
+INFO [07-18|02:49:40.183] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+INFO [07-18|02:49:40.183] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:49:40.183] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/wallet
+INFO [07-18|02:49:42.238] <P Chain> snow/engine/common/bootstrapper.go#289: Bootstrapping skipped due to no provided bootstraps
+
+    ____  _   _      __          _   __     __                      __
+   / __ \(_) (_)__  / /______   / | / /__  / /__      ______  _____/ /__
+  / / / / / / / _ \/ __/ ___/  /  |/ / _ \/ __/ | /| / / __ \/ ___/ //_/
+ / /_/ / / / /  __/ /_(__  )  / /|  /  __/ /_ | |/ |/ / /_/ / /  / ,<
+/_____/_/_/ /\___/\__/____/  /_/ |_/\___/\__/ |__/|__/\____/_/  /_/|_|
+       /___/
+
+INFO [07-18|02:49:45.875] database/leveldb/db.go#162: leveldb config: {"blockCacheCapacity":12582912,"blockSize":0,"compactionExpandLimitFactor":0,"compactionGPOverlapsFactor":0,"compactionL0Trigger":0,"compactionSourceLimitFactor":0,"compactionTableSize":0,"compactionTableSizeMultiplier":0,"compactionTableSizeMultiplierPerLevel":null,"compactionTotalSize":0,"compactionTotalSizeMultiplier":0,"disableSeeksCompaction":true,"openFilesCacheCapacity":1024,"writeBuffer":6291456,"filterBitsPerKey":10}
+INFO [07-18|02:49:45.897] node/node.go#1074: node version is: avalanche/1.7.8
+INFO [07-18|02:49:45.897] node/node.go#1075: node ID is: NodeID-NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+INFO [07-18|02:49:45.897] node/node.go#1076: current database version: v1.4.5
+INFO [07-18|02:49:45.897] node/node.go#491: initializing API server
+INFO [07-18|02:49:45.898] api/server/server.go#136: API created with allowed origins: [https://*.dijets.io]
+INFO [07-18|02:49:45.898] node/node.go#768: initializing metrics API
+INFO [07-18|02:49:45.898] api/server/server.go#272: adding route /ext/metrics
+INFO [07-18|02:49:45.898] node/node.go#734: initializing keystore
+INFO [07-18|02:49:45.898] node/node.go#745: initializing keystore API
+INFO [07-18|02:49:45.899] api/server/server.go#272: adding route /ext/keystore
+INFO [07-18|02:49:45.899] node/node.go#726: initializing SharedMemory
+INFO [07-18|02:49:45.899] node/node.go#188: this node's IP is set to: "51.142.74.53:9655"
+INFO [07-18|02:49:45.900] node/node.go#894: initializing Health API
+INFO [07-18|02:49:45.900] api/server/server.go#272: adding route /ext/health
+INFO [07-18|02:49:45.900] api/server/server.go#272: adding route /ext/health/readiness
+INFO [07-18|02:49:45.900] api/server/server.go#272: adding route /ext/health/health
+INFO [07-18|02:49:45.900] api/server/server.go#272: adding route /ext/health/liveness
+INFO [07-18|02:49:45.901] node/node.go#538: adding the default VM aliases
+INFO [07-18|02:49:45.901] node/node.go#653: initializing VMs
+INFO [07-18|02:49:45.902] node/node.go#799: node config:
+{"httpConfig":{"apiConfig":{"authConfig":{"apiRequireAuthToken":false},"indexerConfig":{"indexAPIEnabled":true,"indexAllowIncomplete":true},"ipcConfig":{"ipcAPIEnabled":true,"ipcPath":"/tmp","ipcDefaultChainIDs":null},"adminAPIEnabled":true,"infoAPIEnabled":true,"keystoreAPIEnabled":true,"metricsAPIEnabled":true,"healthAPIEnabled":true},"httpHost":"10.9.0.4","httpPort":9654,"httpsEnabled":false,"apiAllowedOrigins":["https://*.dijets.io"],"shutdownTimeout":10000000000,"shutdownWait":0},"ipConfig":{"ip":{"ip":"51.142.74.53","port":9655},"attemptedNATTraversal":false,"dynamicUpdateDuration":300000000000},"stakingConfig":{"uptimeRequirement":0.8,"minValidatorStake":2000000000000,"maxValidatorStake":3000000000000000,"minDelegatorStake":25000000000,"minDelegationFee":20000,"minStakeDuration":86400000000000,"maxStakeDuration":31536000000000000,"rewardConfig":{"maxConsumptionRate":120000,"minConsumptionRate":100000,"mintingPeriod":31536000000000000,"supplyCap":100000000000000000},"enableStaking":true,"disabledStakingWeight":100,"stakingKeyPath":"/home/navi-dijets/beacongo/staking/local/staker3.key","stakingCertPath":"/home/navi-dijets/beacongo/staking/local/staker3.crt"},"txFeeConfig":{"txFee":1000000,"createAssetTxFee":1000000,"createSubnetTxFee":100000000,"createBlockchainTxFee":100000000},"bootstrapConfig":{"retryBootstrap":true,"retryBootstrapWarnFrequency":50,"bootstrapBeaconConnectionTimeout":60000000000,"bootstrapAncestorsMaxContainersSent":2000,"bootstrapAncestorsMaxContainersReceived":2000,"bootstrapMaxTimeGetAncestors":50000000,"bootstrapIDs":["7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg"],"bootstrapIPs":[{"ip":"51.142.74.53","port":9651}]},"databaseConfig":{"path":"db/node2/dijets","name":"leveldb"},"djtxAssetID":"kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk","networkID":12345,"enableAssertions":true,"enableCrypto":true,"healthCheckFreq":30000000000,"networkConfig":{"healthConfig":{"minConnectedPeers":1,"maxTimeSinceMsgReceived":60000000000,"maxTimeSinceMsgSent":60000000000,"maxPortionSendQueueBytesFull":0.9,"maxSendFailRate":0.9,"sendFailRateHalflife":10000000000},"peerListGossipConfig":{"peerListNumValidatorIPs":20,"peerListValidatorGossipSize":25,"peerListNonValidatorGossipSize":25,"peerListGossipFreq":60000000000},"timeoutConfigs":{"pingPongTimeout":30000000000,"readHandshakeTimeout":15000000000},"delayConfig":{"initialReconnectDelay":1000000000,"maxReconnectDelay":3600000000000},"throttlerConfig":{"inboundConnUpgradeThrottlerConfig":{"upgradeCooldown":10000000000,"maxRecentConnsUpgraded":2560},"inboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152,"bandwidthRefillRate":524288,"bandwidthMaxBurstRate":2097152,"maxProcessingMsgsPerNode":1024},"outboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152},"maxInboundConnsPerSec":256},"dialerConfig":{"throttleRps":50,"connectionTimeout":30000000000},"namespace":"network","myNodeID":"NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN","myIP":{"ip":"51.142.74.53","port":9655},"networkID":12345,"maxClockDifference":60000000000,"pingFrequency":22500000000,"allowPrivateIPs":true,"compressionEnabled":true,"whitelistedSubnets":[],"beacons":{},"validators":{},"uptimeMetricFreq":30000000000,"uptimeRequirement":0.8,"requireValidatorToConnect":false,"maximumInboundMessageTimeout":10000000000,"peerReadBufferSize":8192,"peerWriteBufferSize":8192},"gossipConfig":{"gossipAcceptedFrontierSize":35,"gossipOnAcceptSize":20,"appGossipNonValidatorSize":0,"appGossipValidatorSize":10},"adaptiveTimeoutConfig":{"initialTimeout":5000000000,"minimumTimeout":2000000000,"maximumTimeout":10000000000,"timeoutCoefficient":2,"timeoutHalflife":300000000000},"benchlistConfig":{"threshold":10,"minimumFailingDuration":150000000000,"duration":900000000000,"maxPortion":0.08333333333333333},"profilerConfig":{"dir":"/root/.avalanchego/profiles","enabled":false,"freq":900000000000,"maxNumFiles":5},"loggingConfig":{"rotationInterval":86400000000000,"fileSize":8388608,"rotationSize":7,"flushSize":1,"disableLogging":false,"disableDisplaying":false,"disableContextualDisplaying":false,"disableFlushOnWrite":false,"assertions":false,"logLevel":"INFO","displayLevel":"INFO","displayHighlight":"PLAIN","directory":"/root/.avalanchego/logs"},"pluginDir":"/home/navi-dijets/beacongo/build/plugins","fdLimit":32768,"consensusParams":{"k":20,"alpha":15,"betaVirtuous":15,"betaRogue":20,"concurrentRepolls":4,"optimalProcessing":50,"maxOutstandingItems":1024,"maxItemProcessingTime":120000000000,"parents":5,"batchSize":30},"meterVMEnabled":true,"routerHealthConfig":{"maxDropRate":1,"maxDropRateHalflife":10000000000,"maxOutstandingRequests":1024,"maxOutstandingDuration":300000000000,"maxRunTimeRequests":10000000000},"consensusShutdownTimeout":30000000000,"consensusGossipFreq":10000000000,"whitelistedSubnets":[],"subnetConfigs":{},"resetProposerVMHeightIndex":false}
+INFO [07-18|02:49:45.902] node/node.go#804: initializing admin API
+INFO [07-18|02:49:45.902] api/server/server.go#272: adding route /ext/admin
+INFO [07-18|02:49:45.902] node/node.go#851: initializing info API
+INFO [07-18|02:49:45.902] api/server/server.go#272: adding route /ext/info
+INFO [07-18|02:49:45.902] node/node.go#1019: initializing ipc API
+INFO [07-18|02:49:45.902] api/server/server.go#272: adding route /ext/ipcs
+INFO [07-18|02:49:45.902] node/node.go#1029: initializing chain aliases
+INFO [07-18|02:49:45.903] node/node.go#1047: initializing API aliases
+INFO [07-18|02:49:45.904] node/node.go#826: skipping profiler initialization because it has been disabled
+INFO [07-18|02:49:45.904] node/node.go#477: initializing chains
+INFO [07-18|02:49:45.904] chains/manager.go#251: creating chain:
+    ID: 11111111111111111111111111111111LpoYY
+    VMID:rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWmSy4kxnT
+INFO [07-18|02:49:45.907] <P Chain> vms/platformvm/vm.go#204: initializing last accepted block as 2mzLBEaDYBT6r1BvEM2SQ3XYok5yWFyCuG4xjf9K5yUQcduinp
+INFO [07-18|02:49:45.908] <P Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:45.908] indexer/index.go#106: next accepted index 1
+INFO [07-18|02:49:45.909] api/server/server.go#272: adding route /ext/index/P/block
+INFO [07-18|02:49:45.909] api/server/server.go#247: adding route /ext/bc/11111111111111111111111111111111LpoYY
+INFO [07-18|02:49:45.909] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:45.910] api/server/server.go#167: HTTP API server listening on "10.9.0.4:9654"
+INFO [07-18|02:49:50.950] <P Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:49:50.950] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:49:50.950] <P Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:50.950] chains/manager.go#251: creating chain:
+    ID: 2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU
+    VMID:mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6
+INFO [07-18|02:49:50.952] Initializing Coreth VM                   Version=v0.8.8 Config="{\"snowman-api-enabled\":false,\"coreth-admin-api-enabled\":false,\"coreth-admin-api-dir\":\"\",\"eth-apis\":[\"public-eth\",\"public-eth-filter\",\"net\",\"web3\",\"internal-public-eth\",\"internal-public-blockchain\",\"internal-public-transaction-pool\",\"internal-public-account\"],\"continuous-profiler-dir\":\"\",\"continuous-profiler-frequency\":{\"Duration\":900000000000},\"continuous-profiler-max-files\":5,\"rpc-gas-cap\":50000000,\"rpc-tx-fee-cap\":100,\"preimages-enabled\":false,\"snapshot-async\":true,\"snapshot-verification-enabled\":false,\"pruning-enabled\":true,\"allow-missing-tries\":false,\"populate-missing-tries-parallelism\":1024,\"metrics-enabled\":false,\"metrics-expensive-enabled\":false,\"local-txs-enabled\":false,\"api-max-duration\":{\"Duration\":0},\"ws-cpu-refill-rate\":{\"Duration\":0},\"ws-cpu-max-stored\":{\"Duration\":0},\"api-max-blocks-per-request\":0,\"allow-unfinalized-queries\":false,\"allow-unprotected-txs\":false,\"keystore-directory\":\"\",\"keystore-external-signer\":\"\",\"keystore-insecure-unlock-allowed\":false,\"remote-tx-gossip-only-enabled\":false,\"tx-regossip-frequency\":{\"Duration\":60000000000},\"tx-regossip-max-size\":15,\"log-level\":\"debug\",\"offline-pruning-enabled\":false,\"offline-pruning-bloom-filter-size\":512,\"offline-pruning-data-directory\":\"\",\"max-outbound-active-requests\":8}"
+DEBUG[07-18|02:49:50.953] FS scan times                            list="41.899µs" set=500ns diff="1.1µs"
+INFO [07-18|02:49:50.953] Allocated trie memory caches             clean=128.00MiB dirty=256.00MiB
+INFO [07-18|02:49:50.955] Persisted trie from memory database      nodes=1 size=151.00B time="39.1µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-18|02:49:50.955] Initialised chain configuration          config="{ChainID: 43112 Homestead: 0 DAO: 0 DAOSupport: true EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: 0 Petersburg: 0 Istanbul: 0, Muir Glacier: 0, Apricot Phase 1: 0, Apricot Phase 2: 0, Apricot Phase 3: 0, Apricot Phase 4: 0, Apricot Phase 5: 0, Engine: Dummy Consensus Engine}"
+INFO [07-18|02:49:50.955] Initialising Ethereum protocol           network=43112 dbversion=8
+INFO [07-18|02:49:50.956] Loaded most recent local header          number=13 hash=e15c09..f0a83e age=8h13m17s
+INFO [07-18|02:49:50.956] Loaded most recent local full block      number=13 hash=e15c09..f0a83e age=8h13m17s
+INFO [07-18|02:49:50.956] Re-executing blocks to generate state for last accepted block from=1 to=13
+INFO [07-18|02:49:50.956] Regenerating historical state            block=1 target=13 remaining=13 elapsed="41.6µs"
+DEBUG[07-18|02:49:50.957] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:50.957] Processed block                          block=cb89b4..ae24aa number=1
+DEBUG[07-18|02:49:50.957] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=240,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:50.957] Processed block                          block=ca33d6..b1bac5 number=2
+DEBUG[07-18|02:49:50.957] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.3µs"  gcnodes=2 gcsize=263.00B gctime="2µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:49:50.957] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=205,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:50.957] Processed block                          block=d9d189..14bb54 number=3
+DEBUG[07-18|02:49:50.958] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.5µs"  gcnodes=4 gcsize=526.00B gctime="4.2µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:49:50.958] Processed block                          block=ad5ac3..8d14a4 number=4
+DEBUG[07-18|02:49:50.958] Dereferenced trie from memory database   nodes=2 size=263.00B time="2µs"    gcnodes=6 gcsize=789.00B gctime="5.9µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.958] Processed block                          block=f13b8e..25c14e number=5
+DEBUG[07-18|02:49:50.959] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.699µs" gcnodes=10 gcsize=1.38KiB gctime="8.299µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.959] Processed block                          block=f1a6b0..7ebda0 number=6
+DEBUG[07-18|02:49:50.959] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.8µs"   gcnodes=14 gcsize=1.98KiB gctime="11.799µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.959] crosschain                               dest=11111111111111111111111111111111LpoYY addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=35,901,645,739  assetID=DJTX
+DEBUG[07-18|02:49:50.959] Processed block                          block=74c58d..c9c820 number=7
+DEBUG[07-18|02:49:50.959] Dereferenced trie from memory database   nodes=2 size=327.00B time="3.3µs"   gcnodes=16 gcsize=2.30KiB gctime="14.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.959] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:49:50.960] Processed block                          block=6ef117..6ad114 number=8
+DEBUG[07-18|02:49:50.960] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.2µs"   gcnodes=18 gcsize=2.62KiB gctime="16.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.960] crosschain                               dest=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=20,002,000,000  assetID=DJTX
+DEBUG[07-18|02:49:50.960] Processed block                          block=5abb8b..62d441 number=9
+DEBUG[07-18|02:49:50.960] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.1µs"   gcnodes=20 gcsize=2.94KiB gctime="18.399µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.960] Processed block                          block=85e1bb..5ad6e1 number=10
+DEBUG[07-18|02:49:50.960] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.7µs"   gcnodes=24 gcsize=3.55KiB gctime="21.799µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:49:50.961] Processed block                          block=a86e99..f21e9f number=11
+DEBUG[07-18|02:49:50.961] Dereferenced trie from memory database   nodes=3 size=473.00B time="2.9µs"   gcnodes=27 gcsize=4.01KiB gctime="24.499µs" livenodes=7 livesize=951.00B
+DEBUG[07-18|02:49:50.961] Processed block                          block=806581..1401d8 number=12
+DEBUG[07-18|02:49:50.961] Dereferenced trie from memory database   nodes=3 size=505.00B time="3.4µs"   gcnodes=30 gcsize=4.50KiB gctime="27.599µs" livenodes=8 livesize=1.10KiB
+DEBUG[07-18|02:49:50.961] Processed block                          block=e15c09..f0a83e number=13
+DEBUG[07-18|02:49:50.962] Dereferenced trie from memory database   nodes=4 size=684.00B time="4.3µs"   gcnodes=34 gcsize=5.17KiB gctime="31.599µs" livenodes=8 livesize=1.10KiB
+INFO [07-18|02:49:50.962] Historical state regenerated             block=13             elapsed=5.149238ms nodes=1.76KiB preimages=0.00B
+INFO [07-18|02:49:50.962] Persisted trie from memory database      nodes=7       size=1.10KiB time="184.198µs" gcnodes=34 gcsize=5.17KiB gctime="31.599µs" livenodes=1 livesize=0.00B
+INFO [07-18|02:49:50.962] Initializing snapshots                   async=true
+DEBUG[07-18|02:49:50.962] Reinjecting stale transactions           count=0
+WARN [07-18|02:49:50.962] Unclean shutdown detected                booted=2022-07-18T02:16:58+0000 age=32m52s
+INFO [07-18|02:49:50.963] initializing atomic trie                 c=atomicTrie lastAcceptedBlockNumber=13
+INFO [07-18|02:49:50.963] committed atomic trie                    c=atomicTrie hash=0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421 height=0
+DEBUG[07-18|02:49:50.963] Persisted trie from memory database      nodes=0       size=0.00B   time="3.6µs"     gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=1 livesize=0.00B
+INFO [07-18|02:49:50.963] finished initializing atomic trie        c=atomicTrie lastAcceptedBlockNumber=13 preCommitEntriesIndexed=0 postCommitEntriesIndexed=6 time="490.094µs"
+INFO [07-18|02:49:50.963] Transaction pool price threshold updated price=470,000,000,000
+INFO [07-18|02:49:50.963] Transaction pool price threshold updated price=225,000,000,000
+INFO [07-18|02:49:50.963] Transaction pool price threshold updated price=0
+INFO [07-18|02:49:50.963] lastAccepted = 0xe15c0900c3b9c228101ed5c36eaea169ac9ba84361abf850d0880075fbf0a83e 
+INFO [07-18|02:49:50.964] <C Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:50.964] <C Chain> vms/proposervm/vm.go#214: block height indexing is already complete
+INFO [07-18|02:49:50.965] indexer/index.go#106: next accepted index 13
+INFO [07-18|02:49:50.965] api/server/server.go#272: adding route /ext/index/C/block
+INFO [07-18|02:49:50.965] Enabled APIs: public-eth, public-eth-filter, net, web3, internal-public-eth, internal-public-blockchain, internal-public-transaction-pool, internal-public-account, djtx 
+DEBUG[07-18|02:49:50.965] Allowed origin(s) for WS RPC interface [*] 
+INFO [07-18|02:49:50.965] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/ws
+INFO [07-18|02:49:50.965] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:50.966] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/djtx
+INFO [07-18|02:49:50.966] chains/manager.go#251: creating chain:
+    ID: 81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+    VMID:jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
+DEBUG[07-18|02:49:50.966] adding new peer                          nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+DEBUG[07-18|02:49:50.966] skipping registering self as peer 
+INFO [07-18|02:49:50.966] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/rpc
+DEBUG[07-18|02:49:50.966] adding new peer                          nodeID=7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+INFO [07-18|02:49:50.967] <X Chain> vms/avm/vm.go#452: Fee payments are using Asset with Alias: DJTX, AssetID: kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk
+INFO [07-18|02:49:50.967] <X Chain> vms/avm/vm.go#234: address transaction indexing is disabled
+INFO [07-18|02:49:50.968] <X Chain> snow/engine/avalanche/transitive.go#71: initializing consensus engine
+INFO [07-18|02:49:50.969] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:49:50.969] api/server/server.go#272: adding route /ext/index/X/vtx
+INFO [07-18|02:49:50.969] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:49:50.969] api/server/server.go#272: adding route /ext/index/X/tx
+INFO [07-18|02:49:50.969] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#259: Starting bootstrap...
+INFO [07-18|02:49:50.969] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+INFO [07-18|02:49:50.969] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:49:50.969] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/wallet
+INFO [07-18|02:49:50.969] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/events
+DEBUG[07-18|02:49:50.984] adding new peer                          nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+DEBUG[07-18|02:49:50.984] adding new peer                          nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+
+    ____  _   _      __          _   __     __                      __
+   / __ \(_) (_)__  / /______   / | / /__  / /__      ______  _____/ /__
+  / / / / / / / _ \/ __/ ___/  /  |/ / _ \/ __/ | /| / / __ \/ ___/ //_/
+ / /_/ / / / /  __/ /_(__  )  / /|  /  __/ /_ | |/ |/ / /_/ / /  / ,<
+/_____/_/_/ /\___/\__/____/  /_/ |_/\___/\__/ |__/|__/\____/_/  /_/|_|
+       /___/
+
+INFO [07-18|02:49:51.382] database/leveldb/db.go#162: leveldb config: {"blockCacheCapacity":12582912,"blockSize":0,"compactionExpandLimitFactor":0,"compactionGPOverlapsFactor":0,"compactionL0Trigger":0,"compactionSourceLimitFactor":0,"compactionTableSize":0,"compactionTableSizeMultiplier":0,"compactionTableSizeMultiplierPerLevel":null,"compactionTotalSize":0,"compactionTotalSizeMultiplier":0,"disableSeeksCompaction":true,"openFilesCacheCapacity":1024,"writeBuffer":6291456,"filterBitsPerKey":10}
+INFO [07-18|02:49:51.414] node/node.go#1074: node version is: avalanche/1.7.8
+INFO [07-18|02:49:51.414] node/node.go#1075: node ID is: NodeID-GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+INFO [07-18|02:49:51.414] node/node.go#1076: current database version: v1.4.5
+INFO [07-18|02:49:51.414] node/node.go#491: initializing API server
+INFO [07-18|02:49:51.414] api/server/server.go#136: API created with allowed origins: [https://*.dijets.io]
+INFO [07-18|02:49:51.415] node/node.go#768: initializing metrics API
+INFO [07-18|02:49:51.415] api/server/server.go#272: adding route /ext/metrics
+INFO [07-18|02:49:51.415] node/node.go#734: initializing keystore
+INFO [07-18|02:49:51.415] node/node.go#745: initializing keystore API
+INFO [07-18|02:49:51.415] api/server/server.go#272: adding route /ext/keystore
+INFO [07-18|02:49:51.415] node/node.go#726: initializing SharedMemory
+INFO [07-18|02:49:51.416] node/node.go#188: this node's IP is set to: "51.142.74.53:9657"
+INFO [07-18|02:49:51.417] node/node.go#894: initializing Health API
+INFO [07-18|02:49:51.417] api/server/server.go#272: adding route /ext/health
+INFO [07-18|02:49:51.417] api/server/server.go#272: adding route /ext/health/readiness
+INFO [07-18|02:49:51.417] api/server/server.go#272: adding route /ext/health/health
+INFO [07-18|02:49:51.417] api/server/server.go#272: adding route /ext/health/liveness
+INFO [07-18|02:49:51.417] node/node.go#538: adding the default VM aliases
+INFO [07-18|02:49:51.418] node/node.go#653: initializing VMs
+INFO [07-18|02:49:51.419] node/node.go#799: node config:
+{"httpConfig":{"apiConfig":{"authConfig":{"apiRequireAuthToken":false},"indexerConfig":{"indexAPIEnabled":true,"indexAllowIncomplete":true},"ipcConfig":{"ipcAPIEnabled":true,"ipcPath":"/tmp","ipcDefaultChainIDs":null},"adminAPIEnabled":true,"infoAPIEnabled":true,"keystoreAPIEnabled":true,"metricsAPIEnabled":true,"healthAPIEnabled":true},"httpHost":"10.9.0.4","httpPort":9656,"httpsEnabled":false,"apiAllowedOrigins":["https://*.dijets.io"],"shutdownTimeout":10000000000,"shutdownWait":0},"ipConfig":{"ip":{"ip":"51.142.74.53","port":9657},"attemptedNATTraversal":false,"dynamicUpdateDuration":300000000000},"stakingConfig":{"uptimeRequirement":0.8,"minValidatorStake":2000000000000,"maxValidatorStake":3000000000000000,"minDelegatorStake":25000000000,"minDelegationFee":20000,"minStakeDuration":86400000000000,"maxStakeDuration":31536000000000000,"rewardConfig":{"maxConsumptionRate":120000,"minConsumptionRate":100000,"mintingPeriod":31536000000000000,"supplyCap":100000000000000000},"enableStaking":true,"disabledStakingWeight":100,"stakingKeyPath":"/home/navi-dijets/beacongo/staking/local/staker4.key","stakingCertPath":"/home/navi-dijets/beacongo/staking/local/staker4.crt"},"txFeeConfig":{"txFee":1000000,"createAssetTxFee":1000000,"createSubnetTxFee":100000000,"createBlockchainTxFee":100000000},"bootstrapConfig":{"retryBootstrap":true,"retryBootstrapWarnFrequency":50,"bootstrapBeaconConnectionTimeout":60000000000,"bootstrapAncestorsMaxContainersSent":2000,"bootstrapAncestorsMaxContainersReceived":2000,"bootstrapMaxTimeGetAncestors":50000000,"bootstrapIDs":["7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg"],"bootstrapIPs":[{"ip":"51.142.74.53","port":9651}]},"databaseConfig":{"path":"db/node3/dijets","name":"leveldb"},"djtxAssetID":"kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk","networkID":12345,"enableAssertions":true,"enableCrypto":true,"healthCheckFreq":30000000000,"networkConfig":{"healthConfig":{"minConnectedPeers":1,"maxTimeSinceMsgReceived":60000000000,"maxTimeSinceMsgSent":60000000000,"maxPortionSendQueueBytesFull":0.9,"maxSendFailRate":0.9,"sendFailRateHalflife":10000000000},"peerListGossipConfig":{"peerListNumValidatorIPs":20,"peerListValidatorGossipSize":25,"peerListNonValidatorGossipSize":25,"peerListGossipFreq":60000000000},"timeoutConfigs":{"pingPongTimeout":30000000000,"readHandshakeTimeout":15000000000},"delayConfig":{"initialReconnectDelay":1000000000,"maxReconnectDelay":3600000000000},"throttlerConfig":{"inboundConnUpgradeThrottlerConfig":{"upgradeCooldown":10000000000,"maxRecentConnsUpgraded":2560},"inboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152,"bandwidthRefillRate":524288,"bandwidthMaxBurstRate":2097152,"maxProcessingMsgsPerNode":1024},"outboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152},"maxInboundConnsPerSec":256},"dialerConfig":{"throttleRps":50,"connectionTimeout":30000000000},"namespace":"network","myNodeID":"GWPcbFJZFfZreETSoWjPimr846mXEKCtu","myIP":{"ip":"51.142.74.53","port":9657},"networkID":12345,"maxClockDifference":60000000000,"pingFrequency":22500000000,"allowPrivateIPs":true,"compressionEnabled":true,"whitelistedSubnets":[],"beacons":{},"validators":{},"uptimeMetricFreq":30000000000,"uptimeRequirement":0.8,"requireValidatorToConnect":false,"maximumInboundMessageTimeout":10000000000,"peerReadBufferSize":8192,"peerWriteBufferSize":8192},"gossipConfig":{"gossipAcceptedFrontierSize":35,"gossipOnAcceptSize":20,"appGossipNonValidatorSize":0,"appGossipValidatorSize":10},"adaptiveTimeoutConfig":{"initialTimeout":5000000000,"minimumTimeout":2000000000,"maximumTimeout":10000000000,"timeoutCoefficient":2,"timeoutHalflife":300000000000},"benchlistConfig":{"threshold":10,"minimumFailingDuration":150000000000,"duration":900000000000,"maxPortion":0.08333333333333333},"profilerConfig":{"dir":"/root/.avalanchego/profiles","enabled":false,"freq":900000000000,"maxNumFiles":5},"loggingConfig":{"rotationInterval":86400000000000,"fileSize":8388608,"rotationSize":7,"flushSize":1,"disableLogging":false,"disableDisplaying":false,"disableContextualDisplaying":false,"disableFlushOnWrite":false,"assertions":false,"logLevel":"INFO","displayLevel":"INFO","displayHighlight":"PLAIN","directory":"/root/.avalanchego/logs"},"pluginDir":"/home/navi-dijets/beacongo/build/plugins","fdLimit":32768,"consensusParams":{"k":20,"alpha":15,"betaVirtuous":15,"betaRogue":20,"concurrentRepolls":4,"optimalProcessing":50,"maxOutstandingItems":1024,"maxItemProcessingTime":120000000000,"parents":5,"batchSize":30},"meterVMEnabled":true,"routerHealthConfig":{"maxDropRate":1,"maxDropRateHalflife":10000000000,"maxOutstandingRequests":1024,"maxOutstandingDuration":300000000000,"maxRunTimeRequests":10000000000},"consensusShutdownTimeout":30000000000,"consensusGossipFreq":10000000000,"whitelistedSubnets":[],"subnetConfigs":{},"resetProposerVMHeightIndex":false}
+INFO [07-18|02:49:51.419] node/node.go#804: initializing admin API
+INFO [07-18|02:49:51.419] api/server/server.go#272: adding route /ext/admin
+INFO [07-18|02:49:51.419] node/node.go#851: initializing info API
+INFO [07-18|02:49:51.419] api/server/server.go#272: adding route /ext/info
+INFO [07-18|02:49:51.419] node/node.go#1019: initializing ipc API
+INFO [07-18|02:49:51.419] api/server/server.go#272: adding route /ext/ipcs
+INFO [07-18|02:49:51.419] node/node.go#1029: initializing chain aliases
+INFO [07-18|02:49:51.419] node/node.go#1047: initializing API aliases
+INFO [07-18|02:49:51.421] node/node.go#826: skipping profiler initialization because it has been disabled
+INFO [07-18|02:49:51.421] node/node.go#477: initializing chains
+INFO [07-18|02:49:51.421] chains/manager.go#251: creating chain:
+    ID: 11111111111111111111111111111111LpoYY
+    VMID:rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWmSy4kxnT
+INFO [07-18|02:49:51.423] <P Chain> vms/platformvm/vm.go#204: initializing last accepted block as 2mzLBEaDYBT6r1BvEM2SQ3XYok5yWFyCuG4xjf9K5yUQcduinp
+INFO [07-18|02:49:51.424] <P Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:51.425] indexer/index.go#106: next accepted index 1
+INFO [07-18|02:49:51.425] api/server/server.go#272: adding route /ext/index/P/block
+INFO [07-18|02:49:51.425] api/server/server.go#247: adding route /ext/bc/11111111111111111111111111111111LpoYY
+INFO [07-18|02:49:51.425] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:51.425] api/server/server.go#167: HTTP API server listening on "10.9.0.4:9656"
+INFO [07-18|02:49:52.239] <P Chain> snow/engine/common/bootstrapper.go#289: Bootstrapping skipped due to no provided bootstraps
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#470: bootstrapping fetched 0 vertices. Executing transaction state transitions...
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#481: executing vertex state transitions...
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:56.799] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#509: waiting for the remaining chains in this subnet to finish syncing
+
+    ____  _   _      __          _   __     __                      __
+   / __ \(_) (_)__  / /______   / | / /__  / /__      ______  _____/ /__
+  / / / / / / / _ \/ __/ ___/  /  |/ / _ \/ __/ | /| / / __ \/ ___/ //_/
+ / /_/ / / / /  __/ /_(__  )  / /|  /  __/ /_ | |/ |/ / /_/ / /  / ,<
+/_____/_/_/ /\___/\__/____/  /_/ |_/\___/\__/ |__/|__/\____/_/  /_/|_|
+       /___/
+
+INFO [07-18|02:49:57.120] database/leveldb/db.go#162: leveldb config: {"blockCacheCapacity":12582912,"blockSize":0,"compactionExpandLimitFactor":0,"compactionGPOverlapsFactor":0,"compactionL0Trigger":0,"compactionSourceLimitFactor":0,"compactionTableSize":0,"compactionTableSizeMultiplier":0,"compactionTableSizeMultiplierPerLevel":null,"compactionTotalSize":0,"compactionTotalSizeMultiplier":0,"disableSeeksCompaction":true,"openFilesCacheCapacity":1024,"writeBuffer":6291456,"filterBitsPerKey":10}
+INFO [07-18|02:49:57.162] node/node.go#1074: node version is: avalanche/1.7.8
+INFO [07-18|02:49:57.162] node/node.go#1075: node ID is: NodeID-P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5
+INFO [07-18|02:49:57.162] node/node.go#1076: current database version: v1.4.5
+INFO [07-18|02:49:57.162] node/node.go#491: initializing API server
+INFO [07-18|02:49:57.162] api/server/server.go#136: API created with allowed origins: [https://*.dijets.io]
+INFO [07-18|02:49:57.162] node/node.go#768: initializing metrics API
+INFO [07-18|02:49:57.163] api/server/server.go#272: adding route /ext/metrics
+INFO [07-18|02:49:57.163] node/node.go#734: initializing keystore
+INFO [07-18|02:49:57.163] node/node.go#745: initializing keystore API
+INFO [07-18|02:49:57.163] api/server/server.go#272: adding route /ext/keystore
+INFO [07-18|02:49:57.163] node/node.go#726: initializing SharedMemory
+INFO [07-18|02:49:57.164] node/node.go#188: this node's IP is set to: "51.142.74.53:9659"
+INFO [07-18|02:49:57.165] node/node.go#894: initializing Health API
+INFO [07-18|02:49:57.165] api/server/server.go#272: adding route /ext/health
+INFO [07-18|02:49:57.165] api/server/server.go#272: adding route /ext/health/readiness
+INFO [07-18|02:49:57.165] api/server/server.go#272: adding route /ext/health/health
+INFO [07-18|02:49:57.165] api/server/server.go#272: adding route /ext/health/liveness
+INFO [07-18|02:49:57.165] node/node.go#538: adding the default VM aliases
+INFO [07-18|02:49:57.165] node/node.go#653: initializing VMs
+INFO [07-18|02:49:57.166] node/node.go#799: node config:
+{"httpConfig":{"apiConfig":{"authConfig":{"apiRequireAuthToken":false},"indexerConfig":{"indexAPIEnabled":true,"indexAllowIncomplete":true},"ipcConfig":{"ipcAPIEnabled":true,"ipcPath":"/tmp","ipcDefaultChainIDs":null},"adminAPIEnabled":true,"infoAPIEnabled":true,"keystoreAPIEnabled":true,"metricsAPIEnabled":true,"healthAPIEnabled":true},"httpHost":"10.9.0.4","httpPort":9658,"httpsEnabled":false,"apiAllowedOrigins":["https://*.dijets.io"],"shutdownTimeout":10000000000,"shutdownWait":0},"ipConfig":{"ip":{"ip":"51.142.74.53","port":9659},"attemptedNATTraversal":false,"dynamicUpdateDuration":300000000000},"stakingConfig":{"uptimeRequirement":0.8,"minValidatorStake":2000000000000,"maxValidatorStake":3000000000000000,"minDelegatorStake":25000000000,"minDelegationFee":20000,"minStakeDuration":86400000000000,"maxStakeDuration":31536000000000000,"rewardConfig":{"maxConsumptionRate":120000,"minConsumptionRate":100000,"mintingPeriod":31536000000000000,"supplyCap":100000000000000000},"enableStaking":true,"disabledStakingWeight":100,"stakingKeyPath":"/home/navi-dijets/beacongo/staking/local/staker5.key","stakingCertPath":"/home/navi-dijets/beacongo/staking/local/staker5.crt"},"txFeeConfig":{"txFee":1000000,"createAssetTxFee":1000000,"createSubnetTxFee":100000000,"createBlockchainTxFee":100000000},"bootstrapConfig":{"retryBootstrap":true,"retryBootstrapWarnFrequency":50,"bootstrapBeaconConnectionTimeout":60000000000,"bootstrapAncestorsMaxContainersSent":2000,"bootstrapAncestorsMaxContainersReceived":2000,"bootstrapMaxTimeGetAncestors":50000000,"bootstrapIDs":["7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg"],"bootstrapIPs":[{"ip":"51.142.74.53","port":9651}]},"databaseConfig":{"path":"db/node4/dijets","name":"leveldb"},"djtxAssetID":"kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk","networkID":12345,"enableAssertions":true,"enableCrypto":true,"healthCheckFreq":30000000000,"networkConfig":{"healthConfig":{"minConnectedPeers":1,"maxTimeSinceMsgReceived":60000000000,"maxTimeSinceMsgSent":60000000000,"maxPortionSendQueueBytesFull":0.9,"maxSendFailRate":0.9,"sendFailRateHalflife":10000000000},"peerListGossipConfig":{"peerListNumValidatorIPs":20,"peerListValidatorGossipSize":25,"peerListNonValidatorGossipSize":25,"peerListGossipFreq":60000000000},"timeoutConfigs":{"pingPongTimeout":30000000000,"readHandshakeTimeout":15000000000},"delayConfig":{"initialReconnectDelay":1000000000,"maxReconnectDelay":3600000000000},"throttlerConfig":{"inboundConnUpgradeThrottlerConfig":{"upgradeCooldown":10000000000,"maxRecentConnsUpgraded":2560},"inboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152,"bandwidthRefillRate":524288,"bandwidthMaxBurstRate":2097152,"maxProcessingMsgsPerNode":1024},"outboundMsgThrottlerConfig":{"vdrAllocSize":33554432,"atLargeAllocSize":6291456,"nodeMaxAtLargeBytes":2097152},"maxInboundConnsPerSec":256},"dialerConfig":{"throttleRps":50,"connectionTimeout":30000000000},"namespace":"network","myNodeID":"P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5","myIP":{"ip":"51.142.74.53","port":9659},"networkID":12345,"maxClockDifference":60000000000,"pingFrequency":22500000000,"allowPrivateIPs":true,"compressionEnabled":true,"whitelistedSubnets":[],"beacons":{},"validators":{},"uptimeMetricFreq":30000000000,"uptimeRequirement":0.8,"requireValidatorToConnect":false,"maximumInboundMessageTimeout":10000000000,"peerReadBufferSize":8192,"peerWriteBufferSize":8192},"gossipConfig":{"gossipAcceptedFrontierSize":35,"gossipOnAcceptSize":20,"appGossipNonValidatorSize":0,"appGossipValidatorSize":10},"adaptiveTimeoutConfig":{"initialTimeout":5000000000,"minimumTimeout":2000000000,"maximumTimeout":10000000000,"timeoutCoefficient":2,"timeoutHalflife":300000000000},"benchlistConfig":{"threshold":10,"minimumFailingDuration":150000000000,"duration":900000000000,"maxPortion":0.08333333333333333},"profilerConfig":{"dir":"/root/.avalanchego/profiles","enabled":false,"freq":900000000000,"maxNumFiles":5},"loggingConfig":{"rotationInterval":86400000000000,"fileSize":8388608,"rotationSize":7,"flushSize":1,"disableLogging":false,"disableDisplaying":false,"disableContextualDisplaying":false,"disableFlushOnWrite":false,"assertions":false,"logLevel":"INFO","displayLevel":"INFO","displayHighlight":"PLAIN","directory":"/root/.avalanchego/logs"},"pluginDir":"/home/navi-dijets/beacongo/build/plugins","fdLimit":32768,"consensusParams":{"k":20,"alpha":15,"betaVirtuous":15,"betaRogue":20,"concurrentRepolls":4,"optimalProcessing":50,"maxOutstandingItems":1024,"maxItemProcessingTime":120000000000,"parents":5,"batchSize":30},"meterVMEnabled":true,"routerHealthConfig":{"maxDropRate":1,"maxDropRateHalflife":10000000000,"maxOutstandingRequests":1024,"maxOutstandingDuration":300000000000,"maxRunTimeRequests":10000000000},"consensusShutdownTimeout":30000000000,"consensusGossipFreq":10000000000,"whitelistedSubnets":[],"subnetConfigs":{},"resetProposerVMHeightIndex":false}
+INFO [07-18|02:49:57.166] node/node.go#804: initializing admin API
+INFO [07-18|02:49:57.167] api/server/server.go#272: adding route /ext/admin
+INFO [07-18|02:49:57.167] node/node.go#851: initializing info API
+INFO [07-18|02:49:57.167] api/server/server.go#272: adding route /ext/info
+INFO [07-18|02:49:57.167] node/node.go#1019: initializing ipc API
+INFO [07-18|02:49:57.167] api/server/server.go#272: adding route /ext/ipcs
+INFO [07-18|02:49:57.167] node/node.go#1029: initializing chain aliases
+INFO [07-18|02:49:57.167] node/node.go#1047: initializing API aliases
+INFO [07-18|02:49:57.167] node/node.go#826: skipping profiler initialization because it has been disabled
+INFO [07-18|02:49:57.167] node/node.go#477: initializing chains
+INFO [07-18|02:49:57.167] chains/manager.go#251: creating chain:
+    ID: 11111111111111111111111111111111LpoYY
+    VMID:rWhpuQPF1kb72esV2momhMuTYGkEb1oL29pt2EBXWmSy4kxnT
+INFO [07-18|02:49:57.169] <P Chain> vms/platformvm/vm.go#204: initializing last accepted block as 2mzLBEaDYBT6r1BvEM2SQ3XYok5yWFyCuG4xjf9K5yUQcduinp
+INFO [07-18|02:49:57.170] <P Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:49:57.170] indexer/index.go#106: next accepted index 1
+INFO [07-18|02:49:57.170] api/server/server.go#272: adding route /ext/index/P/block
+INFO [07-18|02:49:57.171] api/server/server.go#247: adding route /ext/bc/11111111111111111111111111111111LpoYY
+INFO [07-18|02:49:57.171] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:49:57.171] api/server/server.go#167: HTTP API server listening on "10.9.0.4:9658"
+INFO [07-18|02:49:57.922] <X Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:49:57.923] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#470: bootstrapping fetched 0 vertices. Executing transaction state transitions...
+INFO [07-18|02:49:57.923] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:57.923] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#481: executing vertex state transitions...
+INFO [07-18|02:49:57.923] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:57.923] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#509: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:49:59.242] <C Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:49:59.242] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:49:59.242] <C Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:49:59.242] <X Chain> snow/engine/avalanche/transitive.go#292: bootstrapping finished with 1 vertices in the accepted frontier
+INFO [07-18|02:49:59.243] <P Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2pfuZyPAEPJdigX2otSpEtZzK2eTAjnRmRbrxDG6fXB3cCEQRG as the last accepted block
+INFO [07-18|02:49:59.243] <C Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2DcSu536s3gjNhifnX4Ymik69CwuKH8XEiJVEWNHdLNiPC8L4W as the last accepted block
+INFO [07-18|02:50:00.069] <C Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:00.069] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:00.069] <C Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:00.069] <C Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2DcSu536s3gjNhifnX4Ymik69CwuKH8XEiJVEWNHdLNiPC8L4W as the last accepted block
+INFO [07-18|02:50:00.069] <X Chain> snow/engine/avalanche/transitive.go#292: bootstrapping finished with 1 vertices in the accepted frontier
+INFO [07-18|02:50:00.070] <P Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2pfuZyPAEPJdigX2otSpEtZzK2eTAjnRmRbrxDG6fXB3cCEQRG as the last accepted block
+INFO [07-18|02:50:02.239] <P Chain> snow/engine/common/bootstrapper.go#289: Bootstrapping skipped due to no provided bootstraps
+INFO [07-18|02:50:02.414] <C Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:02.414] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:02.414] <C Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:02.414] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:50:02.571] <P Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:02.571] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:02.571] <P Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:02.572] chains/manager.go#251: creating chain:
+    ID: 2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU
+    VMID:mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6
+INFO [07-18|02:50:02.573] Initializing Coreth VM                   Version=v0.8.8 Config="{\"snowman-api-enabled\":false,\"coreth-admin-api-enabled\":false,\"coreth-admin-api-dir\":\"\",\"eth-apis\":[\"public-eth\",\"public-eth-filter\",\"net\",\"web3\",\"internal-public-eth\",\"internal-public-blockchain\",\"internal-public-transaction-pool\",\"internal-public-account\"],\"continuous-profiler-dir\":\"\",\"continuous-profiler-frequency\":{\"Duration\":900000000000},\"continuous-profiler-max-files\":5,\"rpc-gas-cap\":50000000,\"rpc-tx-fee-cap\":100,\"preimages-enabled\":false,\"snapshot-async\":true,\"snapshot-verification-enabled\":false,\"pruning-enabled\":true,\"allow-missing-tries\":false,\"populate-missing-tries-parallelism\":1024,\"metrics-enabled\":false,\"metrics-expensive-enabled\":false,\"local-txs-enabled\":false,\"api-max-duration\":{\"Duration\":0},\"ws-cpu-refill-rate\":{\"Duration\":0},\"ws-cpu-max-stored\":{\"Duration\":0},\"api-max-blocks-per-request\":0,\"allow-unfinalized-queries\":false,\"allow-unprotected-txs\":false,\"keystore-directory\":\"\",\"keystore-external-signer\":\"\",\"keystore-insecure-unlock-allowed\":false,\"remote-tx-gossip-only-enabled\":false,\"tx-regossip-frequency\":{\"Duration\":60000000000},\"tx-regossip-max-size\":15,\"log-level\":\"debug\",\"offline-pruning-enabled\":false,\"offline-pruning-bloom-filter-size\":512,\"offline-pruning-data-directory\":\"\",\"max-outbound-active-requests\":8}"
+DEBUG[07-18|02:50:02.574] FS scan times                            list="35.9µs" set=800ns diff="1.6µs"
+INFO [07-18|02:50:02.574] Allocated trie memory caches             clean=128.00MiB dirty=256.00MiB
+INFO [07-18|02:50:02.575] Persisted trie from memory database      nodes=1 size=151.00B time="25.5µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-18|02:50:02.575] Initialised chain configuration          config="{ChainID: 43112 Homestead: 0 DAO: 0 DAOSupport: true EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: 0 Petersburg: 0 Istanbul: 0, Muir Glacier: 0, Apricot Phase 1: 0, Apricot Phase 2: 0, Apricot Phase 3: 0, Apricot Phase 4: 0, Apricot Phase 5: 0, Engine: Dummy Consensus Engine}"
+INFO [07-18|02:50:02.575] Initialising Ethereum protocol           network=43112 dbversion=8
+INFO [07-18|02:50:02.576] Loaded most recent local header          number=13 hash=e15c09..f0a83e age=8h13m29s
+INFO [07-18|02:50:02.576] Loaded most recent local full block      number=13 hash=e15c09..f0a83e age=8h13m29s
+INFO [07-18|02:50:02.577] Re-executing blocks to generate state for last accepted block from=1 to=13
+INFO [07-18|02:50:02.577] Regenerating historical state            block=1 target=13 remaining=13 elapsed="65.899µs"
+DEBUG[07-18|02:50:02.577] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:02.578] Processed block                          block=cb89b4..ae24aa number=1
+DEBUG[07-18|02:50:02.578] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=240,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:02.578] Processed block                          block=ca33d6..b1bac5 number=2
+DEBUG[07-18|02:50:02.578] Dereferenced trie from memory database   nodes=2 size=263.00B time="3µs"    gcnodes=2 gcsize=263.00B gctime="2.6µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:50:02.578] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=205,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:02.578] Processed block                          block=d9d189..14bb54 number=3
+DEBUG[07-18|02:50:02.578] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.699µs" gcnodes=4 gcsize=526.00B gctime="5.099µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:50:02.579] Processed block                          block=ad5ac3..8d14a4 number=4
+DEBUG[07-18|02:50:02.579] Dereferenced trie from memory database   nodes=2 size=263.00B time="2.7µs"   gcnodes=6 gcsize=789.00B gctime="7.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.579] Processed block                          block=f13b8e..25c14e number=5
+DEBUG[07-18|02:50:02.579] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.6µs"   gcnodes=10 gcsize=1.38KiB gctime="10.899µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.580] Processed block                          block=f1a6b0..7ebda0 number=6
+DEBUG[07-18|02:50:02.580] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.6µs"   gcnodes=14 gcsize=1.98KiB gctime="14.199µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.580] crosschain                               dest=11111111111111111111111111111111LpoYY addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=35,901,645,739  assetID=DJTX
+DEBUG[07-18|02:50:02.580] Processed block                          block=74c58d..c9c820 number=7
+DEBUG[07-18|02:50:02.580] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.8µs"   gcnodes=16 gcsize=2.30KiB gctime="16.699µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.580] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:02.580] Processed block                          block=6ef117..6ad114 number=8
+DEBUG[07-18|02:50:02.580] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.6µs"   gcnodes=18 gcsize=2.62KiB gctime="19.099µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.581] crosschain                               dest=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=20,002,000,000  assetID=DJTX
+DEBUG[07-18|02:50:02.581] Processed block                          block=5abb8b..62d441 number=9
+DEBUG[07-18|02:50:02.581] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.7µs"   gcnodes=20 gcsize=2.94KiB gctime="21.599µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.581] Processed block                          block=85e1bb..5ad6e1 number=10
+DEBUG[07-18|02:50:02.581] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.4µs"   gcnodes=24 gcsize=3.55KiB gctime="24.799µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:02.582] Processed block                          block=a86e99..f21e9f number=11
+DEBUG[07-18|02:50:02.582] Dereferenced trie from memory database   nodes=3 size=473.00B time="3.2µs"   gcnodes=27 gcsize=4.01KiB gctime="27.699µs" livenodes=7 livesize=951.00B
+DEBUG[07-18|02:50:02.582] Processed block                          block=806581..1401d8 number=12
+DEBUG[07-18|02:50:02.582] Dereferenced trie from memory database   nodes=3 size=505.00B time="3.7µs"   gcnodes=30 gcsize=4.50KiB gctime="30.999µs" livenodes=8 livesize=1.10KiB
+DEBUG[07-18|02:50:02.583] Processed block                          block=e15c09..f0a83e number=13
+DEBUG[07-18|02:50:02.583] Dereferenced trie from memory database   nodes=4 size=684.00B time="4µs"     gcnodes=34 gcsize=5.17KiB gctime="34.799µs" livenodes=8 livesize=1.10KiB
+INFO [07-18|02:50:02.583] Historical state regenerated             block=13             elapsed=5.908429ms nodes=1.76KiB preimages=0.00B
+INFO [07-18|02:50:02.583] Persisted trie from memory database      nodes=7       size=1.10KiB time="207.997µs" gcnodes=34 gcsize=5.17KiB gctime="34.799µs" livenodes=1 livesize=0.00B
+INFO [07-18|02:50:02.583] Initializing snapshots                   async=true
+DEBUG[07-18|02:50:02.584] Reinjecting stale transactions           count=0
+WARN [07-18|02:50:02.584] Unclean shutdown detected                booted=2022-07-18T02:16:35+0000 age=33m27s
+INFO [07-18|02:50:02.584] initializing atomic trie                 c=atomicTrie lastAcceptedBlockNumber=13
+INFO [07-18|02:50:02.585] committed atomic trie                    c=atomicTrie hash=0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421 height=0
+DEBUG[07-18|02:50:02.585] Persisted trie from memory database      nodes=0       size=0.00B   time="3.2µs"     gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=1 livesize=0.00B
+INFO [07-18|02:50:02.585] finished initializing atomic trie        c=atomicTrie lastAcceptedBlockNumber=13 preCommitEntriesIndexed=0 postCommitEntriesIndexed=6 time="544.594µs"
+INFO [07-18|02:50:02.585] Transaction pool price threshold updated price=470,000,000,000
+INFO [07-18|02:50:02.585] Transaction pool price threshold updated price=225,000,000,000
+INFO [07-18|02:50:02.585] Transaction pool price threshold updated price=0
+INFO [07-18|02:50:02.585] lastAccepted = 0xe15c0900c3b9c228101ed5c36eaea169ac9ba84361abf850d0880075fbf0a83e 
+INFO [07-18|02:50:02.586] <C Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:50:02.587] <C Chain> vms/proposervm/vm.go#214: block height indexing is already complete
+INFO [07-18|02:50:02.587] indexer/index.go#106: next accepted index 13
+INFO [07-18|02:50:02.587] api/server/server.go#272: adding route /ext/index/C/block
+INFO [07-18|02:50:02.587] Enabled APIs: public-eth, public-eth-filter, net, web3, internal-public-eth, internal-public-blockchain, internal-public-transaction-pool, internal-public-account, djtx 
+DEBUG[07-18|02:50:02.588] Allowed origin(s) for WS RPC interface [*] 
+INFO [07-18|02:50:02.588] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/djtx
+INFO [07-18|02:50:02.588] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/rpc
+INFO [07-18|02:50:02.588] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/ws
+INFO [07-18|02:50:02.588] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:50:02.588] chains/manager.go#251: creating chain:
+    ID: 81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+    VMID:jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
+DEBUG[07-18|02:50:02.588] adding new peer                          nodeID=P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5
+DEBUG[07-18|02:50:02.589] skipping registering self as peer 
+DEBUG[07-18|02:50:02.589] adding new peer                          nodeID=7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+INFO [07-18|02:50:02.590] <X Chain> vms/avm/vm.go#452: Fee payments are using Asset with Alias: DJTX, AssetID: kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk
+INFO [07-18|02:50:02.590] <X Chain> vms/avm/vm.go#234: address transaction indexing is disabled
+INFO [07-18|02:50:02.591] <X Chain> snow/engine/avalanche/transitive.go#71: initializing consensus engine
+INFO [07-18|02:50:02.591] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:50:02.591] api/server/server.go#272: adding route /ext/index/X/vtx
+INFO [07-18|02:50:02.591] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:50:02.592] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+INFO [07-18|02:50:02.592] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/wallet
+INFO [07-18|02:50:02.592] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/events
+INFO [07-18|02:50:02.592] api/server/server.go#272: adding route /ext/index/X/tx
+INFO [07-18|02:50:02.592] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#259: Starting bootstrap...
+INFO [07-18|02:50:02.592] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+DEBUG[07-18|02:50:02.611] adding new peer                          nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+DEBUG[07-18|02:50:02.611] adding new peer                          nodeID=P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5
+DEBUG[07-18|02:50:02.615] adding new peer                          nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+DEBUG[07-18|02:50:02.615] adding new peer                          nodeID=P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5
+INFO [07-18|02:50:07.106] <C Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:07.106] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:07.106] <C Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:07.106] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:50:07.106] <X Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:07.106] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#470: bootstrapping fetched 0 vertices. Executing transaction state transitions...
+INFO [07-18|02:50:07.106] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:07.106] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#481: executing vertex state transitions...
+INFO [07-18|02:50:07.107] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:07.107] <X Chain> snow/engine/avalanche/transitive.go#292: bootstrapping finished with 1 vertices in the accepted frontier
+INFO [07-18|02:50:07.107] <C Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2DcSu536s3gjNhifnX4Ymik69CwuKH8XEiJVEWNHdLNiPC8L4W as the last accepted block
+INFO [07-18|02:50:07.107] <P Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2pfuZyPAEPJdigX2otSpEtZzK2eTAjnRmRbrxDG6fXB3cCEQRG as the last accepted block
+INFO [07-18|02:50:12.240] <P Chain> snow/engine/common/bootstrapper.go#289: Bootstrapping skipped due to no provided bootstraps
+INFO [07-18|02:50:16.118] <P Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:16.118] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:16.118] <P Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:16.118] chains/manager.go#251: creating chain:
+    ID: 2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU
+    VMID:mgj786NP7uDwBCcq6YwThhaN8FLyybkCa4zBWTQbNgmK6k9A6
+INFO [07-18|02:50:16.121] Initializing Coreth VM                   Version=v0.8.8 Config="{\"snowman-api-enabled\":false,\"coreth-admin-api-enabled\":false,\"coreth-admin-api-dir\":\"\",\"eth-apis\":[\"public-eth\",\"public-eth-filter\",\"net\",\"web3\",\"internal-public-eth\",\"internal-public-blockchain\",\"internal-public-transaction-pool\",\"internal-public-account\"],\"continuous-profiler-dir\":\"\",\"continuous-profiler-frequency\":{\"Duration\":900000000000},\"continuous-profiler-max-files\":5,\"rpc-gas-cap\":50000000,\"rpc-tx-fee-cap\":100,\"preimages-enabled\":false,\"snapshot-async\":true,\"snapshot-verification-enabled\":false,\"pruning-enabled\":true,\"allow-missing-tries\":false,\"populate-missing-tries-parallelism\":1024,\"metrics-enabled\":false,\"metrics-expensive-enabled\":false,\"local-txs-enabled\":false,\"api-max-duration\":{\"Duration\":0},\"ws-cpu-refill-rate\":{\"Duration\":0},\"ws-cpu-max-stored\":{\"Duration\":0},\"api-max-blocks-per-request\":0,\"allow-unfinalized-queries\":false,\"allow-unprotected-txs\":false,\"keystore-directory\":\"\",\"keystore-external-signer\":\"\",\"keystore-insecure-unlock-allowed\":false,\"remote-tx-gossip-only-enabled\":false,\"tx-regossip-frequency\":{\"Duration\":60000000000},\"tx-regossip-max-size\":15,\"log-level\":\"debug\",\"offline-pruning-enabled\":false,\"offline-pruning-bloom-filter-size\":512,\"offline-pruning-data-directory\":\"\",\"max-outbound-active-requests\":8}"
+DEBUG[07-18|02:50:16.122] FS scan times                            list="33.899µs" set=600ns diff="1.7µs"
+INFO [07-18|02:50:16.122] Allocated trie memory caches             clean=128.00MiB dirty=256.00MiB
+INFO [07-18|02:50:16.123] Persisted trie from memory database      nodes=1 size=151.00B time="25.8µs" gcnodes=0 gcsize=0.00B gctime=0s livenodes=1 livesize=0.00B
+INFO [07-18|02:50:16.124] Initialised chain configuration          config="{ChainID: 43112 Homestead: 0 DAO: 0 DAOSupport: true EIP150: 0 EIP155: 0 EIP158: 0 Byzantium: 0 Constantinople: 0 Petersburg: 0 Istanbul: 0, Muir Glacier: 0, Apricot Phase 1: 0, Apricot Phase 2: 0, Apricot Phase 3: 0, Apricot Phase 4: 0, Apricot Phase 5: 0, Engine: Dummy Consensus Engine}"
+INFO [07-18|02:50:16.124] Initialising Ethereum protocol           network=43112 dbversion=8
+INFO [07-18|02:50:16.125] Loaded most recent local header          number=13 hash=e15c09..f0a83e age=8h13m43s
+INFO [07-18|02:50:16.125] Loaded most recent local full block      number=13 hash=e15c09..f0a83e age=8h13m43s
+INFO [07-18|02:50:16.127] Re-executing blocks to generate state for last accepted block from=1 to=13
+INFO [07-18|02:50:16.127] Regenerating historical state            block=1 target=13 remaining=13 elapsed="44.399µs"
+DEBUG[07-18|02:50:16.127] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:16.127] Processed block                          block=cb89b4..ae24aa number=1
+DEBUG[07-18|02:50:16.128] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=240,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:16.128] Processed block                          block=ca33d6..b1bac5 number=2
+DEBUG[07-18|02:50:16.131] Dereferenced trie from memory database   nodes=2 size=263.00B time="75.099µs" gcnodes=2 gcsize=263.00B gctime="74.599µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:50:16.131] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=205,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:16.131] Processed block                          block=d9d189..14bb54 number=3
+DEBUG[07-18|02:50:16.132] Dereferenced trie from memory database   nodes=2 size=263.00B time="3.1µs"    gcnodes=4 gcsize=526.00B gctime="77.299µs" livenodes=4 livesize=413.00B
+DEBUG[07-18|02:50:16.132] Processed block                          block=ad5ac3..8d14a4 number=4
+DEBUG[07-18|02:50:16.132] Dereferenced trie from memory database   nodes=2 size=263.00B time="2µs"      gcnodes=6 gcsize=789.00B gctime="79.099µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.133] Processed block                          block=f13b8e..25c14e number=5
+DEBUG[07-18|02:50:16.133] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.6µs"    gcnodes=10 gcsize=1.38KiB gctime="81.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.133] Processed block                          block=f1a6b0..7ebda0 number=6
+DEBUG[07-18|02:50:16.133] Dereferenced trie from memory database   nodes=4 size=621.00B time="3.2µs"    gcnodes=14 gcsize=1.98KiB gctime="84.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.133] crosschain                               dest=11111111111111111111111111111111LpoYY addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=35,901,645,739  assetID=DJTX
+DEBUG[07-18|02:50:16.133] Processed block                          block=74c58d..c9c820 number=7
+DEBUG[07-18|02:50:16.133] Dereferenced trie from memory database   nodes=2 size=327.00B time="2.2µs"    gcnodes=16 gcsize=2.30KiB gctime="86.499µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.134] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=200,000,000,000 assetID=DJTX
+DEBUG[07-18|02:50:16.134] Processed block                          block=6ef117..6ad114 number=8
+DEBUG[07-18|02:50:16.134] Dereferenced trie from memory database   nodes=2 size=327.00B time="1.9µs"    gcnodes=18 gcsize=2.62KiB gctime="88.199µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.134] crosschain                               dest=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x1B00f59fff05F6591c13e32740377eAE72661061 amount=20,002,000,000  assetID=DJTX
+DEBUG[07-18|02:50:16.134] Processed block                          block=5abb8b..62d441 number=9
+DEBUG[07-18|02:50:16.134] Dereferenced trie from memory database   nodes=2 size=327.00B time="2µs"      gcnodes=20 gcsize=2.94KiB gctime="89.999µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.134] Processed block                          block=85e1bb..5ad6e1 number=10
+DEBUG[07-18|02:50:16.134] Dereferenced trie from memory database   nodes=4 size=621.00B time="2.4µs"    gcnodes=24 gcsize=3.55KiB gctime="92.299µs" livenodes=6 livesize=771.00B
+DEBUG[07-18|02:50:16.135] Processed block                          block=a86e99..f21e9f number=11
+DEBUG[07-18|02:50:16.135] Dereferenced trie from memory database   nodes=3 size=473.00B time="2.3µs"    gcnodes=27 gcsize=4.01KiB gctime="94.399µs" livenodes=7 livesize=951.00B
+DEBUG[07-18|02:50:16.135] Processed block                          block=806581..1401d8 number=12
+DEBUG[07-18|02:50:16.135] Dereferenced trie from memory database   nodes=3 size=505.00B time="3.3µs"    gcnodes=30 gcsize=4.50KiB gctime="97.399µs" livenodes=8 livesize=1.10KiB
+DEBUG[07-18|02:50:16.135] Processed block                          block=e15c09..f0a83e number=13
+DEBUG[07-18|02:50:16.135] Dereferenced trie from memory database   nodes=4 size=684.00B time="2.7µs"    gcnodes=34 gcsize=5.17KiB gctime="99.899µs" livenodes=8 livesize=1.10KiB
+INFO [07-18|02:50:16.135] Historical state regenerated             block=13             elapsed=8.579598ms nodes=1.76KiB preimages=0.00B
+INFO [07-18|02:50:16.135] Persisted trie from memory database      nodes=7       size=1.10KiB time="134.098µs" gcnodes=34 gcsize=5.17KiB gctime="99.899µs" livenodes=1 livesize=0.00B
+INFO [07-18|02:50:16.136] Initializing snapshots                   async=true
+DEBUG[07-18|02:50:16.136] Reinjecting stale transactions           count=0
+WARN [07-18|02:50:16.136] Unclean shutdown detected                booted=2022-07-18T02:16:19+0000 age=33m57s
+INFO [07-18|02:50:16.136] initializing atomic trie                 c=atomicTrie lastAcceptedBlockNumber=13
+INFO [07-18|02:50:16.136] committed atomic trie                    c=atomicTrie hash=0x56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421 height=0
+DEBUG[07-18|02:50:16.137] Persisted trie from memory database      nodes=0       size=0.00B   time="2.1µs"     gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=1 livesize=0.00B
+INFO [07-18|02:50:16.137] finished initializing atomic trie        c=atomicTrie lastAcceptedBlockNumber=13 preCommitEntriesIndexed=0 postCommitEntriesIndexed=6 time="378.895µs"
+INFO [07-18|02:50:16.137] Transaction pool price threshold updated price=470,000,000,000
+INFO [07-18|02:50:16.137] Transaction pool price threshold updated price=225,000,000,000
+INFO [07-18|02:50:16.137] Transaction pool price threshold updated price=0
+INFO [07-18|02:50:16.137] lastAccepted = 0xe15c0900c3b9c228101ed5c36eaea169ac9ba84361abf850d0880075fbf0a83e 
+INFO [07-18|02:50:16.138] <C Chain> snow/engine/snowman/transitive.go#67: initializing consensus engine
+INFO [07-18|02:50:16.138] indexer/index.go#106: next accepted index 13
+INFO [07-18|02:50:16.138] api/server/server.go#272: adding route /ext/index/C/block
+INFO [07-18|02:50:16.138] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#213: Starting bootstrap...
+INFO [07-18|02:50:16.138] chains/manager.go#251: creating chain:
+    ID: 81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+    VMID:jvYyfQTxGMJLuGWa55kdP2p2zSUYsQ5Raupu4TW34ZAUBAbtq
+INFO [07-18|02:50:16.140] <X Chain> vms/avm/vm.go#452: Fee payments are using Asset with Alias: DJTX, AssetID: kqkWNSur5PgDs8oxjEgaVXXvbu8EBpF6GbbWsfakb8pwp6sPk
+INFO [07-18|02:50:16.140] <X Chain> vms/avm/vm.go#234: address transaction indexing is disabled
+INFO [07-18|02:50:16.140] <X Chain> snow/engine/avalanche/transitive.go#71: initializing consensus engine
+INFO [07-18|02:50:16.141] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:50:16.141] api/server/server.go#272: adding route /ext/index/X/vtx
+INFO [07-18|02:50:16.141] indexer/index.go#106: next accepted index 6
+INFO [07-18|02:50:16.141] api/server/server.go#272: adding route /ext/index/X/tx
+INFO [07-18|02:50:16.141] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#259: Starting bootstrap...
+INFO [07-18|02:50:16.141] <P Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:50:16.141] <C Chain> vms/proposervm/vm.go#214: block height indexing is already complete
+INFO [07-18|02:50:16.142] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu
+INFO [07-18|02:50:16.142] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/wallet
+INFO [07-18|02:50:16.142] Enabled APIs: public-eth, public-eth-filter, net, web3, internal-public-eth, internal-public-blockchain, internal-public-transaction-pool, internal-public-account, djtx 
+INFO [07-18|02:50:16.142] api/server/server.go#247: adding route /ext/bc/81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu/events
+DEBUG[07-18|02:50:16.142] Allowed origin(s) for WS RPC interface [*] 
+INFO [07-18|02:50:16.142] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/rpc
+DEBUG[07-18|02:50:16.142] adding new peer                          nodeID=GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+DEBUG[07-18|02:50:16.142] skipping registering self as peer 
+DEBUG[07-18|02:50:16.142] adding new peer                          nodeID=7Xhw2mDxuDS44j42TCB6U5579esbSt3Lg
+INFO [07-18|02:50:16.142] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/ws
+INFO [07-18|02:50:16.143] api/server/server.go#247: adding route /ext/bc/2CA6j5zYzasynPsFeNoqWkmTCt3VScMvXUZHbfDJ8k3oGzAPtU/djtx
+DEBUG[07-18|02:50:16.160] adding new peer                          nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+DEBUG[07-18|02:50:16.160] adding new peer                          nodeID=GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+DEBUG[07-18|02:50:16.173] adding new peer                          nodeID=P7oB2McjBGgW2NXXWVYjV8JEDFoW9xDE5
+DEBUG[07-18|02:50:16.174] adding new peer                          nodeID=GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+DEBUG[07-18|02:50:16.174] adding new peer                          nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+DEBUG[07-18|02:50:16.175] adding new peer                          nodeID=GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#470: bootstrapping fetched 0 vertices. Executing transaction state transitions...
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#481: executing vertex state transitions...
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:19.979] <X Chain> snow/engine/avalanche/transitive.go#292: bootstrapping finished with 1 vertices in the accepted frontier
+INFO [07-18|02:50:19.980] <P Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2pfuZyPAEPJdigX2otSpEtZzK2eTAjnRmRbrxDG6fXB3cCEQRG as the last accepted block
+INFO [07-18|02:50:20.082] <C Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:20.082] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#411: bootstrapping fetched 0 blocks. Executing state transitions...
+INFO [07-18|02:50:20.082] <C Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:20.082] <C Chain> snow/engine/snowman/bootstrap/bootstrapper.go#450: waiting for the remaining chains in this subnet to finish syncing
+INFO [07-18|02:50:20.193] <C Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2DcSu536s3gjNhifnX4Ymik69CwuKH8XEiJVEWNHdLNiPC8L4W as the last accepted block
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/common/bootstrapper.go#231: Bootstrapping started syncing with 1 vertices in the accepted frontier
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#470: bootstrapping fetched 0 vertices. Executing transaction state transitions...
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/avalanche/bootstrap/bootstrapper.go#481: executing vertex state transitions...
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/common/queue/jobs.go#181: executed 0 operations
+INFO [07-18|02:50:20.522] <X Chain> snow/engine/avalanche/transitive.go#292: bootstrapping finished with 1 vertices in the accepted frontier
+INFO [07-18|02:50:20.523] <P Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2pfuZyPAEPJdigX2otSpEtZzK2eTAjnRmRbrxDG6fXB3cCEQRG as the last accepted block
+INFO [07-18|02:50:20.523] <C Chain> snow/engine/snowman/transitive.go#329: bootstrapping finished with 2DcSu536s3gjNhifnX4Ymik69CwuKH8XEiJVEWNHdLNiPC8L4W as the last accepted block
+INFO [07-18|03:02:21.306] <C Chain> /home/navi-dijets/go/pkg/mod/github.com/lasthyphen/coreth@v0.8.9/plugin/evm/service.go#353: EVM: GetUTXOs called for with [C-dijets16yd4ams4xdp9c6ht9zfnp90225ukwmqnj964sw]
+INFO [07-18|03:02:21.332] <C Chain> /home/navi-dijets/go/pkg/mod/github.com/lasthyphen/coreth@v0.8.9/plugin/evm/service.go#353: EVM: GetUTXOs called for with [C-dijets16yd4ams4xdp9c6ht9zfnp90225ukwmqnj964sw]
+INFO [07-18|03:02:21.367] EVM: IssueTx called 
+INFO [07-18|03:02:21.368] Commit new mining work                   number=14 hash=9c856d..5a7b51 uncles=0 txs=0 gas=0 fees=0 elapsed="217.097µs"
+INFO [07-18|03:02:21.368] <C Chain> vms/proposervm/block.go#229: built block nhKZyDNvpo8JouVgDjm7SjHAGhBgF7cYKXwHBeUso95S7U27B - parent timestamp 2022-07-17 18:36:33 +0000 UTC, block timestamp 2022-07-18 03:02:21 +0000 UTC
+DEBUG[07-18|03:02:21.371] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x80231567cD6E270c8360B80b97034Ec26dad83b8 amount=100,000,000,000 assetID=DJTX
+DEBUG[07-18|03:02:21.371] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x80231567cD6E270c8360B80b97034Ec26dad83b8 amount=100,000,000,000 assetID=DJTX
+DEBUG[07-18|03:02:21.372] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x80231567cD6E270c8360B80b97034Ec26dad83b8 amount=100,000,000,000 assetID=DJTX
+DEBUG[07-18|03:02:21.372] Inserted new block                       number=14 hash=9c856d..5a7b51 parentHash=e15c09..f0a83e uncles=0 txs=0 gas=0 elapsed="714.592µs" root=bafbcc..5d4c07 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:02:21.372] Inserted new block                       number=14 hash=9c856d..5a7b51 parentHash=e15c09..f0a83e uncles=0 txs=0 gas=0 elapsed="762.891µs" root=bafbcc..5d4c07 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:02:21.372] Inserted new block                       number=14 hash=9c856d..5a7b51 parentHash=e15c09..f0a83e uncles=0 txs=0 gas=0 elapsed="720.091µs" root=bafbcc..5d4c07 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:02:21.373] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:02:21.373] crosschain                               src=81r9Da1wEnJYwfTDh7iQLcqkEBDbFYKNafaGasLGT3vXPxxvu addr=0x80231567cD6E270c8360B80b97034Ec26dad83b8 amount=100,000,000,000 assetID=DJTX
+DEBUG[07-18|03:02:21.373] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:02:21.374] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:02:21.378] Inserted new block                       number=14 hash=9c856d..5a7b51 parentHash=e15c09..f0a83e uncles=0 txs=0 gas=0 elapsed=5.455ms    root=bafbcc..5d4c07 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:02:21.381] Reinjecting stale transactions           count=0
+INFO [07-18|03:02:21.386] EVM: GetAtomicTxStatus called            txID=QkbaSiFRAELWvse7YeP87P1TzUm98mRzqd4GpPbBsSPnAh4pd
+DEBUG[07-18|03:02:21.399] Accepting block 9c856d070dc99b1851d2a5bf831db4beb98df22f75a3b007a1d948ad0e5a7b51 (2Bw8BdXTw7LL5gWrfQGZaUxpkzfAaJRNk4RbZhJ2svoAp3y3Cm) at height 14 
+DEBUG[07-18|03:02:21.399] Journalled generator progress            progress=done
+DEBUG[07-18|03:02:21.399] Journalled disk layer                    root=bafbcc..5d4c07 complete=true
+DEBUG[07-18|03:02:21.399] Flattened snapshot tree                  blockHash=9c856d..5a7b51 root=bafbcc..5d4c07 size=1       elapsed="113.299µs"
+DEBUG[07-18|03:02:21.399] Accepting block 9c856d070dc99b1851d2a5bf831db4beb98df22f75a3b007a1d948ad0e5a7b51 (2Bw8BdXTw7LL5gWrfQGZaUxpkzfAaJRNk4RbZhJ2svoAp3y3Cm) at height 14 
+DEBUG[07-18|03:02:21.399] Journalled generator progress            progress=done
+DEBUG[07-18|03:02:21.399] Journalled disk layer                    root=bafbcc..5d4c07 complete=true
+DEBUG[07-18|03:02:21.400] Flattened snapshot tree                  blockHash=9c856d..5a7b51 root=bafbcc..5d4c07 size=1       elapsed="185.597µs"
+DEBUG[07-18|03:02:21.404] Accepting block 9c856d070dc99b1851d2a5bf831db4beb98df22f75a3b007a1d948ad0e5a7b51 (2Bw8BdXTw7LL5gWrfQGZaUxpkzfAaJRNk4RbZhJ2svoAp3y3Cm) at height 14 
+DEBUG[07-18|03:02:21.404] Journalled generator progress            progress=done
+DEBUG[07-18|03:02:21.404] Journalled disk layer                    root=bafbcc..5d4c07 complete=true
+DEBUG[07-18|03:02:21.404] Flattened snapshot tree                  blockHash=9c856d..5a7b51 root=bafbcc..5d4c07 size=1       elapsed="97.698µs"
+DEBUG[07-18|03:02:21.411] Accepting block 9c856d070dc99b1851d2a5bf831db4beb98df22f75a3b007a1d948ad0e5a7b51 (2Bw8BdXTw7LL5gWrfQGZaUxpkzfAaJRNk4RbZhJ2svoAp3y3Cm) at height 14 
+DEBUG[07-18|03:02:21.411] Journalled generator progress            progress=done
+DEBUG[07-18|03:02:21.411] Journalled disk layer                    root=bafbcc..5d4c07 complete=true
+DEBUG[07-18|03:02:21.411] Flattened snapshot tree                  blockHash=9c856d..5a7b51 root=bafbcc..5d4c07 size=1       elapsed="99.199µs"
+INFO [07-18|03:02:22.408] EVM: GetAtomicTxStatus called            txID=QkbaSiFRAELWvse7YeP87P1TzUm98mRzqd4GpPbBsSPnAh4pd
+2022/07/18 03:03:06 http: TLS handshake error from 172.104.7.154:61000: EOF
+INFO [07-18|03:21:22.615] Submitted transaction                    hash=0x843c21bfd66a4bb3ae302905430e9840c5304e96f8e66c4175cc520af8930003 from=0xBC4fDd365e86deaBb5d4867055F2881Dc302bAA7 nonce=2 recipient=0x80231567cD6E270c8360B80b97034Ec26dad83b8 value=10,000,000,000,000,000,000 type=2 gasFeeCap=25,000,000,000 gasTipCap=0 gasPrice=25,000,000,000
+INFO [07-18|03:21:22.615] Commit new mining work                   number=15 hash=ef8599..bc8443 uncles=0 txs=1 gas=21000 fees=0.000525 elapsed="285.196µs"
+INFO [07-18|03:21:22.616] <C Chain> vms/proposervm/block.go#229: built block mBm3xUxSM5Zn4JKo3SuCHDVS62YBFmaoBuc14UWX7LUVtF47T - parent timestamp 2022-07-18 03:02:21 +0000 UTC, block timestamp 2022-07-18 03:21:22 +0000 UTC
+DEBUG[07-18|03:21:22.619] Inserted new block                       number=15 hash=ef8599..bc8443 parentHash=9c856d..5a7b51 uncles=0 txs=1 gas=21000 elapsed="802.09µs"  root=91cb0c..4dad42 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:21:22.619] Inserted new block                       number=15 hash=ef8599..bc8443 parentHash=9c856d..5a7b51 uncles=0 txs=1 gas=21000 elapsed="674.691µs" root=91cb0c..4dad42 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:21:22.619] Inserted new block                       number=15 hash=ef8599..bc8443 parentHash=9c856d..5a7b51 uncles=0 txs=1 gas=21000 elapsed="723.991µs" root=91cb0c..4dad42 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:21:22.619] Inserted new block                       number=15 hash=ef8599..bc8443 parentHash=9c856d..5a7b51 uncles=0 txs=1 gas=21000 elapsed="758.391µs" root=91cb0c..4dad42 baseFeePerGas=25,000,000,000 blockGasCost=0
+DEBUG[07-18|03:21:22.619] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:21:22.619] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:21:22.620] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:21:22.620] Reinjecting stale transactions           count=0
+DEBUG[07-18|03:21:22.637] Accepting block ef8599b1dcb5f30ee32fdae97d6bd984cdbd63beef7d78064d54d25756bc8443 (2pVGMzedcbQg8yB2zzJEPeBYbyGWkNL8sUNiq5cY34owVCUu7z) at height 15 
+DEBUG[07-18|03:21:22.637] Journalled generator progress            progress=done
+DEBUG[07-18|03:21:22.637] Journalled disk layer                    root=91cb0c..4dad42 complete=true
+DEBUG[07-18|03:21:22.637] Flattened snapshot tree                  blockHash=ef8599..bc8443 root=91cb0c..4dad42 size=1       elapsed="152.398µs"
+DEBUG[07-18|03:21:22.638] Accepting block ef8599b1dcb5f30ee32fdae97d6bd984cdbd63beef7d78064d54d25756bc8443 (2pVGMzedcbQg8yB2zzJEPeBYbyGWkNL8sUNiq5cY34owVCUu7z) at height 15 
+DEBUG[07-18|03:21:22.638] Journalled generator progress            progress=done
+DEBUG[07-18|03:21:22.638] Journalled disk layer                    root=91cb0c..4dad42 complete=true
+DEBUG[07-18|03:21:22.638] Flattened snapshot tree                  blockHash=ef8599..bc8443 root=91cb0c..4dad42 size=1       elapsed="177.498µs"
+DEBUG[07-18|03:21:22.639] Accepting block ef8599b1dcb5f30ee32fdae97d6bd984cdbd63beef7d78064d54d25756bc8443 (2pVGMzedcbQg8yB2zzJEPeBYbyGWkNL8sUNiq5cY34owVCUu7z) at height 15 
+DEBUG[07-18|03:21:22.639] Journalled generator progress            progress=done
+DEBUG[07-18|03:21:22.639] Journalled disk layer                    root=91cb0c..4dad42 complete=true
+DEBUG[07-18|03:21:22.639] Flattened snapshot tree                  blockHash=ef8599..bc8443 root=91cb0c..4dad42 size=1       elapsed="169.298µs"
+DEBUG[07-18|03:21:22.641] Accepting block ef8599b1dcb5f30ee32fdae97d6bd984cdbd63beef7d78064d54d25756bc8443 (2pVGMzedcbQg8yB2zzJEPeBYbyGWkNL8sUNiq5cY34owVCUu7z) at height 15 
+DEBUG[07-18|03:21:22.641] Journalled generator progress            progress=done
+DEBUG[07-18|03:21:22.641] Journalled disk layer                    root=91cb0c..4dad42 complete=true
+DEBUG[07-18|03:21:22.641] Flattened snapshot tree                  blockHash=ef8599..bc8443 root=91cb0c..4dad42 size=1       elapsed="109.799µs"
+2022/07/18 03:28:25 http: TLS handshake error from 212.102.40.170:23304: read tcp 10.9.0.4:443->212.102.40.170:23304: read: connection reset by peer
+2022/07/18 03:54:47 http: TLS handshake error from 212.102.40.170:6408: read tcp 10.9.0.4:443->212.102.40.170:6408: read: connection reset by peer
+2022/07/18 04:22:42 http: TLS handshake error from 20.51.242.252:64051: tls: client offered only unsupported versions: []
+2022/07/18 04:32:48 http: TLS handshake error from 212.102.40.170:52724: read tcp 10.9.0.4:443->212.102.40.170:52724: read: connection reset by peer
+2022/07/18 05:03:48 http: TLS handshake error from 172.104.11.147:61000: EOF
+2022/07/18 05:08:59 http: TLS handshake error from 212.102.40.170:50648: read tcp 10.9.0.4:443->212.102.40.170:50648: read: connection reset by peer
+2022/07/18 05:17:03 http: TLS handshake error from 138.99.216.228:61000: tls: client offered only unsupported versions: [302 301]
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:33125: tls: client offered only unsupported versions: [301]
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:52411: tls: client offered only unsupported versions: [302]
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:36549: tls: client offered only unsupported versions: []
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:46435: tls: no cipher suite supported by both client and server
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:61683: tls: unsupported SSLv2 handshake received
+2022/07/18 05:41:15 http: TLS handshake error from 3.219.234.229:63699: read tcp 10.9.0.4:443->3.219.234.229:63699: read: connection reset by peer
+2022/07/18 05:53:43 http: TLS handshake error from 212.102.40.170:63140: read tcp 10.9.0.4:443->212.102.40.170:63140: read: connection reset by peer
+INFO [07-18|06:01:29.363] node/node.go#1182: shutting down node with exit code 0
+INFO [07-18|06:01:29.363] ipcs/chainipc.go#101: shutting down chain IPCs
+INFO [07-18|06:01:29.363] chains/manager.go#931: shutting down chain manager
+INFO [07-18|06:01:29.363] snow/networking/router/chain_router.go#250: shutting down chain router
+INFO [07-18|06:01:29.363] <C Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:29.363] <X Chain> snow/engine/avalanche/transitive.go#254: shutting down consensus engine
+INFO [07-18|06:01:29.363] <P Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:29.363] Transaction pool stopped 
+INFO [07-18|06:01:29.363] Persisted trie from memory database      nodes=4       size=717.00B time="98.398µs"  gcnodes=0  gcsize=0.00B   gctime=0s       livenodes=3 livesize=423.00B
+INFO [07-18|06:01:29.363] Blockchain stopped 
+INFO [07-18|06:01:29.363] network/network.go#965: shutting down the p2p networking
+DEBUG[07-18|06:01:29.364] disconnecting peer                       nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+DEBUG[07-18|06:01:29.364] disconnecting peer                       nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+DEBUG[07-18|06:01:29.364] disconnecting peer                       nodeID=MFrZFVCXPv5iCn6M9K6XduxGTYp891xXZ
+INFO [07-18|06:01:29.365] node/node.go#1222: cleaning up plugin subprocesses
+INFO [07-18|06:01:29.365] node/node.go#1225: finished node shutdown
+INFO [07-18|06:01:29.365] nat/nat.go#152: Unmapped all ports
+INFO [07-18|06:01:31.119] node/node.go#1182: shutting down node with exit code 0
+INFO [07-18|06:01:31.119] ipcs/chainipc.go#101: shutting down chain IPCs
+INFO [07-18|06:01:31.119] chains/manager.go#931: shutting down chain manager
+INFO [07-18|06:01:31.119] snow/networking/router/chain_router.go#250: shutting down chain router
+INFO [07-18|06:01:31.119] <P Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:31.119] <X Chain> snow/engine/avalanche/transitive.go#254: shutting down consensus engine
+INFO [07-18|06:01:31.119] <C Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:31.120] Transaction pool stopped 
+INFO [07-18|06:01:31.120] Persisted trie from memory database      nodes=4       size=717.00B time="96.899µs"  gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=3 livesize=423.00B
+INFO [07-18|06:01:31.120] Blockchain stopped 
+INFO [07-18|06:01:31.120] network/network.go#965: shutting down the p2p networking
+DEBUG[07-18|06:01:31.121] disconnecting peer                       nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+DEBUG[07-18|06:01:31.121] disconnecting peer                       nodeID=NFBbbJ4qCmNaCzeW7sxErhvWqvEQMnYcN
+INFO [07-18|06:01:31.121] node/node.go#1222: cleaning up plugin subprocesses
+INFO [07-18|06:01:31.121] node/node.go#1225: finished node shutdown
+INFO [07-18|06:01:31.122] nat/nat.go#152: Unmapped all ports
+INFO [07-18|06:01:32.419] node/node.go#1182: shutting down node with exit code 0
+INFO [07-18|06:01:32.419] ipcs/chainipc.go#101: shutting down chain IPCs
+INFO [07-18|06:01:32.419] chains/manager.go#931: shutting down chain manager
+INFO [07-18|06:01:32.419] snow/networking/router/chain_router.go#250: shutting down chain router
+INFO [07-18|06:01:32.419] <X Chain> snow/engine/avalanche/transitive.go#254: shutting down consensus engine
+INFO [07-18|06:01:32.419] <C Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:32.419] <P Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:32.419] Transaction pool stopped 
+INFO [07-18|06:01:32.420] Persisted trie from memory database      nodes=4       size=717.00B time="83.899µs"  gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=3 livesize=423.00B
+INFO [07-18|06:01:32.420] Blockchain stopped 
+INFO [07-18|06:01:32.420] network/network.go#965: shutting down the p2p networking
+DEBUG[07-18|06:01:32.424] disconnecting peer                       nodeID=GWPcbFJZFfZreETSoWjPimr846mXEKCtu
+INFO [07-18|06:01:32.424] node/node.go#1222: cleaning up plugin subprocesses
+INFO [07-18|06:01:32.424] node/node.go#1225: finished node shutdown
+INFO [07-18|06:01:32.425] nat/nat.go#152: Unmapped all ports
+INFO [07-18|06:01:33.544] node/node.go#1182: shutting down node with exit code 0
+INFO [07-18|06:01:33.544] ipcs/chainipc.go#101: shutting down chain IPCs
+INFO [07-18|06:01:33.544] chains/manager.go#931: shutting down chain manager
+INFO [07-18|06:01:33.544] snow/networking/router/chain_router.go#250: shutting down chain router
+INFO [07-18|06:01:33.544] <C Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:33.544] <X Chain> snow/engine/avalanche/transitive.go#254: shutting down consensus engine
+INFO [07-18|06:01:33.544] <P Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:33.544] Transaction pool stopped 
+INFO [07-18|06:01:33.544] Persisted trie from memory database      nodes=4       size=717.00B time="98.999µs"  gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=3 livesize=423.00B
+INFO [07-18|06:01:33.544] Blockchain stopped 
+INFO [07-18|06:01:33.544] network/network.go#965: shutting down the p2p networking
+INFO [07-18|06:01:33.546] node/node.go#1222: cleaning up plugin subprocesses
+INFO [07-18|06:01:33.546] node/node.go#1225: finished node shutdown
+INFO [07-18|06:01:33.546] nat/nat.go#152: Unmapped all ports
+INFO [07-18|06:01:47.440] node/node.go#1182: shutting down node with exit code 0
+INFO [07-18|06:01:47.440] ipcs/chainipc.go#101: shutting down chain IPCs
+INFO [07-18|06:01:47.440] chains/manager.go#931: shutting down chain manager
+INFO [07-18|06:01:47.440] snow/networking/router/chain_router.go#250: shutting down chain router
+INFO [07-18|06:01:47.440] <X Chain> snow/engine/avalanche/transitive.go#254: shutting down consensus engine
+INFO [07-18|06:01:47.441] <P Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:47.441] <C Chain> snow/engine/snowman/transitive.go#266: shutting down consensus engine
+INFO [07-18|06:01:47.441] Transaction pool stopped 
+INFO [07-18|06:01:47.441] Persisted trie from memory database      nodes=4       size=717.00B time="93.299µs"  gcnodes=0  gcsize=0.00B   gctime=0s         livenodes=3 livesize=423.00B
+INFO [07-18|06:01:47.441] Blockchain stopped 
+INFO [07-18|06:01:47.441] network/network.go#965: shutting down the p2p networking
+INFO [07-18|06:01:47.443] node/node.go#1222: cleaning up plugin subprocesses
+INFO [07-18|06:01:47.443] node/node.go#1225: finished node shutdown
+INFO [07-18|06:01:47.443] nat/nat.go#152: Unmapped all ports

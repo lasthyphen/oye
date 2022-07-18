@@ -8,7 +8,7 @@
 AVALANCHE_PATH=$( cd "$( dirname "${BASH_SOURCE[0]}" )"; cd .. && pwd ) # Directory above this script
 
 # Set the PATHS
-GOPATH="$(go env GOPATH)"
+GOPATH="/home/navi-dijets/go"
 coreth_path="$GOPATH/pkg/mod/github.com/lasthyphen/coreth@$coreth_version"
 
 # Where AvalancheGo binary goes

@@ -30,16 +30,16 @@ const (
 	FujiName     = "fuji"
 	TestnetName  = "testnet"
 	UnitTestName = "testing"
-	LocalName    = "local"
+	LocalName    = "dijets"
 
-	MainnetHRP  = "dijets"
+	MainnetHRP  = "dijetsx"
 	CascadeHRP  = "cascade"
 	DenaliHRP   = "denali"
 	EverestHRP  = "everest"
-	FujiHRP     = "fuji"
+	FujiHRP     = "dijetsd"
 	UnitTestHRP = "testing"
-	LocalHRP    = "local"
-	FallbackHRP = "custom"
+	LocalHRP    = "dijets"
+	FallbackHRP = "dijetsn"
 )
 
 // Variables to be exported
